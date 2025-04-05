@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_honkai/home.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,6 +17,7 @@ class MyApp extends StatelessWidget {
           seedColor: Color.fromRGBO(200, 200, 200, 1),
         ),
       ),
+      home: HomeScreen(),
     );
   }
 }
