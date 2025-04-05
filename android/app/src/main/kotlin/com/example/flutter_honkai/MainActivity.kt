@@ -1,4 +1,4 @@
-package com.example.flutter_projecth
+package com.example.flutter_honkai
 
 import io.flutter.embedding.android.FlutterActivity
 
