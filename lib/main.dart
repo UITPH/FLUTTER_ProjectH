@@ -8,10 +8,10 @@ void main() async {
   await windowManager.ensureInitialized();
 
   WindowOptions windowOptions = const WindowOptions(
-    size: Size(1600, 900),
+    size: Size(1440, 810),
     center: true,
-    minimumSize: Size(1600, 900),
-    maximumSize: Size(1600, 900),
+    minimumSize: Size(1280, 720),
+    maximumSize: Size(2560, 1440),
     title: "Honkai Station",
   );
 
@@ -19,6 +19,8 @@ void main() async {
     await windowManager.show();
     await windowManager.focus();
   });
+
+  await windowManager.setAspectRatio(16 / 9);
 
   runApp(MyApp());
 }
