@@ -16,30 +16,81 @@ class _ValkyriesPageState extends State<ValkyriesPage> {
   int dameFilter = 0;
 
   List<Map<String, dynamic>> valkyries = [
-    {'name': 'sú', 'imageName': 'physsus.png'},
-    {'name': 'sparkle', 'imageName': 'sparkle.png'},
-    {'name': 'vita', 'imageName': 'lp.png'},
-    {'name': 'hoh', 'imageName': 'hoh.png'},
-    {'name': 'dudufbi', 'imageName': 'duduloli.png'},
+    {
+      'name': 'sú',
+      'imageName': 'physsus.png',
+      'astralop': 1,
+      'dame': 4,
+      'type': 2,
+    },
+    {
+      'name': 'sparkle',
+      'imageName': 'sparkle.png',
+      'astralop': 4,
+      'dame': 3,
+      'type': 4,
+    },
+    {
+      'name': 'vita',
+      'imageName': 'lp.png',
+      'astralop': 3,
+      'dame': 1,
+      'type': 1,
+    },
+    {
+      'name': 'hoh',
+      'imageName': 'hoh.png',
+      'astralop': 2,
+      'dame': 2,
+      'type': 3,
+    },
+    {
+      'name': 'dudufbi',
+      'imageName': 'duduloli.png',
+      'astralop': 1,
+      'dame': 4,
+      'type': 5,
+    },
     // Add more valkyries as needed
   ];
+  List<Map<String, dynamic>> filteredValkyries = [];
+
+  @override
+  void initState() {
+    super.initState();
+    applyFilters();
+  }
 
   void onDameFilterTap(int index) {
     setState(() {
       dameFilter = index;
+      applyFilters();
     });
   }
 
   void onTypeFilterTap(int index) {
     setState(() {
       typeFilter = index;
+      applyFilters();
     });
   }
 
   void onAstralopFilterTap(int index) {
     setState(() {
       astralopFilter = index;
+      applyFilters();
     });
+  }
+
+  void applyFilters() {
+    filteredValkyries =
+        valkyries.where((valk) {
+          bool matchesAstralop =
+              astralopFilter == 0 || valk['astralop'] == astralopFilter;
+          bool matchesType = typeFilter == 0 || valk['type'] == typeFilter;
+          bool matchesDame = dameFilter == 0 || valk['dame'] == dameFilter;
+          return matchesAstralop && matchesType && matchesDame;
+        }).toList();
   }
 
   @override
@@ -82,6 +133,7 @@ class _ValkyriesPageState extends State<ValkyriesPage> {
                             height: 70,
                             width: 500,
                             decoration: BoxDecoration(
+                              border: Border.all(color: Colors.white, width: 1),
                               color: Colors.transparent,
                               borderRadius: BorderRadius.circular(15),
                             ),
@@ -134,6 +186,7 @@ class _ValkyriesPageState extends State<ValkyriesPage> {
                             height: 70,
                             width: 500,
                             decoration: BoxDecoration(
+                              border: Border.all(color: Colors.white, width: 1),
                               color: Colors.transparent,
                               borderRadius: BorderRadius.circular(15),
                             ),
@@ -214,7 +267,7 @@ class _ValkyriesPageState extends State<ValkyriesPage> {
                     SizedBox(height: 50),
                     Expanded(
                       child: GridView.builder(
-                        itemCount: 5,
+                        itemCount: filteredValkyries.length,
                         gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
                           maxCrossAxisExtent: 150,
                           childAspectRatio: 0.9,
@@ -222,9 +275,9 @@ class _ValkyriesPageState extends State<ValkyriesPage> {
                           mainAxisSpacing: 40,
                         ),
                         itemBuilder: (context, index) {
-                          final String name = valkyries[index]['name'];
+                          final String name = filteredValkyries[index]['name'];
                           final String imageName =
-                              valkyries[index]['imageName'];
+                              filteredValkyries[index]['imageName'];
                           return ValkCard(name: name, imageName: imageName);
                         },
                       ),
