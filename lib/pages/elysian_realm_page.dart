@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class ElysianRealmPage extends StatefulWidget {
-  const ElysianRealmPage({super.key});
+class AdvancedPage extends StatefulWidget {
+  const AdvancedPage({super.key});
 
   @override
-  State<ElysianRealmPage> createState() => _ElysianRealmPageState();
+  State<AdvancedPage> createState() => _AdvancedPageState();
 }
 
-class _ElysianRealmPageState extends State<ElysianRealmPage> {
+class _AdvancedPageState extends State<AdvancedPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

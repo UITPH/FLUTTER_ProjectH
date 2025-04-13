@@ -4,17 +4,20 @@ class TopNaviChild extends StatelessWidget {
   final String text;
   final VoidCallback onTap;
   final bool isSelected;
+  final VoidCallback? onSecondaryLongPress;
 
   const TopNaviChild({
     super.key,
     required this.text,
     required this.onTap,
     required this.isSelected,
+    this.onSecondaryLongPress,
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      onSecondaryLongPress: onSecondaryLongPress,
       onTap: onTap,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
