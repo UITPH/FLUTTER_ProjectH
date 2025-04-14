@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_honkai/models/boss_model.dart';
+import 'package:flutter_honkai/models/weather_model.dart';
 import 'package:flutter_honkai/providers/boss_provider.dart';
 import 'package:flutter_honkai/providers/weather_provider.dart';
 import 'package:flutter_honkai/widgets/boss_card.dart';
@@ -13,15 +15,15 @@ class AbyssPage extends ConsumerStatefulWidget {
 
 class _AbyssPageState extends ConsumerState<AbyssPage> {
   // Consider this List is json file
-  List<Map<String, String>> weathers = [];
-  List<Map<String, String>> bosses = [];
+  List<WeatherModel> weathers = [];
+  List<BossModel> bosses = [];
 
   late final List<DropdownMenuEntry<String>> dropdownMenuEntries;
-  List<Map<String, String>> filteredBosses = [];
+  List<BossModel> filteredBosses = [];
 
   void applyFilters(String selectedWeather) {
     filteredBosses =
-        bosses.where((boss) => boss['weather'] == selectedWeather).toList();
+        bosses.where((boss) => boss.weather == selectedWeather).toList();
   }
 
   @override
@@ -33,8 +35,8 @@ class _AbyssPageState extends ConsumerState<AbyssPage> {
         weathers
             .map(
               (item) => DropdownMenuEntry<String>(
-                value: item['value']!,
-                label: item['label']!,
+                label: item.label,
+                value: item.value,
               ),
             )
             .toList();
@@ -100,9 +102,9 @@ class _AbyssPageState extends ConsumerState<AbyssPage> {
                                 mainAxisSpacing: 40,
                               ),
                           itemBuilder: (context, index) {
-                            final String name = filteredBosses[index]['name']!;
+                            final String name = filteredBosses[index].name;
                             final String imageName =
-                                filteredBosses[index]['imageName']!;
+                                filteredBosses[index].imageName;
                             return BossCard(name: name, imageName: imageName);
                           },
                         ),

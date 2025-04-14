@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_honkai/models/valkyrie_model.dart';
 import 'package:flutter_honkai/widgets/valk_astralop_filter.dart';
 import 'package:flutter_honkai/widgets/valk_card.dart';
 import 'package:flutter_honkai/widgets/valk_type_filter.dart';
@@ -17,8 +18,8 @@ class _ValkyriesPageState extends ConsumerState<ValkyriesPage> {
   int typeFilter = 0;
   int dameFilter = 0;
 
-  List<Map<String, dynamic>> valkyries = [];
-  List<Map<String, dynamic>> filteredValkyries = [];
+  List<ValkyrieModel> valkyries = [];
+  List<ValkyrieModel> filteredValkyries = [];
 
   @override
   void initState() {
@@ -52,9 +53,9 @@ class _ValkyriesPageState extends ConsumerState<ValkyriesPage> {
     filteredValkyries =
         valkyries.where((valk) {
           bool matchesAstralop =
-              astralopFilter == 0 || valk['astralop'] == astralopFilter;
-          bool matchesType = typeFilter == 0 || valk['type'] == typeFilter;
-          bool matchesDame = dameFilter == 0 || valk['dame'] == dameFilter;
+              astralopFilter == 0 || valk.astralop == astralopFilter;
+          bool matchesType = typeFilter == 0 || valk.type == typeFilter;
+          bool matchesDame = dameFilter == 0 || valk.dame == dameFilter;
           return matchesAstralop && matchesType && matchesDame;
         }).toList();
   }
@@ -241,9 +242,9 @@ class _ValkyriesPageState extends ConsumerState<ValkyriesPage> {
                           mainAxisSpacing: 40,
                         ),
                         itemBuilder: (context, index) {
-                          final String name = filteredValkyries[index]['name'];
+                          final String name = filteredValkyries[index].name;
                           final String imageName =
-                              filteredValkyries[index]['imageName'];
+                              filteredValkyries[index].imageName;
                           return ValkCard(name: name, imageName: imageName);
                         },
                       ),

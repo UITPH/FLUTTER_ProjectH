@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_honkai/models/elf_model.dart';
 import 'package:flutter_honkai/providers/elf_astralop_provider.dart';
 import 'package:flutter_honkai/widgets/elf_card.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -11,7 +12,7 @@ class ElfAstralopPage extends ConsumerStatefulWidget {
 }
 
 class _ElfAstralopPageState extends ConsumerState<ElfAstralopPage> {
-  List<Map<String, dynamic>> elfs = [];
+  List<ElfModel> elfs = [];
 
   @override
   void initState() {
@@ -63,8 +64,8 @@ class _ElfAstralopPageState extends ConsumerState<ElfAstralopPage> {
                         ),
                         itemBuilder: (context, index) {
                           return ElfCard(
-                            name: elfs[index]['name'],
-                            imageName: elfs[index]['imageName'],
+                            name: elfs[index].name,
+                            imageName: elfs[index].imageName,
                           );
                         },
                       ),

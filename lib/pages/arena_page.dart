@@ -1,46 +1,42 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_honkai/models/boss_model.dart';
+import 'package:flutter_honkai/models/weather_model.dart';
+import 'package:flutter_honkai/providers/boss_provider.dart';
+import 'package:flutter_honkai/providers/weather_provider.dart';
 import 'package:flutter_honkai/widgets/boss_card.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class ArenaPage extends StatefulWidget {
+class ArenaPage extends ConsumerStatefulWidget {
   const ArenaPage({super.key});
 
   @override
-  State<ArenaPage> createState() => _ArenaPageState();
+  ConsumerState<ArenaPage> createState() => _ArenaPageState();
 }
 
-class _ArenaPageState extends State<ArenaPage> {
+class _ArenaPageState extends ConsumerState<ArenaPage> {
   // Consider this List is json file
-  List<Map<String, String>> weathers = [
-    {"value": "bleed", "label": "Bleed"},
-    {"value": "blood", "label": "Bloodthirsty"},
-    {"value": "dominance", "label": "Dominance"},
-    {"value": "ice", "label": "Ice"},
-  ];
-  List<Map<String, String>> bosses = [
-    {'name': 'Raven', 'imageName': 'raven.png', 'weather': 'ice'},
-    {'name': '36mobs', 'imageName': '36mobs.png', 'weather': 'blood'},
-    {'name': 'Hos', 'imageName': 'hos.png', 'weather': 'bleed'},
-    {'name': 'Apo', 'imageName': 'Apo.png', 'weather': 'dominance'},
-    // Add more valkyries as needed
-  ];
+  List<WeatherModel> weathers = [];
+  List<BossModel> bosses = [];
 
   late final List<DropdownMenuEntry<String>> dropdownMenuEntries;
-  List<Map<String, String>> filteredBosses = [];
+  List<BossModel> filteredBosses = [];
 
   void applyFilters(String selectedWeather) {
     filteredBosses =
-        bosses.where((boss) => boss['weather'] == selectedWeather).toList();
+        bosses.where((boss) => boss.weather == selectedWeather).toList();
   }
 
   @override
   void initState() {
     super.initState();
+    bosses = ref.read(bossProvider);
+    weathers = ref.read(weatherProvider);
     dropdownMenuEntries =
         weathers
             .map(
               (item) => DropdownMenuEntry<String>(
-                value: item['value']!,
-                label: item['label']!,
+                label: item.label,
+                value: item.value,
               ),
             )
             .toList();
@@ -69,7 +65,7 @@ class _ArenaPageState extends State<ArenaPage> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
-                        'Arena Boss Database',
+                        'Abyss Boss Database',
                         style: TextStyle(
                           fontSize: 30,
                           color: Colors.white,
@@ -106,9 +102,9 @@ class _ArenaPageState extends State<ArenaPage> {
                                 mainAxisSpacing: 40,
                               ),
                           itemBuilder: (context, index) {
-                            final String name = filteredBosses[index]['name']!;
+                            final String name = filteredBosses[index].name;
                             final String imageName =
-                                filteredBosses[index]['imageName']!;
+                                filteredBosses[index].imageName;
                             return BossCard(name: name, imageName: imageName);
                           },
                         ),
