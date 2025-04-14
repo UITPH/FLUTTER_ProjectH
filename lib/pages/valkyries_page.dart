@@ -2,62 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:flutter_honkai/widgets/valk_astralop_filter.dart';
 import 'package:flutter_honkai/widgets/valk_card.dart';
 import 'package:flutter_honkai/widgets/valk_type_filter.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_honkai/providers/valkyrie_provider.dart';
 
-class ValkyriesPage extends StatefulWidget {
+class ValkyriesPage extends ConsumerStatefulWidget {
   const ValkyriesPage({super.key});
 
   @override
-  State<ValkyriesPage> createState() => _ValkyriesPageState();
+  ConsumerState<ValkyriesPage> createState() => _ValkyriesPageState();
 }
 
-class _ValkyriesPageState extends State<ValkyriesPage> {
+class _ValkyriesPageState extends ConsumerState<ValkyriesPage> {
   int astralopFilter = 0;
   int typeFilter = 0;
   int dameFilter = 0;
 
-  List<Map<String, dynamic>> valkyries = [
-    {
-      'name': 'sú',
-      'imageName': 'physsus.png',
-      'astralop': 1,
-      'dame': 4,
-      'type': 2,
-    },
-    {
-      'name': 'sparkle',
-      'imageName': 'sparkle.png',
-      'astralop': 4,
-      'dame': 3,
-      'type': 4,
-    },
-    {
-      'name': 'vita',
-      'imageName': 'lp.png',
-      'astralop': 3,
-      'dame': 1,
-      'type': 1,
-    },
-    {
-      'name': 'hoh',
-      'imageName': 'hoh.png',
-      'astralop': 2,
-      'dame': 2,
-      'type': 3,
-    },
-    {
-      'name': 'dudufbi',
-      'imageName': 'duduloli.png',
-      'astralop': 1,
-      'dame': 4,
-      'type': 5,
-    },
-    // Add more valkyries as needed
-  ];
+  List<Map<String, dynamic>> valkyries = [];
   List<Map<String, dynamic>> filteredValkyries = [];
 
   @override
   void initState() {
     super.initState();
+    valkyries = ref.read(valkyrieProvider);
     applyFilters();
   }
 

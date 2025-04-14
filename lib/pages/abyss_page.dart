@@ -1,28 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_honkai/providers/boss_provider.dart';
+import 'package:flutter_honkai/providers/weather_provider.dart';
 import 'package:flutter_honkai/widgets/boss_card.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class AbyssPage extends StatefulWidget {
+class AbyssPage extends ConsumerStatefulWidget {
   const AbyssPage({super.key});
 
   @override
-  State<AbyssPage> createState() => _AbyssPageState();
+  ConsumerState<AbyssPage> createState() => _AbyssPageState();
 }
 
-class _AbyssPageState extends State<AbyssPage> {
+class _AbyssPageState extends ConsumerState<AbyssPage> {
   // Consider this List is json file
-  List<Map<String, String>> weathers = [
-    {"value": "bleed", "label": "Bleed"},
-    {"value": "blood", "label": "Bloodthirsty"},
-    {"value": "dominance", "label": "Dominance"},
-    {"value": "ice", "label": "Ice"},
-  ];
-  List<Map<String, String>> bosses = [
-    {'name': 'Raven', 'imageName': 'raven.png', 'weather': 'ice'},
-    {'name': '36mobs', 'imageName': '36mobs.png', 'weather': 'blood'},
-    {'name': 'Hos', 'imageName': 'hos.png', 'weather': 'bleed'},
-    {'name': 'Apo', 'imageName': 'Apo.png', 'weather': 'dominance'},
-    // Add more valkyries as needed
-  ];
+  List<Map<String, String>> weathers = [];
+  List<Map<String, String>> bosses = [];
 
   late final List<DropdownMenuEntry<String>> dropdownMenuEntries;
   List<Map<String, String>> filteredBosses = [];
@@ -35,6 +27,8 @@ class _AbyssPageState extends State<AbyssPage> {
   @override
   void initState() {
     super.initState();
+    bosses = ref.read(bossProvider);
+    weathers = ref.read(weatherProvider);
     dropdownMenuEntries =
         weathers
             .map(

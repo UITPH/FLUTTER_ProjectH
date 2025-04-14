@@ -1,14 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_honkai/providers/elf_astralop_provider.dart';
 import 'package:flutter_honkai/widgets/astralop_card.dart';
+import 'package:flutter_honkai/widgets/elf_card.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class ElfAstralopPage extends StatefulWidget {
+class ElfAstralopPage extends ConsumerStatefulWidget {
   const ElfAstralopPage({super.key});
 
   @override
-  State<ElfAstralopPage> createState() => _ElfAstralopPageState();
+  ConsumerState<ElfAstralopPage> createState() => _ElfAstralopPageState();
 }
 
-class _ElfAstralopPageState extends State<ElfAstralopPage> {
+class _ElfAstralopPageState extends ConsumerState<ElfAstralopPage> {
+  List<Map<String, dynamic>> elfs = [];
+
+  @override
+  void initState() {
+    super.initState();
+    elfs = ref.read(elfProvider);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,7 +55,7 @@ class _ElfAstralopPageState extends State<ElfAstralopPage> {
                     Expanded(
                       flex: 3,
                       child: GridView.builder(
-                        itemCount: 7,
+                        itemCount: elfs.length,
                         gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
                           maxCrossAxisExtent: 150,
                           childAspectRatio: 0.9,
@@ -52,9 +63,9 @@ class _ElfAstralopPageState extends State<ElfAstralopPage> {
                           mainAxisSpacing: 40,
                         ),
                         itemBuilder: (context, index) {
-                          return AstralopCard(
-                            name: 'Elf/AstralOP $index',
-                            imageName: 'teri.png',
+                          return ElfCard(
+                            name: elfs[index]['name'],
+                            imageName: elfs[index]['imageName'],
                           );
                         },
                       ),

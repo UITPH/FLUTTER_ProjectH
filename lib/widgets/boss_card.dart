@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'dart:io';
 
 class BossCard extends StatelessWidget {
   final String name;
   final String imageName;
+  final String imagePath = 'D:/images/bosses';
 
   const BossCard({super.key, required this.name, required this.imageName});
 
@@ -19,7 +21,7 @@ class BossCard extends StatelessWidget {
             color: Colors.black,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
-              child: Image.asset('lib/assets/images/boss/$imageName'),
+              child: Image.file(File('$imagePath/$imageName')),
             ),
           ),
           Text(name, style: TextStyle(fontSize: 16, color: Colors.white)),
