@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_honkai/providers/elf_astralop_provider.dart';
-import 'package:flutter_honkai/widgets/astralop_card.dart';
 import 'package:flutter_honkai/widgets/elf_card.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
