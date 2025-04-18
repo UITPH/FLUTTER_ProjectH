@@ -29,10 +29,18 @@ class ValkCard extends StatelessWidget {
               color: Colors.white,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(20),
-                child: Image.file(File('$imagePath/$imageName')),
+                child: Image.file(
+                  width: 100,
+                  height: 100,
+                  File('$imagePath/$imageName'),
+                ),
               ),
             ),
-            Text(name, style: TextStyle(fontSize: 16, color: Colors.white)),
+            Text(
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 16, color: Colors.white),
+              name,
+            ),
           ],
         ),
       ),

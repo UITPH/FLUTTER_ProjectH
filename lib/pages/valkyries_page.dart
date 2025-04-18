@@ -49,13 +49,22 @@ class _ValkyriesPageState extends ConsumerState<ValkyriesPage> {
     });
   }
 
+  bool valkdame(List listdame, int filter) {
+    for (int i = 0; i < listdame.length; i++) {
+      if (listdame[i] == filter) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   void applyFilters() {
     filteredValkyries =
         valkyries.where((valk) {
           bool matchesAstralop =
               astralopFilter == 0 || valk.astralop == astralopFilter;
           bool matchesType = typeFilter == 0 || valk.type == typeFilter;
-          bool matchesDame = dameFilter == 0 || valk.dame == dameFilter;
+          bool matchesDame = dameFilter == 0 || valkdame(valk.dame, dameFilter);
           return matchesAstralop && matchesType && matchesDame;
         }).toList();
   }
@@ -167,7 +176,7 @@ class _ValkyriesPageState extends ConsumerState<ValkyriesPage> {
                                   isSelected: dameFilter == 0,
                                 ),
                                 ValkTypeFilter(
-                                  imageName: 'lightning.png',
+                                  imageName: 'fire.png',
                                   onTap: () => onDameFilterTap(1),
                                   isSelected: dameFilter == 1,
                                 ),
@@ -177,7 +186,7 @@ class _ValkyriesPageState extends ConsumerState<ValkyriesPage> {
                                   isSelected: dameFilter == 2,
                                 ),
                                 ValkTypeFilter(
-                                  imageName: 'fire.png',
+                                  imageName: 'lightning.png',
                                   onTap: () => onDameFilterTap(3),
                                   isSelected: dameFilter == 3,
                                 ),
@@ -185,6 +194,11 @@ class _ValkyriesPageState extends ConsumerState<ValkyriesPage> {
                                   imageName: 'phys.png',
                                   onTap: () => onDameFilterTap(4),
                                   isSelected: dameFilter == 4,
+                                ),
+                                ValkTypeFilter(
+                                  imageName: 'bleed.png',
+                                  onTap: () => onDameFilterTap(5),
+                                  isSelected: dameFilter == 5,
                                 ),
                               ],
                             ),
@@ -242,7 +256,7 @@ class _ValkyriesPageState extends ConsumerState<ValkyriesPage> {
                           mainAxisSpacing: 40,
                         ),
                         itemBuilder: (context, index) {
-                          final String name = filteredValkyries[index].name;
+                          final String name = filteredValkyries[index].label;
                           final String imageName =
                               filteredValkyries[index].imageName;
                           return ValkCard(name: name, imageName: imageName);

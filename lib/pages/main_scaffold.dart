@@ -32,6 +32,7 @@ class _MainScaffoldState extends State<MainScaffold> {
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(50),
         child: AppBar(
+          scrolledUnderElevation: 0,
           backgroundColor: Colors.transparent,
           foregroundColor: Colors.transparent,
           flexibleSpace: Row(
