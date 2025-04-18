@@ -2,16 +2,19 @@ import 'package:flutter/material.dart';
 import 'dart:io';
 
 import 'package:flutter_honkai/pages/abyss_boss_overview_page.dart';
+import 'package:flutter_honkai/providers/path_provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class BossCard extends StatelessWidget {
+class BossCard extends ConsumerWidget {
   final String name;
   final String imageName;
-  final String imagePath = 'D:/images/bosses';
 
   const BossCard({super.key, required this.name, required this.imageName});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final String imagePath = ref.read(bossImagesPathProvider);
+
     return GestureDetector(
       onTap: () {
         Navigator.of(context).push(

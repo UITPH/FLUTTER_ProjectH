@@ -2,16 +2,19 @@ import 'package:flutter/material.dart';
 import 'dart:io';
 
 import 'package:flutter_honkai/pages/valkyrie_overview_page.dart';
+import 'package:flutter_honkai/providers/path_provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class ValkCard extends StatelessWidget {
-  final String name;
+class ValkCard extends ConsumerWidget {
+  final String label;
   final String imageName;
-  final String imagePath = 'D:/images/valkyries';
 
-  const ValkCard({super.key, required this.name, required this.imageName});
+  const ValkCard({super.key, required this.label, required this.imageName});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final String imagePath = ref.read(valkImagesPathPathProvider);
+
     return GestureDetector(
       onTap: () {
         Navigator.of(
@@ -39,7 +42,7 @@ class ValkCard extends StatelessWidget {
             Text(
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 16, color: Colors.white),
-              name,
+              label,
             ),
           ],
         ),

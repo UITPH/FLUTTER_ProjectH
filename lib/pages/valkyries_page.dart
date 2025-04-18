@@ -256,10 +256,10 @@ class _ValkyriesPageState extends ConsumerState<ValkyriesPage> {
                           mainAxisSpacing: 40,
                         ),
                         itemBuilder: (context, index) {
-                          final String name = filteredValkyries[index].label;
+                          final String label = filteredValkyries[index].label;
                           final String imageName =
                               filteredValkyries[index].imageName;
-                          return ValkCard(name: name, imageName: imageName);
+                          return ValkCard(label: label, imageName: imageName);
                         },
                       ),
                     ),
