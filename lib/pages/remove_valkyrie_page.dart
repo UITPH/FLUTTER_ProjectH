@@ -1,16 +1,3 @@
-// import 'package:flutter/material.dart';
-
-// class RemoveValkyriePage extends StatelessWidget {
-//   const RemoveValkyriePage({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(title: Text('Valk DataBase')),
-//       body: Center(child: Text('Details')),
-//     );
-//   }
-// }
 import 'package:flutter/material.dart';
 import 'package:flutter_honkai/models/valkyrie_model.dart';
 import 'package:flutter_honkai/widgets/advanced_valk_card.dart';
