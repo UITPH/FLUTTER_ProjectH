@@ -3,7 +3,7 @@ import 'package:flutter_honkai/pages/abyss_page.dart';
 import 'package:flutter_honkai/pages/arena_page.dart';
 import 'package:flutter_honkai/pages/comingsoon_page.dart';
 import 'package:flutter_honkai/pages/elf_page.dart';
-import 'package:flutter_honkai/pages/elysian_realm_page.dart';
+import 'package:flutter_honkai/pages/advanced_page.dart';
 import 'package:flutter_honkai/pages/home_page.dart';
 import 'package:flutter_honkai/pages/valkyries_page.dart';
 import 'package:flutter_honkai/widgets/top_navi_child.dart';

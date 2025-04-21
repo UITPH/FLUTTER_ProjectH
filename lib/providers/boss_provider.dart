@@ -2,9 +2,11 @@ import 'dart:io';
 import 'dart:convert';
 import 'package:flutter_honkai/models/boss_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:path_provider/path_provider.dart';
 
-Future<List<BossModel>> loadBossesFromPath(String path) async {
-  final file = File(path);
+Future<List<BossModel>> loadBossesListFromJson() async {
+  final dir = await getApplicationDocumentsDirectory();
+  final file = File('${dir.path}/Honkai Station/json/bosses.json');
   if (!await file.exists()) {
     return [];
   }
