@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_honkai/models/valkyrie_model.dart';
+import 'package:flutter_honkai/providers/path_provider.dart';
 import 'package:flutter_honkai/providers/valkyrie_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -24,8 +25,6 @@ class _AddValkyriePageState extends ConsumerState<AddValkyriePage> {
   int? dame1;
   List<int?> dame = [];
   int? type;
-
-  bool isCheckButtonPressed = false;
 
   void _submit() {
     if (label != '' &&
@@ -64,8 +63,59 @@ class _AddValkyriePageState extends ConsumerState<AddValkyriePage> {
 
   @override
   Widget build(BuildContext context) {
+    String imagepath = ref.read(valkImagesPathPathProvider);
     return Scaffold(
-      appBar: AppBar(title: Text('Add Valkyrie Page')),
+      appBar: AppBar(
+        actionsPadding: EdgeInsets.symmetric(horizontal: 20),
+        actions: [
+          IconButton(
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder:
+                    (context) => AlertDialog(
+                      title: Text(
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                        'Information',
+                      ),
+                      content: SizedBox(
+                        width: 300,
+                        child: IntrinsicHeight(
+                          child: Column(
+                            spacing: 10,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Name of valk is the name that show on screen',
+                              ),
+                              Text('String id of each valk must be unique'),
+                              Text(
+                                'Name of image file is the name of file that use to show valk\'s avatar',
+                              ),
+                              Text(
+                                'You must add image to the this path: $imagepath',
+                              ),
+                              Text(
+                                'The others field use number to represent the corresponding features of valk and these numbers have the same order as the filter cells. For example, in damage fields, 1 is fire, 2 is ice, 3 is lightning,... ',
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      actions: [
+                        TextButton(
+                          child: Text('Close'),
+                          onPressed: () => Navigator.pop(context),
+                        ),
+                      ],
+                    ),
+              );
+            },
+            icon: Icon(Icons.info_outline_rounded),
+          ),
+        ],
+        title: Text('Add Valkyrie Page'),
+      ),
       body: Form(
         key: _formKey,
         child: Center(
@@ -220,79 +270,24 @@ class _AddValkyriePageState extends ConsumerState<AddValkyriePage> {
                 ],
               ),
               SizedBox(height: 50),
-              Visibility(
-                visible: isCheckButtonPressed,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      style: TextStyle(fontSize: 15),
-                      'Name of valk: $label',
-                    ),
-                    Text(
-                      style: TextStyle(fontSize: 15),
-                      'String id of valk: $id',
-                    ),
-                    Text(
-                      style: TextStyle(fontSize: 15),
-                      'Name of image file: $imageName',
-                    ),
-                    Text(
-                      style: TextStyle(fontSize: 15),
-                      'AstralOP of valk: $astralop',
-                    ),
-                    Text(
-                      style: TextStyle(fontSize: 15),
-                      'Dame of valk: [$dame0, $dame1]',
-                    ),
-                    Text(style: TextStyle(fontSize: 15), 'Type of Valk: $type'),
-                  ],
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  padding: EdgeInsets.all(20),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  backgroundColor: Colors.white,
                 ),
-              ),
-              SizedBox(height: 50),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                spacing: 20,
-                children: [
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      padding: EdgeInsets.all(20),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                      backgroundColor: Colors.white,
-                    ),
-                    onPressed: () {
-                      setState(() {
-                        _formKey.currentState!.save();
-                        isCheckButtonPressed = true;
-                      });
-                    },
-                    child: Text(
-                      style: TextStyle(color: Colors.black, fontSize: 15),
-                      'Check',
-                    ),
-                  ),
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      padding: EdgeInsets.all(20),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                      backgroundColor: Colors.white,
-                    ),
-                    onPressed: () {
-                      setState(() {
-                        _formKey.currentState!.save();
-                        _submit();
-                      });
-                    },
-                    child: Text(
-                      style: TextStyle(color: Colors.black, fontSize: 15),
-                      'Save',
-                    ),
-                  ),
-                ],
+                onPressed: () {
+                  setState(() {
+                    _formKey.currentState!.save();
+                    _submit();
+                  });
+                },
+                child: Text(
+                  style: TextStyle(color: Colors.black, fontSize: 15),
+                  'Save',
+                ),
               ),
             ],
           ),
