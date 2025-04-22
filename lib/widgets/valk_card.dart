@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:io';
-
-import 'package:flutter_honkai/pages/valkyrie_overview_page.dart';
+import 'package:flutter_honkai/pages/valkyrie_details_page.dart';
 import 'package:flutter_honkai/providers/path_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -19,7 +18,7 @@ class ValkCard extends ConsumerWidget {
       onTap: () {
         Navigator.of(
           context,
-        ).push(MaterialPageRoute(builder: (context) => ValkyrieOverviewPage()));
+        ).push(MaterialPageRoute(builder: (context) => ValkyrieDetailsPage()));
       },
       child: GridTile(
         child: Column(

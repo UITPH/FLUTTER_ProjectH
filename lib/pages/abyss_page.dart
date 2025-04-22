@@ -79,6 +79,7 @@ class _AbyssPageState extends ConsumerState<AbyssPage> {
                       requestFocusOnTap: true,
                       enableFilter: true,
                       width: 250,
+                      menuHeight: 250,
                       menuStyle: MenuStyle(),
                       dropdownMenuEntries: dropdownMenuEntries,
                       onSelected: (selectedWeather) {

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_honkai/pages/add_valkyrie_page.dart';
 import 'package:flutter_honkai/pages/bosses_database_page.dart';
-import 'package:flutter_honkai/pages/elfs_database_page.dart';
 import 'package:flutter_honkai/pages/remove_valkyrie_page.dart';
 
 class AdvancedPage extends StatefulWidget {
@@ -29,9 +28,6 @@ class _AdvancedPageState extends State<AdvancedPage> {
             break;
           case '/bossdb':
             builder = (context) => BossesDatabasePage();
-            break;
-          case '/elfdb':
-            builder = (context) => ElfsDatabasePage();
             break;
           default:
             throw Exception('Invalid route: ${settings.name}');
