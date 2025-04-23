@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_honkai/models/boss_model.dart';
 import 'package:flutter_honkai/models/weather_model.dart';
+import 'package:flutter_honkai/pages/abyss_boss_details_page.dart';
 import 'package:flutter_honkai/providers/boss_provider.dart';
 import 'package:flutter_honkai/providers/weather_provider.dart';
 import 'package:flutter_honkai/widgets/boss_card.dart';
@@ -23,7 +24,12 @@ class _AbyssPageState extends ConsumerState<AbyssPage> {
 
   void applyFilters(String selectedWeather) {
     filteredBosses =
-        bosses.where((boss) => boss.weather == selectedWeather).toList();
+        bosses
+            .where(
+              (boss) =>
+                  selectedWeather == 'all' || boss.weather == selectedWeather,
+            )
+            .toList();
   }
 
   @override
@@ -103,10 +109,45 @@ class _AbyssPageState extends ConsumerState<AbyssPage> {
                                 mainAxisSpacing: 40,
                               ),
                           itemBuilder: (context, index) {
-                            final String name = filteredBosses[index].label;
+                            final String label = filteredBosses[index].label;
                             final String imageName =
                                 filteredBosses[index].imageName;
-                            return BossCard(name: name, imageName: imageName);
+                            final WeatherModel weather =
+                                weathers
+                                    .where(
+                                      (weather) =>
+                                          weather.value ==
+                                          filteredBosses[index].weather,
+                                    )
+                                    .toList()[0];
+                            final String mechanics =
+                                filteredBosses[index].mechanics;
+                            final String resistance =
+                                filteredBosses[index].resistance;
+                            final List<dynamic> teamrec =
+                                filteredBosses[index].teamrec;
+                            return BossCard(
+                              label: label,
+                              imageName: imageName,
+                              onTap: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) {
+                                      return AbyssBossDetailsPage(
+                                        label: label,
+                                        imageName: imageName,
+                                        weatherLabel: weather.label,
+                                        weatherspecific:
+                                            weather.weatherspecific,
+                                        mechanics: mechanics,
+                                        resistance: resistance,
+                                        teamrec: teamrec,
+                                      );
+                                    },
+                                  ),
+                                );
+                              },
+                            );
                           },
                         ),
                       ),

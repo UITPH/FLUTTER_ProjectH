@@ -310,6 +310,7 @@ class _ValkyriesPageState extends ConsumerState<ValkyriesPage> {
                                   builder:
                                       (context) => ValkyrieDetailsPage(
                                         label: label,
+                                        //sau nay goi theo model
                                         overview: overview,
                                         lineup: lineup,
                                         equip: equip,

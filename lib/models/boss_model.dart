@@ -5,6 +5,7 @@ class BossModel {
   final String weather;
   final String mechanics;
   final String resistance;
+  final List<dynamic> teamrec;
 
   BossModel({
     required this.label,
@@ -13,6 +14,7 @@ class BossModel {
     required this.weather,
     required this.mechanics,
     required this.resistance,
+    required this.teamrec,
   });
 
   factory BossModel.fromJson(Map<String, dynamic> json) {
@@ -23,6 +25,7 @@ class BossModel {
       weather: json['weather'],
       mechanics: json['mechanics'],
       resistance: json['resistance'],
+      teamrec: json['teamrec'],
     );
   }
 
@@ -34,6 +37,7 @@ class BossModel {
       'weather': weather,
       'mechanics': mechanics,
       'resistance': resistance,
+      'teamrec': teamrec,
     };
   }
 }

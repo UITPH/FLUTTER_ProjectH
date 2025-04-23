@@ -95,7 +95,7 @@ class _MainScaffoldState extends State<MainScaffold> {
           ValkyriesPage(),
           ElfAstralopPage(),
           AbyssPage(),
-          ArenaPage(),
+          AbyssPage(),
           isDoubleTap ? AdvancedPage() : ComingsoonPage(),
         ],
       ),
