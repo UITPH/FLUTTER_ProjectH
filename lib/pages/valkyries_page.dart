@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_honkai/models/valkyrie_model.dart';
+import 'package:flutter_honkai/pages/valkyrie_details_page.dart';
 import 'package:flutter_honkai/widgets/valk_astralop_filter.dart';
 import 'package:flutter_honkai/widgets/valk_card.dart';
 import 'package:flutter_honkai/widgets/valk_type_filter.dart';
@@ -20,6 +21,47 @@ class _ValkyriesPageState extends ConsumerState<ValkyriesPage> {
 
   List<ValkyrieModel> valkyries = [];
   List<ValkyrieModel> filteredValkyries = [];
+
+  //dummy data
+  final List<String> overview = ['role.txt', 'pullrec.txt'];
+  //FWS PS LP TFM RS JDS HoH teri kiana ds
+  final List<Map<String, dynamic>> lineup = [
+    {
+      "note": "Ba-dum! Fiery Wishing Star DPS",
+      "leader": "FWS.png",
+      "firstvalks": [
+        "PS.png",
+        "LP.png",
+        "TFM.png",
+        "RS.png",
+        "JDS.png",
+        "HoH.png",
+      ],
+      "secondvalks": [],
+      "elfs": ["teri.png", "kiana.png", "ds.png"],
+    },
+    {
+      "note": "Reign Solaris DPS",
+      "leader": "RS.png",
+      "firstvalks": ["FWS.png"],
+      "secondvalks": [
+        "PS.png",
+        "LP.png",
+        "TFM.png",
+        "RS.png",
+        "JDS.png",
+        "HoH.png",
+      ],
+      "elfs": ["teri.png", "sera.png", "bunny.png", "ds.png", "songque.png"],
+    },
+  ];
+  final List<String> equip = [
+    'fwsweap.png',
+    'fwstop.png',
+    'fwsmid.png',
+    'fwsbot.png',
+  ];
+  final String rankup = 'rankup.txt';
 
   @override
   void initState() {
@@ -259,7 +301,24 @@ class _ValkyriesPageState extends ConsumerState<ValkyriesPage> {
                           final String label = filteredValkyries[index].label;
                           final String imageName =
                               filteredValkyries[index].imageName;
-                          return ValkCard(label: label, imageName: imageName);
+                          return ValkCard(
+                            label: label,
+                            imageName: imageName,
+                            onTap: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder:
+                                      (context) => ValkyrieDetailsPage(
+                                        label: label,
+                                        overview: overview,
+                                        lineup: lineup,
+                                        equip: equip,
+                                        rankup: rankup,
+                                      ),
+                                ),
+                              );
+                            },
+                          );
                         },
                       ),
                     ),

@@ -63,7 +63,7 @@ class _ValkNaviChildState extends State<ValkNaviChild> {
                 style: TextStyle(
                   color: widget.isSelected ? Colors.white : Colors.white,
                   fontWeight:
-                      widget.isSelected ? FontWeight.normal : FontWeight.normal,
+                      widget.isSelected ? FontWeight.bold : FontWeight.normal,
                   fontSize: 20,
                 ),
               ),

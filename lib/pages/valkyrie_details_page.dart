@@ -1,12 +1,27 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_honkai/pages/valkyrie_details_pages/valkyrie_equipment_page.dart';
 import 'package:flutter_honkai/pages/valkyrie_details_pages/valkyrie_lineup_page.dart';
 import 'package:flutter_honkai/pages/valkyrie_details_pages/valkyrie_overview_page.dart';
 import 'package:flutter_honkai/pages/valkyrie_details_pages/valkyrie_rankup_page.dart';
 import 'package:flutter_honkai/widgets/valk_navi_child.dart';
+import 'package:path_provider/path_provider.dart';
 
 class ValkyrieDetailsPage extends StatefulWidget {
-  const ValkyrieDetailsPage({super.key});
+  final String label;
+  final List<String> overview;
+  final List<Map<String, dynamic>> lineup;
+  final List<String> equip;
+  final String rankup;
+  const ValkyrieDetailsPage({
+    super.key,
+    required this.label,
+    required this.overview,
+    required this.lineup,
+    required this.equip,
+    required this.rankup,
+  });
 
   @override
   State<ValkyrieDetailsPage> createState() => _ValkyrieDetailsPageState();
@@ -14,6 +29,7 @@ class ValkyrieDetailsPage extends StatefulWidget {
 
 class _ValkyrieDetailsPageState extends State<ValkyrieDetailsPage> {
   int currentnavi = 0;
+  late Future<Map<String, String>> dataFuture;
 
   void onTap(int index) {
     setState(() {
@@ -21,66 +37,109 @@ class _ValkyrieDetailsPageState extends State<ValkyrieDetailsPage> {
     });
   }
 
+  Future<Map<String, String>> loadData() async {
+    final dir = await getApplicationDocumentsDirectory();
+    final roleFile = File(
+      '${dir.path}/Honkai Station/text/${widget.overview[0]}',
+    );
+    final pullrecFile = File(
+      '${dir.path}/Honkai Station/text/${widget.overview[1]}',
+    );
+    final rankupFile = File('${dir.path}/Honkai Station/text/${widget.rankup}');
+
+    final role = await roleFile.readAsString();
+    final pullrec = await pullrecFile.readAsString();
+    final rankup = await rankupFile.readAsString();
+
+    return {'role': role, 'pullrec': pullrec, 'rankup': rankup};
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    dataFuture = loadData();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(100),
-        child: AppBar(
-          scrolledUnderElevation: 0,
-          backgroundColor: Colors.transparent,
-          title: Text('data'),
-          bottom: PreferredSize(
-            preferredSize: const Size.fromHeight(50),
-            child: SizedBox(
-              width: 1064,
-              height: 50,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    child: ValkNaviChild(
-                      text: 'Overview',
-                      onTap: () => onTap(0),
-                      isSelected: currentnavi == 0,
-                    ),
+    return FutureBuilder(
+      future: dataFuture,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(child: CircularProgressIndicator());
+        } else {
+          final data = snapshot.data!;
+
+          return Scaffold(
+            extendBodyBehindAppBar: true,
+            appBar: AppBar(
+              scrolledUnderElevation: 0,
+              backgroundColor: Colors.transparent,
+              title: Text(
+                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                widget.label,
+              ),
+              bottom: PreferredSize(
+                preferredSize: const Size.fromHeight(70),
+                child: SizedBox(
+                  width: 1064,
+                  height: 50,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: ValkNaviChild(
+                          text: 'Overview',
+                          onTap: () => onTap(0),
+                          isSelected: currentnavi == 0,
+                        ),
+                      ),
+                      Expanded(
+                        child: ValkNaviChild(
+                          text: 'Lineup',
+                          onTap: () => onTap(1),
+                          isSelected: currentnavi == 1,
+                        ),
+                      ),
+                      Expanded(
+                        child: ValkNaviChild(
+                          text: 'Equipment',
+                          onTap: () => onTap(2),
+                          isSelected: currentnavi == 2,
+                        ),
+                      ),
+                      Expanded(
+                        child: ValkNaviChild(
+                          text: 'Rank Up',
+                          onTap: () => onTap(3),
+                          isSelected: currentnavi == 3,
+                        ),
+                      ),
+                    ],
                   ),
-                  Expanded(
-                    child: ValkNaviChild(
-                      text: 'Lineup',
-                      onTap: () => onTap(1),
-                      isSelected: currentnavi == 1,
-                    ),
-                  ),
-                  Expanded(
-                    child: ValkNaviChild(
-                      text: 'Equipment',
-                      onTap: () => onTap(2),
-                      isSelected: currentnavi == 2,
-                    ),
-                  ),
-                  Expanded(
-                    child: ValkNaviChild(
-                      text: 'Rank Up',
-                      onTap: () => onTap(3),
-                      isSelected: currentnavi == 3,
-                    ),
-                  ),
-                ],
+                ),
               ),
             ),
-          ),
-        ),
-      ),
-      body: IndexedStack(
-        index: currentnavi,
-        children: [
-          ValkyrieOverviewPage(),
-          ValkyrieLineupPage(),
-          ValkyrieEquipmentPage(),
-          ValkyrieRankupPage(),
-        ],
-      ),
+            body: IndexedStack(
+              index: currentnavi,
+              children: [
+                ValkyrieOverviewPage(
+                  role: data['role']!,
+                  pullrec: data['pullrec']!,
+                ),
+                ValkyrieLineupPage(lineup: widget.lineup),
+                ValkyrieEquipmentPage(
+                  weapimageName: widget.equip[0],
+                  topimageName: widget.equip[1],
+                  midimageName: widget.equip[2],
+                  botimageName: widget.equip[3],
+                ),
+                ValkyrieRankupPage(rankup: data['rankup']!),
+              ],
+            ),
+          );
+        }
+      },
     );
   }
 }

@@ -1,25 +1,25 @@
 import 'package:flutter/material.dart';
 import 'dart:io';
-import 'package:flutter_honkai/pages/valkyrie_details_page.dart';
 import 'package:flutter_honkai/providers/path_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class ValkCard extends ConsumerWidget {
   final String label;
   final String imageName;
-
-  const ValkCard({super.key, required this.label, required this.imageName});
+  final VoidCallback onTap;
+  const ValkCard({
+    super.key,
+    required this.label,
+    required this.imageName,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final String imagePath = ref.read(valkImagesPathPathProvider);
 
     return GestureDetector(
-      onTap: () {
-        Navigator.of(
-          context,
-        ).push(MaterialPageRoute(builder: (context) => ValkyrieDetailsPage()));
-      },
+      onTap: onTap,
       child: GridTile(
         child: Column(
           children: [

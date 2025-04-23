@@ -103,7 +103,7 @@ class _AbyssPageState extends ConsumerState<AbyssPage> {
                                 mainAxisSpacing: 40,
                               ),
                           itemBuilder: (context, index) {
-                            final String name = filteredBosses[index].name;
+                            final String name = filteredBosses[index].label;
                             final String imageName =
                                 filteredBosses[index].imageName;
                             return BossCard(name: name, imageName: imageName);

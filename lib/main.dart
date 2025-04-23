@@ -33,6 +33,7 @@ void main() async {
   final bossimagespath = '${dir.path}/Honkai Station/images/bosses';
   final valkimagespath = '${dir.path}/Honkai Station/images/valkyries';
   final elfimagespath = '${dir.path}/Honkai Station/images/elfs';
+  final equipmentimagespath = '${dir.path}/Honkai Station/images/equipments';
   //Đọc JSON từ file
   final valkyriesData = await loadValkyriesListFromJson();
   final bossesData = await loadBossesListFromJson();
@@ -49,6 +50,7 @@ void main() async {
         bossImagesPathProvider.overrideWith((ref) => bossimagespath),
         valkImagesPathPathProvider.overrideWith((ref) => valkimagespath),
         elfImagesPathProvider.overrideWith((ref) => elfimagespath),
+        equipmentImagesPathProvider.overrideWith((ref) => equipmentimagespath),
       ],
       child: MyApp(),
     ),
