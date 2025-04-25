@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_honkai/models/valkyrie_model.dart';
 import 'package:flutter_honkai/pages/valkyrie_details_page.dart';
+import 'package:flutter_honkai/providers/favorite_provider.dart';
 import 'package:flutter_honkai/widgets/valk_astralop_filter.dart';
 import 'package:flutter_honkai/widgets/valk_card.dart';
 import 'package:flutter_honkai/widgets/valk_type_filter.dart';
@@ -113,6 +114,7 @@ class _ValkyriesPageState extends ConsumerState<ValkyriesPage> {
 
   @override
   Widget build(BuildContext context) {
+    final favorites = ref.watch(favoriteProvider);
     return Scaffold(
       body: Stack(
         children: [
@@ -291,13 +293,14 @@ class _ValkyriesPageState extends ConsumerState<ValkyriesPage> {
                     Expanded(
                       child: GridView.builder(
                         itemCount: filteredValkyries.length,
-                        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                          maxCrossAxisExtent: 150,
-                          childAspectRatio: 0.9,
-                          crossAxisSpacing: 40,
-                          mainAxisSpacing: 40,
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 6,
+                          mainAxisExtent: 200,
                         ),
                         itemBuilder: (context, index) {
+                          final bool isFav = favorites.isValkFavorite(
+                            filteredValkyries[index].id,
+                          );
                           final String label = filteredValkyries[index].label;
                           final String imageName =
                               filteredValkyries[index].imageName;
@@ -318,6 +321,12 @@ class _ValkyriesPageState extends ConsumerState<ValkyriesPage> {
                                       ),
                                 ),
                               );
+                            },
+                            isFav: isFav,
+                            onSecondaryTap: () async {
+                              ref
+                                  .read(favoriteProvider)
+                                  .toggleValk(filteredValkyries[index].id);
                             },
                           );
                         },

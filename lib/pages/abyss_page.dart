@@ -3,6 +3,7 @@ import 'package:flutter_honkai/models/boss_model.dart';
 import 'package:flutter_honkai/models/weather_model.dart';
 import 'package:flutter_honkai/pages/abyss_boss_details_page.dart';
 import 'package:flutter_honkai/providers/boss_provider.dart';
+import 'package:flutter_honkai/providers/favorite_provider.dart';
 import 'package:flutter_honkai/providers/weather_provider.dart';
 import 'package:flutter_honkai/widgets/boss_card.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -50,6 +51,7 @@ class _AbyssPageState extends ConsumerState<AbyssPage> {
 
   @override
   Widget build(BuildContext context) {
+    final favorite = ref.watch(favoriteProvider);
     return Scaffold(
       body: Stack(
         children: [
@@ -109,6 +111,9 @@ class _AbyssPageState extends ConsumerState<AbyssPage> {
                                 mainAxisSpacing: 40,
                               ),
                           itemBuilder: (context, index) {
+                            final bool isFav = favorite.isBossFavorite(
+                              filteredBosses[index].id,
+                            );
                             final WeatherModel weather =
                                 weathers
                                     .where(
@@ -129,6 +134,7 @@ class _AbyssPageState extends ConsumerState<AbyssPage> {
                             return BossCard(
                               label: label,
                               imageName: imageName,
+                              isFav: isFav,
                               onTap: () {
                                 Navigator.of(context).push(
                                   MaterialPageRoute(
@@ -146,6 +152,11 @@ class _AbyssPageState extends ConsumerState<AbyssPage> {
                                     },
                                   ),
                                 );
+                              },
+                              onSecondaryTap: () {
+                                ref
+                                    .read(favoriteProvider)
+                                    .toggleBoss(filteredBosses[index].id);
                               },
                             );
                           },

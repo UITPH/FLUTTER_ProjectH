@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_honkai/pages/abyss_page.dart';
 import 'package:flutter_honkai/pages/arena_page.dart';
-import 'package:flutter_honkai/pages/comingsoon_page.dart';
+import 'package:flutter_honkai/pages/favorite_page.dart';
 import 'package:flutter_honkai/pages/elf_page.dart';
 import 'package:flutter_honkai/pages/advanced_page.dart';
 import 'package:flutter_honkai/pages/home_page.dart';
@@ -17,7 +17,7 @@ class MainScaffold extends StatefulWidget {
 
 class _MainScaffoldState extends State<MainScaffold> {
   int currentnavi = 0;
-  bool isDoubleTap = false;
+  bool isSecondaryLongPress = false;
 
   void onTap(int index) {
     setState(() {
@@ -45,7 +45,7 @@ class _MainScaffoldState extends State<MainScaffold> {
                   onTap: () => onTap(0),
                   onSecondaryLongPress:
                       () => setState(() {
-                        isDoubleTap = !isDoubleTap;
+                        isSecondaryLongPress = !isSecondaryLongPress;
                       }),
                 ),
               ),
@@ -79,7 +79,7 @@ class _MainScaffoldState extends State<MainScaffold> {
               ),
               Expanded(
                 child: TopNaviChild(
-                  text: isDoubleTap ? 'Advanced' : 'Coming Soon',
+                  text: isSecondaryLongPress ? 'Advanced' : 'Favorites',
                   isSelected: currentnavi == 5,
                   onTap: () => onTap(5),
                 ),
@@ -96,7 +96,7 @@ class _MainScaffoldState extends State<MainScaffold> {
           ElfAstralopPage(),
           AbyssPage(),
           AbyssPage(),
-          isDoubleTap ? AdvancedPage() : ComingsoonPage(),
+          isSecondaryLongPress ? AdvancedPage() : FavoritePage(),
         ],
       ),
     );

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_honkai/pages/main_scaffold.dart';
 import 'package:flutter_honkai/providers/boss_provider.dart';
 import 'package:flutter_honkai/providers/elf_astralop_provider.dart';
+import 'package:flutter_honkai/providers/favorite_provider.dart';
 import 'package:flutter_honkai/providers/path_provider.dart';
 import 'package:flutter_honkai/providers/weather_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -42,11 +43,12 @@ void main() async {
   runApp(
     ProviderScope(
       overrides: [
+        //data
         valkyrieProvider.overrideWith((ref) => valkyriesData),
         bossProvider.overrideWith((ref) => bossesData),
         elfProvider.overrideWith((ref) => elfsData),
         weatherProvider.overrideWith((ref) => weathersData),
-        //data
+        //imagepath
         bossImagesPathProvider.overrideWith((ref) => bossimagespath),
         valkImagesPathPathProvider.overrideWith((ref) => valkimagespath),
         elfImagesPathProvider.overrideWith((ref) => elfimagespath),

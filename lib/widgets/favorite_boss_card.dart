@@ -3,20 +3,16 @@ import 'dart:io';
 import 'package:flutter_honkai/providers/path_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class BossCard extends ConsumerWidget {
+class FavoriteBossCard extends ConsumerWidget {
   final String label;
   final String imageName;
-  final bool isFav;
   final VoidCallback onTap;
-  final VoidCallback onSecondaryTap;
 
-  const BossCard({
+  const FavoriteBossCard({
     super.key,
     required this.label,
     required this.imageName,
-    required this.isFav,
     required this.onTap,
-    required this.onSecondaryTap,
   });
 
   @override
@@ -25,22 +21,7 @@ class BossCard extends ConsumerWidget {
 
     return GestureDetector(
       onTap: onTap,
-      onSecondaryTap: onSecondaryTap,
       child: GridTile(
-        header: SizedBox(
-          height: 21,
-          child: Stack(
-            children: [
-              Positioned(
-                right: 0,
-                child: Icon(
-                  color: isFav ? Colors.pinkAccent : Colors.white,
-                  isFav ? Icons.favorite : Icons.favorite_border,
-                ),
-              ),
-            ],
-          ),
-        ),
         child: Column(
           children: [
             Card(
