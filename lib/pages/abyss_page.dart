@@ -109,9 +109,6 @@ class _AbyssPageState extends ConsumerState<AbyssPage> {
                                 mainAxisSpacing: 40,
                               ),
                           itemBuilder: (context, index) {
-                            final String label = filteredBosses[index].label;
-                            final String imageName =
-                                filteredBosses[index].imageName;
                             final WeatherModel weather =
                                 weathers
                                     .where(
@@ -120,6 +117,9 @@ class _AbyssPageState extends ConsumerState<AbyssPage> {
                                           filteredBosses[index].weather,
                                     )
                                     .toList()[0];
+                            final String label = filteredBosses[index].label;
+                            final String imageName =
+                                filteredBosses[index].imageName;
                             final String mechanics =
                                 filteredBosses[index].mechanics;
                             final String resistance =

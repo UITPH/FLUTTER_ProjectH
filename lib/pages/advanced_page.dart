@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_honkai/pages/add_valkyrie_page.dart';
-import 'package:flutter_honkai/pages/bosses_database_page.dart';
-import 'package:flutter_honkai/pages/remove_valkyrie_page.dart';
+import 'package:flutter_honkai/pages/advanced_pages/insert_abyss_boss_page.dart';
+import 'package:flutter_honkai/pages/advanced_pages/insert_valkyrie_page.dart';
+import 'package:flutter_honkai/pages/advanced_pages/delete_abyss_boss_page.dart';
+import 'package:flutter_honkai/pages/advanced_pages/delete_valkyrie_page.dart';
 
 class AdvancedPage extends StatefulWidget {
   const AdvancedPage({super.key});
@@ -20,14 +21,17 @@ class _AdvancedPageState extends State<AdvancedPage> {
           case '/':
             builder = (context) => AdvancedPageHome();
             break;
-          case '/valkadd':
-            builder = (context) => AddValkyriePage();
+          case '/valkins':
+            builder = (context) => InsertValkyriePage();
             break;
-          case '/valkrm':
-            builder = (context) => RemoveValkyriePage();
+          case '/valkdel':
+            builder = (context) => DeleteValkyriePage();
             break;
-          case '/bossdb':
-            builder = (context) => BossesDatabasePage();
+          case '/abyssbossins':
+            builder = (context) => InsertAbyssBossPage();
+            break;
+          case '/abyssbossdel':
+            builder = (context) => DeleteAbyssBossPage();
             break;
           default:
             throw Exception('Invalid route: ${settings.name}');
@@ -57,10 +61,10 @@ class AdvancedPageHome extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(vertical: 15),
                   child: Text(
                     style: TextStyle(color: Colors.white, fontSize: 20),
-                    'Add Valkyrie',
+                    'Insert Valkyrie',
                   ),
                 ),
-                onPressed: () => Navigator.pushNamed(context, '/valkadd'),
+                onPressed: () => Navigator.pushNamed(context, '/valkins'),
               ),
               ElevatedButton(
                 child: Padding(
@@ -70,29 +74,35 @@ class AdvancedPageHome extends StatelessWidget {
                     'Delete Valkyrie',
                   ),
                 ),
-                onPressed: () => Navigator.pushNamed(context, '/valkrm'),
+                onPressed: () => Navigator.pushNamed(context, '/valkdel'),
               ),
             ],
           ),
-          ElevatedButton(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 15),
-              child: Text(
-                style: TextStyle(color: Colors.white, fontSize: 20),
-                'Bosses Database',
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            spacing: 20,
+            children: [
+              ElevatedButton(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 15),
+                  child: Text(
+                    style: TextStyle(color: Colors.white, fontSize: 20),
+                    'Insert Abyss Boss',
+                  ),
+                ),
+                onPressed: () => Navigator.pushNamed(context, '/abyssbossins'),
               ),
-            ),
-            onPressed: () => Navigator.pushNamed(context, '/bossdb'),
-          ),
-          ElevatedButton(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 15),
-              child: Text(
-                style: TextStyle(color: Colors.white, fontSize: 20),
-                'Elfs Database',
+              ElevatedButton(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 15),
+                  child: Text(
+                    style: TextStyle(color: Colors.white, fontSize: 20),
+                    'Delete Abyss Boss',
+                  ),
+                ),
+                onPressed: () => Navigator.pushNamed(context, '/abyssbossdel'),
               ),
-            ),
-            onPressed: () => Navigator.pushNamed(context, '/elfdb'),
+            ],
           ),
         ],
       ),

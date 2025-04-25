@@ -4,14 +4,14 @@ import 'package:flutter_honkai/providers/path_provider.dart';
 import 'package:flutter_honkai/providers/valkyrie_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class AddValkyriePage extends ConsumerStatefulWidget {
-  const AddValkyriePage({super.key});
+class InsertValkyriePage extends ConsumerStatefulWidget {
+  const InsertValkyriePage({super.key});
 
   @override
-  ConsumerState<AddValkyriePage> createState() => _AddValkyriePageState();
+  ConsumerState<InsertValkyriePage> createState() => _InsertValkyriePageState();
 }
 
-class _AddValkyriePageState extends ConsumerState<AddValkyriePage> {
+class _InsertValkyriePageState extends ConsumerState<InsertValkyriePage> {
   final _formKey = GlobalKey<FormState>();
   final labelcontroller = TextEditingController();
   final idcontroller = TextEditingController();
@@ -114,7 +114,7 @@ class _AddValkyriePageState extends ConsumerState<AddValkyriePage> {
             icon: Icon(Icons.info_outline_rounded),
           ),
         ],
-        title: Text('Add Valkyrie Page'),
+        title: Text('Insert Valkyrie Page'),
       ),
       body: Form(
         key: _formKey,

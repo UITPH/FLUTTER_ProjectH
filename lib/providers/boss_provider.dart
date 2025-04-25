@@ -15,4 +15,12 @@ Future<List<BossModel>> loadBossesListFromJson() async {
   return jsonList.map((e) => BossModel.fromJson(e)).toList();
 }
 
+Future<void> saveBossesListToJson(List<BossModel> bosses) async {
+  final dir = await getApplicationDocumentsDirectory();
+  final file = File('${dir.path}/Honkai Station/json/bosses.json');
+  List<Map<String, dynamic>> jsonList = bosses.map((e) => e.toJson()).toList();
+  final String data = JsonEncoder.withIndent('    ').convert(jsonList);
+  await file.writeAsString(data);
+}
+
 final bossProvider = StateProvider<List<BossModel>>((ref) => []);

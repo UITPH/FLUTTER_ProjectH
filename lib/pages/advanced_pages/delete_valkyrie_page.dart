@@ -6,14 +6,14 @@ import 'package:flutter_honkai/widgets/valk_type_filter.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_honkai/providers/valkyrie_provider.dart';
 
-class RemoveValkyriePage extends ConsumerStatefulWidget {
-  const RemoveValkyriePage({super.key});
+class DeleteValkyriePage extends ConsumerStatefulWidget {
+  const DeleteValkyriePage({super.key});
 
   @override
-  ConsumerState<RemoveValkyriePage> createState() => _RemoveValkyriePageState();
+  ConsumerState<DeleteValkyriePage> createState() => _DeleteValkyriePageState();
 }
 
-class _RemoveValkyriePageState extends ConsumerState<RemoveValkyriePage> {
+class _DeleteValkyriePageState extends ConsumerState<DeleteValkyriePage> {
   int astralopFilter = 0;
   int typeFilter = 0;
   int dameFilter = 0;

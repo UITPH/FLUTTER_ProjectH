@@ -35,7 +35,11 @@ class BossCard extends ConsumerWidget {
                 child: Image.file(File('$imagePath/$imageName')),
               ),
             ),
-            Text(label, style: TextStyle(fontSize: 16, color: Colors.white)),
+            Text(
+              label,
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 16, color: Colors.white),
+            ),
           ],
         ),
       ),
