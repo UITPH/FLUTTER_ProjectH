@@ -57,11 +57,11 @@ class FavoritePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final weathers = ref.read(weatherProvider);
+    final weathers = ref.read(weatherProvider).weathers;
     final valkFavorites = ref.watch(favoriteProvider).valkFavorites;
     final bossFavorites = ref.watch(favoriteProvider).bossFavorites;
-    final valkyries = ref.read(valkyrieProvider);
-    final bosses = ref.read(bossProvider);
+    final valkyries = ref.read(valkyrieProvider).valkyries;
+    final bosses = ref.read(bossProvider).bosses;
     final List<ValkyrieModel> favoriteValkyries =
         valkyries.where((valk) => valkFavorites.contains(valk.id)).toList();
     final List<BossModel> favoriteBosses =

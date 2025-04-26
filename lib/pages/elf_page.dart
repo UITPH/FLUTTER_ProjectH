@@ -1,27 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_honkai/models/elf_model.dart';
-import 'package:flutter_honkai/providers/elf_astralop_provider.dart';
+import 'package:flutter_honkai/providers/elf_provider.dart';
 import 'package:flutter_honkai/widgets/elf_card.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class ElfAstralopPage extends ConsumerStatefulWidget {
-  const ElfAstralopPage({super.key});
+class ElfPage extends ConsumerWidget {
+  const ElfPage({super.key});
 
   @override
-  ConsumerState<ElfAstralopPage> createState() => _ElfAstralopPageState();
-}
-
-class _ElfAstralopPageState extends ConsumerState<ElfAstralopPage> {
-  List<ElfModel> elfs = [];
-
-  @override
-  void initState() {
-    super.initState();
-    elfs = ref.read(elfProvider);
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final elfs = ref.read(elfProvider).elfs;
     return Scaffold(
       body: Stack(
         children: [

@@ -38,7 +38,7 @@ class _InsertAbyssBossPageState extends ConsumerState<InsertAbyssBossPage> {
         weather != null &&
         mechanics != '' &&
         teamrec != '') {
-      List<BossModel> bosses = ref.read(bossProvider);
+      List<BossModel> bosses = ref.read(bossProvider).bosses;
       List<dynamic> listteamrec = [];
       try {
         listteamrec = jsonDecode(teamrec!);
@@ -79,7 +79,7 @@ class _InsertAbyssBossPageState extends ConsumerState<InsertAbyssBossPage> {
         teamrec: listteamrec,
       );
       bosses.add(newboss);
-      saveBossesListToJson(bosses);
+      ref.read(bossProvider).saveBossesListToJson(bosses);
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(duration: Duration(seconds: 1), content: Text('Saved!')),
       );
@@ -96,7 +96,7 @@ class _InsertAbyssBossPageState extends ConsumerState<InsertAbyssBossPage> {
   @override
   Widget build(BuildContext context) {
     String imagepath = ref.read(bossImagesPathProvider);
-    List<WeatherModel> weathers = ref.read(weatherProvider);
+    List<WeatherModel> weathers = ref.read(weatherProvider).weathers;
     List<DropdownMenuItem<String>> dropdownMenuItem =
         weathers
             .skip(1)

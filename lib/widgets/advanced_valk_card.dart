@@ -10,14 +10,12 @@ class AdvanceValkCard extends ConsumerWidget {
   final String label;
   final String imageName;
   final String id;
-  final VoidCallback onTap;
 
   const AdvanceValkCard({
     super.key,
     required this.label,
     required this.id,
     required this.imageName,
-    required this.onTap,
   });
 
   void showBasicAlertDialog(
@@ -43,14 +41,13 @@ class AdvanceValkCard extends ConsumerWidget {
               onPressed: () {
                 Navigator.of(context).pop();
                 valkyries.removeWhere((valk) => valk.id == id);
-                saveValkyriesListToJson(valkyries);
+                ref.read(valkyrieProvider).saveValkyriesListToJson(valkyries);
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                     duration: Duration(seconds: 1),
                     content: Text('Delete successfully'),
                   ),
                 );
-                onTap();
               },
               child: const Text('Delete', style: TextStyle(color: Colors.red)),
             ),
@@ -63,7 +60,7 @@ class AdvanceValkCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final String imagePath = ref.read(valkImagesPathPathProvider);
-    List<ValkyrieModel> valkyries = ref.read(valkyrieProvider);
+    final valkyries = ref.read(valkyrieProvider).valkyries;
 
     return GestureDetector(
       onTap: () {

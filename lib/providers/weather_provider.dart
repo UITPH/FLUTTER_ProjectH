@@ -1,8 +1,23 @@
 import 'dart:io';
 import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:flutter_honkai/models/weather_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:path_provider/path_provider.dart';
+
+class WeatherProvider extends ChangeNotifier {
+  final List<WeatherModel> _weathers = [];
+  List<WeatherModel> get weathers => _weathers;
+
+  WeatherProvider() {
+    _loadElfs();
+  }
+
+  Future<void> _loadElfs() async {
+    _weathers.addAll(await loadWeathersListFromJson());
+    notifyListeners();
+  }
+}
 
 Future<List<WeatherModel>> loadWeathersListFromJson() async {
   final dir = await getApplicationDocumentsDirectory();
@@ -15,4 +30,6 @@ Future<List<WeatherModel>> loadWeathersListFromJson() async {
   return jsonList.map((e) => WeatherModel.fromJson(e)).toList();
 }
 
-final weatherProvider = StateProvider<List<WeatherModel>>((ref) => []);
+final weatherProvider = ChangeNotifierProvider<WeatherProvider>(
+  (ref) => WeatherProvider(),
+);

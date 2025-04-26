@@ -37,7 +37,7 @@ class _InsertValkyriePageState extends ConsumerState<InsertValkyriePage> {
       if (dame1 != null) {
         dame.add(dame1);
       }
-      List<ValkyrieModel> valkyries = ref.read(valkyrieProvider);
+      List<ValkyrieModel> valkyries = ref.read(valkyrieProvider).valkyries;
       ValkyrieModel newvalk = ValkyrieModel(
         label: label!,
         id: id!,
@@ -47,7 +47,7 @@ class _InsertValkyriePageState extends ConsumerState<InsertValkyriePage> {
         type: type!,
       );
       valkyries.add(newvalk);
-      saveValkyriesListToJson(valkyries);
+      ref.read(valkyrieProvider).saveValkyriesListToJson(valkyries);
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(duration: Duration(seconds: 1), content: Text('Saved!')),
       );

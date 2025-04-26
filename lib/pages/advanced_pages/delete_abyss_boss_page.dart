@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_honkai/models/boss_model.dart';
-import 'package:flutter_honkai/models/weather_model.dart';
 import 'package:flutter_honkai/providers/boss_provider.dart';
 import 'package:flutter_honkai/providers/weather_provider.dart';
 import 'package:flutter_honkai/widgets/advanced_boss_card.dart';
@@ -16,30 +15,21 @@ class DeleteAbyssBossPage extends ConsumerStatefulWidget {
 
 class _DeleteAbyssBossPageState extends ConsumerState<DeleteAbyssBossPage> {
   // Consider this List is json file
-  List<WeatherModel> weathers = [];
-  List<BossModel> bosses = [];
-
-  late final List<DropdownMenuEntry<String>> dropdownMenuEntries;
   List<BossModel> filteredBosses = [];
+  String selectedWeather = '';
 
-  void applyFilters(String selectedWeather) {
-    filteredBosses =
+  @override
+  Widget build(BuildContext context) {
+    final bosses = ref.watch(bossProvider).bosses;
+    final weathers = ref.read(weatherProvider).weathers;
+    final filteredBosses =
         bosses
             .where(
               (boss) =>
                   selectedWeather == 'all' || boss.weather == selectedWeather,
             )
             .toList();
-  }
-
-  String? curselectedWeather;
-
-  @override
-  void initState() {
-    super.initState();
-    bosses = ref.read(bossProvider);
-    weathers = ref.read(weatherProvider);
-    dropdownMenuEntries =
+    final dropdownMenuEntries =
         weathers
             .map(
               (item) => DropdownMenuEntry<String>(
@@ -48,10 +38,6 @@ class _DeleteAbyssBossPageState extends ConsumerState<DeleteAbyssBossPage> {
               ),
             )
             .toList();
-  }
-
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         scrolledUnderElevation: 0,
@@ -85,11 +71,10 @@ class _DeleteAbyssBossPageState extends ConsumerState<DeleteAbyssBossPage> {
                   menuHeight: 250,
                   menuStyle: MenuStyle(),
                   dropdownMenuEntries: dropdownMenuEntries,
-                  onSelected: (selectedWeather) {
+                  onSelected: (value) {
                     setState(() {
-                      if (selectedWeather != null) {
-                        applyFilters(selectedWeather);
-                        curselectedWeather = selectedWeather;
+                      if (value != null) {
+                        selectedWeather = value;
                       }
                     });
                   },
@@ -114,11 +99,6 @@ class _DeleteAbyssBossPageState extends ConsumerState<DeleteAbyssBossPage> {
                           label: label,
                           id: id,
                           imageName: imageName,
-                          onTap: () {
-                            setState(() {
-                              applyFilters(curselectedWeather!);
-                            });
-                          },
                         );
                       },
                     ),

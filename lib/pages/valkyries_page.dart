@@ -20,7 +20,6 @@ class _ValkyriesPageState extends ConsumerState<ValkyriesPage> {
   int typeFilter = 0;
   int dameFilter = 0;
 
-  List<ValkyrieModel> valkyries = [];
   List<ValkyrieModel> filteredValkyries = [];
 
   //dummy data
@@ -67,28 +66,23 @@ class _ValkyriesPageState extends ConsumerState<ValkyriesPage> {
   @override
   void initState() {
     super.initState();
-    valkyries = ref.read(valkyrieProvider);
-    applyFilters();
   }
 
   void onDameFilterTap(int index) {
     setState(() {
       dameFilter = index;
-      applyFilters();
     });
   }
 
   void onTypeFilterTap(int index) {
     setState(() {
       typeFilter = index;
-      applyFilters();
     });
   }
 
   void onAstralopFilterTap(int index) {
     setState(() {
       astralopFilter = index;
-      applyFilters();
     });
   }
 
@@ -101,7 +95,10 @@ class _ValkyriesPageState extends ConsumerState<ValkyriesPage> {
     return false;
   }
 
-  void applyFilters() {
+  @override
+  Widget build(BuildContext context) {
+    final favorites = ref.watch(favoriteProvider);
+    final valkyries = ref.watch(valkyrieProvider).valkyries;
     filteredValkyries =
         valkyries.where((valk) {
           bool matchesAstralop =
@@ -110,11 +107,7 @@ class _ValkyriesPageState extends ConsumerState<ValkyriesPage> {
           bool matchesDame = dameFilter == 0 || valkdame(valk.dame, dameFilter);
           return matchesAstralop && matchesType && matchesDame;
         }).toList();
-  }
 
-  @override
-  Widget build(BuildContext context) {
-    final favorites = ref.watch(favoriteProvider);
     return Scaffold(
       body: Stack(
         children: [

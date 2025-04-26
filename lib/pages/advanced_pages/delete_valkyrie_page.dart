@@ -18,35 +18,28 @@ class _DeleteValkyriePageState extends ConsumerState<DeleteValkyriePage> {
   int typeFilter = 0;
   int dameFilter = 0;
   int refreshkey = 0;
-
-  List<ValkyrieModel> valkyries = [];
   List<ValkyrieModel> filteredValkyries = [];
 
   @override
   void initState() {
     super.initState();
-    valkyries = ref.read(valkyrieProvider);
-    applyFilters();
   }
 
   void onDameFilterTap(int index) {
     setState(() {
       dameFilter = index;
-      applyFilters();
     });
   }
 
   void onTypeFilterTap(int index) {
     setState(() {
       typeFilter = index;
-      applyFilters();
     });
   }
 
   void onAstralopFilterTap(int index) {
     setState(() {
       astralopFilter = index;
-      applyFilters();
     });
   }
 
@@ -59,7 +52,9 @@ class _DeleteValkyriePageState extends ConsumerState<DeleteValkyriePage> {
     return false;
   }
 
-  void applyFilters() {
+  @override
+  Widget build(BuildContext context) {
+    final valkyries = ref.watch(valkyrieProvider).valkyries;
     filteredValkyries =
         valkyries.where((valk) {
           bool matchesAstralop =
@@ -68,10 +63,7 @@ class _DeleteValkyriePageState extends ConsumerState<DeleteValkyriePage> {
           bool matchesDame = dameFilter == 0 || valkdame(valk.dame, dameFilter);
           return matchesAstralop && matchesType && matchesDame;
         }).toList();
-  }
 
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         scrolledUnderElevation: 0,
@@ -261,7 +253,6 @@ class _DeleteValkyriePageState extends ConsumerState<DeleteValkyriePage> {
                         label: label,
                         id: id,
                         imageName: imageName,
-                        onTap: () => onAstralopFilterTap(astralopFilter),
                       );
                     },
                   ),

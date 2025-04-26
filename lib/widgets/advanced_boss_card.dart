@@ -10,14 +10,12 @@ class AdvancedBossCard extends ConsumerWidget {
   final String label;
   final String imageName;
   final String id;
-  final VoidCallback onTap;
 
   const AdvancedBossCard({
     super.key,
     required this.label,
     required this.id,
     required this.imageName,
-    required this.onTap,
   });
 
   void showBasicAlertDialog(
@@ -43,14 +41,13 @@ class AdvancedBossCard extends ConsumerWidget {
               onPressed: () {
                 Navigator.of(context).pop();
                 bosses.removeWhere((boss) => boss.id == id);
-                saveBossesListToJson(bosses);
+                ref.read(bossProvider).saveBossesListToJson(bosses);
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                     duration: Duration(seconds: 1),
                     content: Text('Delete successfully'),
                   ),
                 );
-                onTap();
               },
               child: const Text('Delete', style: TextStyle(color: Colors.red)),
             ),
@@ -63,7 +60,7 @@ class AdvancedBossCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final String imagePath = ref.read(bossImagesPathProvider);
-    List<BossModel> bosses = ref.read(bossProvider);
+    List<BossModel> bosses = ref.read(bossProvider).bosses;
 
     return GestureDetector(
       onTap: () {

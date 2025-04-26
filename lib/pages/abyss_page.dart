@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_honkai/models/boss_model.dart';
 import 'package:flutter_honkai/models/weather_model.dart';
 import 'package:flutter_honkai/pages/abyss_boss_details_page.dart';
 import 'package:flutter_honkai/providers/boss_provider.dart';
@@ -18,27 +17,22 @@ class AbyssPage extends ConsumerStatefulWidget {
 class _AbyssPageState extends ConsumerState<AbyssPage> {
   // Consider this List is json file
   List<WeatherModel> weathers = [];
-  List<BossModel> bosses = [];
 
-  late final List<DropdownMenuEntry<String>> dropdownMenuEntries;
-  List<BossModel> filteredBosses = [];
+  String selectedWeather = '';
 
-  void applyFilters(String selectedWeather) {
-    filteredBosses =
+  @override
+  Widget build(BuildContext context) {
+    final favorite = ref.watch(favoriteProvider);
+    final bosses = ref.watch(bossProvider).bosses;
+    final weathers = ref.read(weatherProvider).weathers;
+    final filteredBosses =
         bosses
             .where(
               (boss) =>
                   selectedWeather == 'all' || boss.weather == selectedWeather,
             )
             .toList();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    bosses = ref.read(bossProvider);
-    weathers = ref.read(weatherProvider);
-    dropdownMenuEntries =
+    final dropdownMenuEntries =
         weathers
             .map(
               (item) => DropdownMenuEntry<String>(
@@ -47,11 +41,6 @@ class _AbyssPageState extends ConsumerState<AbyssPage> {
               ),
             )
             .toList();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final favorite = ref.watch(favoriteProvider);
     return Scaffold(
       body: Stack(
         children: [
@@ -90,10 +79,10 @@ class _AbyssPageState extends ConsumerState<AbyssPage> {
                       menuHeight: 250,
                       menuStyle: MenuStyle(),
                       dropdownMenuEntries: dropdownMenuEntries,
-                      onSelected: (selectedWeather) {
+                      onSelected: (value) {
                         setState(() {
-                          if (selectedWeather != null) {
-                            applyFilters(selectedWeather);
+                          if (value != null) {
+                            selectedWeather = value;
                           }
                         });
                       },

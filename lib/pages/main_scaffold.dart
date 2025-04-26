@@ -93,7 +93,7 @@ class _MainScaffoldState extends State<MainScaffold> {
         children: [
           HomePage(),
           ValkyriesPage(),
-          ElfAstralopPage(),
+          ElfPage(),
           AbyssPage(),
           AbyssPage(),
           isSecondaryLongPress ? AdvancedPage() : FavoritePage(),
