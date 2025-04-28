@@ -168,12 +168,12 @@ class _AbyssBossDetailsPageState extends ConsumerState<AbyssBossDetailsPage> {
                     SizedBox(height: 50),
                     Text(
                       style: TextStyle(
-                        fontSize: 25,
+                        fontSize: 35,
                         fontWeight: FontWeight.bold,
                       ),
                       'RECOMMENDED TEAMS',
                     ),
-                    SizedBox(height: 50),
+                    SizedBox(height: 10),
                     Wrap(
                       alignment: WrapAlignment.center,
                       spacing: 20,
@@ -189,28 +189,6 @@ class _AbyssBossDetailsPageState extends ConsumerState<AbyssBossDetailsPage> {
                         ),
                       ),
                     ),
-                    // SizedBox(
-                    //   height: 350,
-                    //   width: 1200,
-                    //   child: GridView.builder(
-                    //     itemCount: widget.teamrec.length,
-                    //     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    //       crossAxisCount: 2,
-                    //       childAspectRatio: 3.2,
-                    //       crossAxisSpacing: 20,
-                    //       mainAxisSpacing: 20,
-                    //     ),
-                    //     itemBuilder: (context, index) {
-                    //       return TopteamsWidget(
-                    //         valk1: widget.teamrec[index][0],
-                    //         valk2: widget.teamrec[index][1],
-                    //         valk3: widget.teamrec[index][2],
-                    //         elf: widget.teamrec[index][3],
-                    //         note: widget.teamrec[index][4],
-                    //       );
-                    //     },
-                    //   ),
-                    // ),
                   ],
                 ),
               ),

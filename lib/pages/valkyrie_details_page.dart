@@ -10,17 +10,15 @@ import 'package:path_provider/path_provider.dart';
 
 class ValkyrieDetailsPage extends StatefulWidget {
   final String label;
-  final List<String> overview;
-  final List<Map<String, dynamic>> lineup;
-  final List<String> equip;
-  final String rankup;
+  final String id;
+  final List<dynamic> lineup;
+  final List<dynamic> equip;
   const ValkyrieDetailsPage({
     super.key,
     required this.label,
-    required this.overview,
+    required this.id,
     required this.lineup,
     required this.equip,
-    required this.rankup,
   });
 
   @override
@@ -40,12 +38,14 @@ class _ValkyrieDetailsPageState extends State<ValkyrieDetailsPage> {
   Future<Map<String, String>> loadData() async {
     final dir = await getApplicationDocumentsDirectory();
     final roleFile = File(
-      '${dir.path}/Honkai Station/text/${widget.overview[0]}',
+      '${dir.path}/Honkai Station/text/${widget.id}/role.txt',
     );
     final pullrecFile = File(
-      '${dir.path}/Honkai Station/text/${widget.overview[1]}',
+      '${dir.path}/Honkai Station/text/${widget.id}/pullrec.txt',
     );
-    final rankupFile = File('${dir.path}/Honkai Station/text/${widget.rankup}');
+    final rankupFile = File(
+      '${dir.path}/Honkai Station/text/${widget.id}/rankup.txt',
+    );
 
     final role = await roleFile.readAsString();
     final pullrec = await pullrecFile.readAsString();

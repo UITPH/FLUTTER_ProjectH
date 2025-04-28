@@ -7,9 +7,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class LineupWidget extends ConsumerWidget {
   final String note;
   final String leader;
-  final List<String> firstvalks;
+  final List<dynamic> firstvalks;
   final List<dynamic> secondvalks;
-  final List<String> elfs;
+  final List<dynamic> elfs;
   const LineupWidget({
     super.key,
     required this.note,
@@ -30,18 +30,19 @@ class LineupWidget extends ConsumerWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+            style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
             note,
           ),
           Container(
             alignment: Alignment.center,
-            padding: EdgeInsets.symmetric(vertical: 50),
+            padding: EdgeInsets.symmetric(vertical: 30),
             width: double.infinity,
             decoration: BoxDecoration(
               border: Border.all(width: 1, color: Colors.white),
               borderRadius: BorderRadius.circular(15),
             ),
             child: Wrap(
+              spacing: 5,
               runSpacing: 10,
               alignment: WrapAlignment.center,
               crossAxisAlignment: WrapCrossAlignment.center,
@@ -51,8 +52,8 @@ class LineupWidget extends ConsumerWidget {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(15),
                     child: Image.file(
-                      width: 120,
-                      height: 120,
+                      width: 100,
+                      height: 100,
                       File('$valkimagePath/$leader'),
                     ),
                   ),
@@ -67,8 +68,8 @@ class LineupWidget extends ConsumerWidget {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(15),
                           child: Image.file(
-                            width: 120,
-                            height: 120,
+                            width: 100,
+                            height: 100,
                             File('$valkimagePath/${firstvalks[index]}'),
                           ),
                         ),
@@ -89,8 +90,8 @@ class LineupWidget extends ConsumerWidget {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(15),
                           child: Image.file(
-                            width: 120,
-                            height: 120,
+                            width: 100,
+                            height: 100,
                             File('$valkimagePath/${secondvalks[index]}'),
                           ),
                         ),
@@ -108,8 +109,8 @@ class LineupWidget extends ConsumerWidget {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(15),
                           child: Image.file(
-                            width: 120,
-                            height: 120,
+                            width: 100,
+                            height: 100,
                             File('$elfimagePath/${elfs[index]}'),
                           ),
                         ),

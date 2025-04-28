@@ -23,7 +23,7 @@ class _InsertValkyriePageState extends ConsumerState<InsertValkyriePage> {
   int? astralop;
   int? dame0;
   int? dame1;
-  List<int?> dame = [];
+  List<int> dame = [];
   int? type;
 
   void _submit() {
@@ -35,7 +35,7 @@ class _InsertValkyriePageState extends ConsumerState<InsertValkyriePage> {
         type != null) {
       dame.add(dame0!);
       if (dame1 != null) {
-        dame.add(dame1);
+        dame.add(dame1!);
       }
       List<ValkyrieModel> valkyries = ref.read(valkyrieProvider).valkyries;
       ValkyrieModel newvalk = ValkyrieModel(
@@ -45,6 +45,9 @@ class _InsertValkyriePageState extends ConsumerState<InsertValkyriePage> {
         astralop: astralop!,
         dame: dame,
         type: type!,
+        //tam thoi
+        lineup: List.empty(),
+        equip: List.empty(),
       );
       valkyries.add(newvalk);
       ref.read(valkyrieProvider).saveValkyriesListToJson(valkyries);

@@ -42,7 +42,7 @@ class ValkyrieEquipmentPage extends ConsumerWidget {
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
                       style: TextStyle(
-                        fontSize: 30,
+                        fontSize: 35,
                         fontWeight: FontWeight.bold,
                       ),
                       'BEST SET',
@@ -60,7 +60,8 @@ class ValkyrieEquipmentPage extends ConsumerWidget {
                           width: 150,
                           height: 150,
                           fit: BoxFit.fill,
-                          File('$imagePath/$weapimageName'),
+                          //File('$imagePath/$weapimageName'),
+                          File('$imagePath/fwsweap.png'),
                         ),
                       ),
                       ClipRRect(
@@ -68,7 +69,8 @@ class ValkyrieEquipmentPage extends ConsumerWidget {
                           width: 150,
                           height: 150,
                           fit: BoxFit.fill,
-                          File('$imagePath/$topimageName'),
+                          //File('$imagePath/$topimageName'),
+                          File('$imagePath/fwstop.png'),
                         ),
                       ),
                       ClipRRect(
@@ -76,7 +78,8 @@ class ValkyrieEquipmentPage extends ConsumerWidget {
                           width: 150,
                           height: 150,
                           fit: BoxFit.fill,
-                          File('$imagePath/$midimageName'),
+                          //File('$imagePath/$midimageName'),
+                          File('$imagePath/fwsmid.png'),
                         ),
                       ),
                       ClipRRect(
@@ -87,7 +90,8 @@ class ValkyrieEquipmentPage extends ConsumerWidget {
                           width: 150,
                           height: 150,
                           fit: BoxFit.fill,
-                          File('$imagePath/$botimageName'),
+                          //File('$imagePath/$botimageName'),
+                          File('$imagePath/fwsbot.png'),
                         ),
                       ),
                     ],

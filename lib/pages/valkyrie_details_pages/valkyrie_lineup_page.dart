@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_honkai/widgets/lineup_widget.dart';
 
 class ValkyrieLineupPage extends StatelessWidget {
-  final List<Map<String, dynamic>> lineup;
+  final List<dynamic> lineup;
   const ValkyrieLineupPage({super.key, required this.lineup});
 
   @override

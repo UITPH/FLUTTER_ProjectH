@@ -30,12 +30,12 @@ class ValkyrieRankupPage extends StatelessWidget {
                   children: [
                     Text(
                       style: TextStyle(
-                        fontSize: 30,
+                        fontSize: 35,
                         fontWeight: FontWeight.bold,
                       ),
                       'NOTABLE RANK-UP',
                     ),
-                    Text(rankup),
+                    Text(style: TextStyle(fontSize: 25), rankup),
                   ],
                 ),
               ),

@@ -3,8 +3,10 @@ class ValkyrieModel {
   final String id;
   final String imageName;
   final int astralop;
-  final List dame;
+  final List<dynamic> dame;
   final int type;
+  final List<dynamic> lineup;
+  final List<dynamic> equip;
 
   ValkyrieModel({
     required this.label,
@@ -13,6 +15,8 @@ class ValkyrieModel {
     required this.astralop,
     required this.dame,
     required this.type,
+    required this.lineup,
+    required this.equip,
   });
 
   factory ValkyrieModel.fromJson(Map<String, dynamic> json) {
@@ -23,6 +27,8 @@ class ValkyrieModel {
       astralop: json['astralop'],
       dame: json['dame'],
       type: json['type'],
+      lineup: json['lineup'],
+      equip: json['equip'],
     );
   }
 
@@ -34,6 +40,8 @@ class ValkyrieModel {
       'astralop': astralop,
       'dame': dame,
       'type': type,
+      'lineup': lineup,
+      'equip': equip,
     };
   }
 }

@@ -81,7 +81,7 @@ class TopteamsWidget extends ConsumerWidget {
               padding: const EdgeInsets.symmetric(horizontal: 10.0),
               child: Text(
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 15, color: Colors.black),
+                style: TextStyle(fontSize: 20, color: Colors.black),
                 note,
               ),
             ),

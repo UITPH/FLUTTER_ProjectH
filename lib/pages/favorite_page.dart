@@ -14,46 +14,46 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class FavoritePage extends ConsumerWidget {
   //dummy data
-  final List<String> overview = ['role.txt', 'pullrec.txt'];
-  //FWS PS LP TFM RS JDS HoH teri kiana ds
-  final List<Map<String, dynamic>> lineup = [
-    {
-      "note": "Ba-dum! Fiery Wishing Star DPS",
-      "leader": "FWS.png",
-      "firstvalks": [
-        "PS.png",
-        "LP.png",
-        "TFM.png",
-        "RS.png",
-        "JDS.png",
-        "HoH.png",
-      ],
-      "secondvalks": [],
-      "elfs": ["teri.png", "kiana.png", "ds.png"],
-    },
-    {
-      "note": "Reign Solaris DPS",
-      "leader": "RS.png",
-      "firstvalks": ["FWS.png"],
-      "secondvalks": [
-        "PS.png",
-        "LP.png",
-        "TFM.png",
-        "RS.png",
-        "JDS.png",
-        "HoH.png",
-      ],
-      "elfs": ["teri.png", "sera.png", "bunny.png", "ds.png", "songque.png"],
-    },
-  ];
-  final List<String> equip = [
-    'fwsweap.png',
-    'fwstop.png',
-    'fwsmid.png',
-    'fwsbot.png',
-  ];
+  // final List<String> overview = ['role.txt', 'pullrec.txt'];
+  // //FWS PS LP TFM RS JDS HoH teri kiana ds
+  // final List<Map<String, dynamic>> lineup = [
+  //   {
+  //     "note": "Ba-dum! Fiery Wishing Star DPS",
+  //     "leader": "FWS.png",
+  //     "firstvalks": [
+  //       "PS.png",
+  //       "LP.png",
+  //       "TFM.png",
+  //       "RS.png",
+  //       "JDS.png",
+  //       "HoH.png",
+  //     ],
+  //     "secondvalks": [],
+  //     "elfs": ["teri.png", "kiana.png", "ds.png"],
+  //   },
+  //   {
+  //     "note": "Reign Solaris DPS",
+  //     "leader": "RS.png",
+  //     "firstvalks": ["FWS.png"],
+  //     "secondvalks": [
+  //       "PS.png",
+  //       "LP.png",
+  //       "TFM.png",
+  //       "RS.png",
+  //       "JDS.png",
+  //       "HoH.png",
+  //     ],
+  //     "elfs": ["teri.png", "sera.png", "bunny.png", "ds.png", "songque.png"],
+  //   },
+  // ];
+  // final List<String> equip = [
+  //   'fwsweap.png',
+  //   'fwstop.png',
+  //   'fwsmid.png',
+  //   'fwsbot.png',
+  // ];
   final String rankup = 'rankup.txt';
-  FavoritePage({super.key});
+  const FavoritePage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -103,8 +103,13 @@ class FavoritePage extends ConsumerWidget {
                               index,
                             ) {
                               final label = favoriteValkyries[index].label;
-                              final imageName =
+                              final String id = favoriteValkyries[index].id;
+                              final String imageName =
                                   favoriteValkyries[index].imageName;
+                              final List<dynamic> lineup =
+                                  favoriteValkyries[index].lineup;
+                              final List<dynamic> equip =
+                                  favoriteValkyries[index].equip;
                               return SizedBox(
                                 width: 150,
                                 child: FavoriteValkCard(
@@ -117,10 +122,9 @@ class FavoritePage extends ConsumerWidget {
                                             (context) => ValkyrieDetailsPage(
                                               label: label,
                                               //sau nay goi theo model
-                                              overview: overview,
+                                              id: id,
                                               lineup: lineup,
                                               equip: equip,
-                                              rankup: rankup,
                                             ),
                                       ),
                                     );

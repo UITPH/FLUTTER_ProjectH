@@ -32,25 +32,26 @@ class ValkyrieOverviewPage extends StatelessWidget {
               ),
               child: SingleChildScrollView(
                 child: Column(
+                  spacing: 20,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       style: TextStyle(
-                        fontSize: 30,
+                        fontSize: 35,
                         fontWeight: FontWeight.bold,
                       ),
                       'ROLES',
                     ),
-                    Text(role),
-                    SizedBox(height: 50),
+                    Text(style: TextStyle(fontSize: 25), role),
+                    Divider(color: Colors.white, thickness: 2),
                     Text(
                       style: TextStyle(
-                        fontSize: 30,
+                        fontSize: 35,
                         fontWeight: FontWeight.bold,
                       ),
                       'PULL RECOMMENDATION',
                     ),
-                    Text(pullrec),
+                    Text(style: TextStyle(fontSize: 25), pullrec),
                   ],
                 ),
               ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_honkai/pages/abyss_page.dart';
 import 'package:flutter_honkai/pages/arena_page.dart';
+import 'package:flutter_honkai/pages/crystal_cal_page.dart';
 import 'package:flutter_honkai/pages/favorite_page.dart';
 import 'package:flutter_honkai/pages/elf_page.dart';
 import 'package:flutter_honkai/pages/advanced_page.dart';
@@ -79,9 +80,17 @@ class _MainScaffoldState extends State<MainScaffold> {
               ),
               Expanded(
                 child: TopNaviChild(
-                  text: isSecondaryLongPress ? 'Advanced' : 'Favorites',
+                  text: 'Favorites',
                   isSelected: currentnavi == 5,
                   onTap: () => onTap(5),
+                ),
+              ),
+              Expanded(
+                child: TopNaviChild(
+                  text:
+                      isSecondaryLongPress ? 'Advanced' : 'Crystal Calculator',
+                  isSelected: currentnavi == 6,
+                  onTap: () => onTap(6),
                 ),
               ),
             ],
@@ -96,7 +105,8 @@ class _MainScaffoldState extends State<MainScaffold> {
           ElfPage(),
           AbyssPage(),
           AbyssPage(),
-          isSecondaryLongPress ? AdvancedPage() : FavoritePage(),
+          FavoritePage(),
+          isSecondaryLongPress ? AdvancedPage() : CrystalCalPage(),
         ],
       ),
     );

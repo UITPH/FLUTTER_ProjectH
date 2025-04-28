@@ -23,45 +23,45 @@ class _ValkyriesPageState extends ConsumerState<ValkyriesPage> {
   List<ValkyrieModel> filteredValkyries = [];
 
   //dummy data
-  final List<String> overview = ['role.txt', 'pullrec.txt'];
-  //FWS PS LP TFM RS JDS HoH teri kiana ds
-  final List<Map<String, dynamic>> lineup = [
-    {
-      "note": "Ba-dum! Fiery Wishing Star DPS",
-      "leader": "FWS.png",
-      "firstvalks": [
-        "PS.png",
-        "LP.png",
-        "TFM.png",
-        "RS.png",
-        "JDS.png",
-        "HoH.png",
-      ],
-      "secondvalks": [],
-      "elfs": ["teri.png", "kiana.png", "ds.png"],
-    },
-    {
-      "note": "Reign Solaris DPS",
-      "leader": "RS.png",
-      "firstvalks": ["FWS.png"],
-      "secondvalks": [
-        "PS.png",
-        "LP.png",
-        "TFM.png",
-        "RS.png",
-        "JDS.png",
-        "HoH.png",
-      ],
-      "elfs": ["teri.png", "sera.png", "bunny.png", "ds.png", "songque.png"],
-    },
-  ];
-  final List<String> equip = [
-    'fwsweap.png',
-    'fwstop.png',
-    'fwsmid.png',
-    'fwsbot.png',
-  ];
-  final String rankup = 'rankup.txt';
+  // final List<String> overview = ['role.txt', 'pullrec.txt'];
+  // //FWS PS LP TFM RS JDS HoH teri kiana ds
+  // final List<Map<String, dynamic>> lineup = [
+  //   {
+  //     "note": "Ba-dum! Fiery Wishing Star DPS",
+  //     "leader": "FWS.png",
+  //     "firstvalks": [
+  //       "PS.png",
+  //       "LP.png",
+  //       "TFM.png",
+  //       "RS.png",
+  //       "JDS.png",
+  //       "HoH.png",
+  //     ],
+  //     "secondvalks": [],
+  //     "elfs": ["teri.png", "kiana.png", "ds.png"],
+  //   },
+  //   {
+  //     "note": "Reign Solaris DPS",
+  //     "leader": "RS.png",
+  //     "firstvalks": ["FWS.png"],
+  //     "secondvalks": [
+  //       "PS.png",
+  //       "LP.png",
+  //       "TFM.png",
+  //       "RS.png",
+  //       "JDS.png",
+  //       "HoH.png",
+  //     ],
+  //     "elfs": ["teri.png", "sera.png", "bunny.png", "ds.png", "songque.png"],
+  //   },
+  // ];
+  // final List<String> equip = [
+  //   'fwsweap.png',
+  //   'fwstop.png',
+  //   'fwsmid.png',
+  //   'fwsbot.png',
+  // ];
+  // final String rankup = 'rankup.txt';
 
   @override
   void initState() {
@@ -295,8 +295,13 @@ class _ValkyriesPageState extends ConsumerState<ValkyriesPage> {
                             filteredValkyries[index].id,
                           );
                           final String label = filteredValkyries[index].label;
+                          final String id = filteredValkyries[index].id;
                           final String imageName =
                               filteredValkyries[index].imageName;
+                          final List<dynamic> lineup =
+                              filteredValkyries[index].lineup;
+                          final List<dynamic> equip =
+                              filteredValkyries[index].equip;
                           return ValkCard(
                             label: label,
                             imageName: imageName,
@@ -307,10 +312,9 @@ class _ValkyriesPageState extends ConsumerState<ValkyriesPage> {
                                       (context) => ValkyrieDetailsPage(
                                         label: label,
                                         //sau nay goi theo model
-                                        overview: overview,
+                                        id: id,
                                         lineup: lineup,
                                         equip: equip,
-                                        rankup: rankup,
                                       ),
                                 ),
                               );
