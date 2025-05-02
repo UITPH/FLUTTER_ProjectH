@@ -16,7 +16,11 @@ class DeleteAbyssBossPage extends ConsumerStatefulWidget {
 
 class _DeleteAbyssBossPageState extends ConsumerState<DeleteAbyssBossPage> {
   List<AbyssBossModel> filteredBosses = [];
-  String selectedWeather = '';
+  final TextEditingController dropdownMenuController = TextEditingController(
+    text: 'All',
+  );
+
+  String selectedWeather = 'all';
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +65,8 @@ class _DeleteAbyssBossPageState extends ConsumerState<DeleteAbyssBossPage> {
                 ),
                 SizedBox(height: 20),
                 DropdownMenu(
-                  hintText: 'Type or select a weather',
+                  controller: dropdownMenuController,
+                  initialSelection: 'all',
                   requestFocusOnTap: true,
                   enableFilter: true,
                   width: 250,

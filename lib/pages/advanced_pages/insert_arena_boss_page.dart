@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_honkai/models/arenaboss_model.dart';
 import 'package:flutter_honkai/models/elf_model.dart';
 import 'package:flutter_honkai/models/valkyrie_model.dart';
+import 'package:flutter_honkai/pages/advanced_page.dart';
 import 'package:flutter_honkai/pages/advanced_pages/preview_boss/arena_preview_page.dart';
 import 'package:flutter_honkai/providers/arenaboss_provider.dart';
 import 'package:flutter_honkai/providers/elf_provider.dart';
@@ -135,6 +136,13 @@ class _InsertArenaBossPageState extends ConsumerState<InsertArenaBossPage> {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(duration: Duration(seconds: 1), content: Text("Saved")),
+        );
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) {
+              return AdvancedPage();
+            },
+          ),
         );
       }
     }

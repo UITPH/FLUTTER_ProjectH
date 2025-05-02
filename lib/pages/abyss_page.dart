@@ -15,10 +15,12 @@ class AbyssPage extends ConsumerStatefulWidget {
 }
 
 class _AbyssPageState extends ConsumerState<AbyssPage> {
-  // Consider this List is json file
+  final TextEditingController dropdownMenuController = TextEditingController(
+    text: 'All',
+  );
   List<WeatherModel> weathers = [];
 
-  String selectedWeather = '';
+  String selectedWeather = 'all';
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +72,8 @@ class _AbyssPageState extends ConsumerState<AbyssPage> {
                     ),
                     SizedBox(height: 20),
                     DropdownMenu(
-                      hintText: 'Type or select a weather',
+                      controller: dropdownMenuController,
+                      initialSelection: 'all',
                       requestFocusOnTap: true,
                       enableFilter: true,
                       width: 250,

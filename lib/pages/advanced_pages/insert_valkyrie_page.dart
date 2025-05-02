@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_honkai/models/valkyrie_model.dart';
+import 'package:flutter_honkai/pages/advanced_page.dart';
 import 'package:flutter_honkai/pages/advanced_pages/preview_valk/valkyrie_preview_page.dart';
 import 'package:flutter_honkai/providers/elf_provider.dart';
 import 'package:flutter_honkai/providers/path_provider.dart';
@@ -205,6 +206,13 @@ class _InsertValkyriePageState extends ConsumerState<InsertValkyriePage> {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(duration: Duration(seconds: 1), content: Text("Saved")),
+        );
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) {
+              return AdvancedPage();
+            },
+          ),
         );
       }
     }

@@ -6,6 +6,7 @@ import 'package:flutter_honkai/models/abyssboss_model.dart';
 import 'package:flutter_honkai/models/elf_model.dart';
 import 'package:flutter_honkai/models/valkyrie_model.dart';
 import 'package:flutter_honkai/models/weather_model.dart';
+import 'package:flutter_honkai/pages/advanced_page.dart';
 import 'package:flutter_honkai/pages/advanced_pages/preview_boss/abyss_preview_page.dart';
 import 'package:flutter_honkai/providers/abyssboss_provider.dart';
 import 'package:flutter_honkai/providers/elf_provider.dart';
@@ -147,6 +148,13 @@ class _InsertAbyssBossPageState extends ConsumerState<InsertAbyssBossPage> {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(duration: Duration(seconds: 1), content: Text("Saved")),
+        );
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) {
+              return AdvancedPage();
+            },
+          ),
         );
       }
     }

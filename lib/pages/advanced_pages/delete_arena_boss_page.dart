@@ -12,19 +12,23 @@ class DeleteArenaBossPage extends ConsumerStatefulWidget {
 }
 
 class _DeleteArenaBossPageState extends ConsumerState<DeleteArenaBossPage> {
+  final TextEditingController dropdownMenuController = TextEditingController(
+    text: 'All',
+  );
   List<Map<String, dynamic>> rank = [
+    {'label': 'All', 'value': 1},
     {'label': 'SS', 'value': 2},
     {'label': 'SSS', 'value': 3},
   ];
 
-  int selectedRank = -1;
+  int selectedRank = 1;
 
   @override
   Widget build(BuildContext context) {
     final bosses = ref.watch(arenabossProvider).bosses;
     final filteredBosses =
         bosses
-            .where((boss) => selectedRank == 0 || boss.rank == selectedRank)
+            .where((boss) => selectedRank == 1 || boss.rank == selectedRank)
             .toList();
     final dropdownMenuEntries =
         rank
@@ -60,6 +64,8 @@ class _DeleteArenaBossPageState extends ConsumerState<DeleteArenaBossPage> {
                 ),
                 SizedBox(height: 20),
                 DropdownMenu(
+                  controller: dropdownMenuController,
+                  initialSelection: 1,
                   requestFocusOnTap: false,
                   hintText: 'Select a rank',
                   width: 250,
