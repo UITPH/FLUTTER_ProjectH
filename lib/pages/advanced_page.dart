@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_honkai/pages/advanced_pages/delete_arena_boss_page.dart';
 import 'package:flutter_honkai/pages/advanced_pages/insert_abyss_boss_page.dart';
+import 'package:flutter_honkai/pages/advanced_pages/insert_arena_boss_page.dart';
 import 'package:flutter_honkai/pages/advanced_pages/insert_valkyrie_page.dart';
 import 'package:flutter_honkai/pages/advanced_pages/delete_abyss_boss_page.dart';
 import 'package:flutter_honkai/pages/advanced_pages/delete_valkyrie_page.dart';
+import 'package:flutter_honkai/pages/delete_page.dart';
+import 'package:flutter_honkai/providers/delete_provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class AdvancedPage extends StatefulWidget {
   const AdvancedPage({super.key});
@@ -33,6 +38,14 @@ class _AdvancedPageState extends State<AdvancedPage> {
           case '/abyssbossdel':
             builder = (context) => DeleteAbyssBossPage();
             break;
+          case '/arenabossins':
+            builder = (context) => InsertArenaBossPage();
+            break;
+          case '/arenabossdel':
+            builder = (context) => DeleteArenaBossPage();
+            break;
+          case '/restore':
+            builder = (context) => DeletePage();
           default:
             throw Exception('Invalid route: ${settings.name}');
         }
@@ -42,11 +55,12 @@ class _AdvancedPageState extends State<AdvancedPage> {
   }
 }
 
-class AdvancedPageHome extends StatelessWidget {
+class AdvancedPageHome extends ConsumerWidget {
   const AdvancedPageHome({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    ref.read(deleteProvider).init();
     return Center(
       child: Column(
         spacing: 50,
@@ -103,6 +117,42 @@ class AdvancedPageHome extends StatelessWidget {
                 onPressed: () => Navigator.pushNamed(context, '/abyssbossdel'),
               ),
             ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            spacing: 20,
+            children: [
+              ElevatedButton(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 15),
+                  child: Text(
+                    style: TextStyle(color: Colors.white, fontSize: 20),
+                    'Insert Arena Boss',
+                  ),
+                ),
+                onPressed: () => Navigator.pushNamed(context, '/arenabossins'),
+              ),
+              ElevatedButton(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 15),
+                  child: Text(
+                    style: TextStyle(color: Colors.white, fontSize: 20),
+                    'Delete Arena Boss',
+                  ),
+                ),
+                onPressed: () => Navigator.pushNamed(context, '/arenabossdel'),
+              ),
+            ],
+          ),
+          ElevatedButton(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 15),
+              child: Text(
+                style: TextStyle(color: Colors.white, fontSize: 20),
+                'Restore',
+              ),
+            ),
+            onPressed: () => Navigator.pushNamed(context, '/restore'),
           ),
         ],
       ),

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_honkai/pages/main_scaffold.dart';
 import 'package:flutter_honkai/providers/path_provider.dart';
+import 'package:flutter_honkai/services/path_helper.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:path_provider/path_provider.dart';
+import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:window_manager/window_manager.dart';
 
 void main() async {
@@ -25,15 +26,17 @@ void main() async {
 
   await windowManager.setAspectRatio(16 / 10);
 
-  final dir = await getApplicationDocumentsDirectory();
-  final bossimagespath = '${dir.path}/Honkai Station/images/bosses';
-  final valkimagespath = '${dir.path}/Honkai Station/images/valkyries';
-  final elfimagespath = '${dir.path}/Honkai Station/images/elfs';
-  final equipmentimagespath = '${dir.path}/Honkai Station/images/equipments';
+  final abyssbossimagespath = await getAbyssBossImagesPath();
+  final arenabossimagespath = await getArenaBossImagesPath();
+  final valkimagespath = await getValkImagesPath();
+  final elfimagespath = await getElfImagesPath();
+  final equipmentimagespath = await getEquipmentImagesPath();
+  databaseFactory = databaseFactoryFfi;
   runApp(
     ProviderScope(
       overrides: [
-        bossImagesPathProvider.overrideWith((ref) => bossimagespath),
+        abyssbossImagesPathProvider.overrideWith((ref) => abyssbossimagespath),
+        arenabossImagesPathProvider.overrideWith((ref) => arenabossimagespath),
         valkImagesPathPathProvider.overrideWith((ref) => valkimagespath),
         elfImagesPathProvider.overrideWith((ref) => elfimagespath),
         equipmentImagesPathProvider.overrideWith((ref) => equipmentimagespath),

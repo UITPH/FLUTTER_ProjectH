@@ -4,14 +4,17 @@ import 'package:flutter_honkai/providers/path_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class FavoriteValkCard extends ConsumerWidget {
-  final String label;
-  final String imageName;
+  final String id;
+  final String name;
   final VoidCallback onTap;
+  final VoidCallback onSecondaryTap;
+
   const FavoriteValkCard({
     super.key,
-    required this.label,
-    required this.imageName,
+    required this.id,
+    required this.name,
     required this.onTap,
+    required this.onSecondaryTap,
   });
 
   @override
@@ -20,6 +23,7 @@ class FavoriteValkCard extends ConsumerWidget {
 
     return GestureDetector(
       onTap: onTap,
+      onSecondaryTap: onSecondaryTap,
       child: GridTile(
         child: Column(
           children: [
@@ -34,14 +38,14 @@ class FavoriteValkCard extends ConsumerWidget {
                 child: Image.file(
                   width: 100,
                   height: 100,
-                  File('$imagePath/$imageName'),
+                  File('$imagePath/$id.png'),
                 ),
               ),
             ),
             Text(
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 16, color: Colors.white),
-              label,
+              name,
             ),
           ],
         ),

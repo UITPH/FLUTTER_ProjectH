@@ -1,9 +1,7 @@
-import 'dart:io';
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_honkai/models/elf_model.dart';
+import 'package:flutter_honkai/services/database_helper.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:path_provider/path_provider.dart';
 
 class ElfProvider extends ChangeNotifier {
   final List<ElfModel> _elfs = [];
@@ -14,20 +12,15 @@ class ElfProvider extends ChangeNotifier {
   }
 
   Future<void> _loadElfs() async {
-    _elfs.addAll(await loadElfsListFromJson());
+    _elfs.addAll(await loadElfsListFromDataBase());
     notifyListeners();
   }
 }
 
-Future<List<ElfModel>> loadElfsListFromJson() async {
-  final dir = await getApplicationDocumentsDirectory();
-  final file = File('${dir.path}/Honkai Station/json/elfs.json');
-  if (!await file.exists()) {
-    return [];
-  }
-  final data = await file.readAsString();
-  final List<dynamic> jsonList = json.decode(data);
-  return jsonList.map((e) => ElfModel.fromJson(e)).toList();
+Future<List<ElfModel>> loadElfsListFromDataBase() async {
+  final db = await DatabaseHelper.getDatabase();
+  final List<Map<String, dynamic>> data = await db.query('elfs');
+  return data.map((e) => ElfModel.fromMap(e)).toList();
 }
 
 final elfProvider = ChangeNotifierProvider<ElfProvider>((ref) => ElfProvider());

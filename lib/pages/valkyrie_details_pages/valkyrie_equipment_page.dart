@@ -4,6 +4,7 @@ import 'package:flutter_honkai/providers/path_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class ValkyrieEquipmentPage extends ConsumerWidget {
+  final String id;
   final String weapimageName;
   final String topimageName;
   final String midimageName;
@@ -11,6 +12,7 @@ class ValkyrieEquipmentPage extends ConsumerWidget {
 
   const ValkyrieEquipmentPage({
     super.key,
+    required this.id,
     required this.weapimageName,
     required this.topimageName,
     required this.midimageName,
@@ -60,8 +62,7 @@ class ValkyrieEquipmentPage extends ConsumerWidget {
                           width: 150,
                           height: 150,
                           fit: BoxFit.fill,
-                          //File('$imagePath/$weapimageName'),
-                          File('$imagePath/fwsweap.png'),
+                          File('$imagePath/$weapimageName.png'),
                         ),
                       ),
                       ClipRRect(
@@ -69,8 +70,7 @@ class ValkyrieEquipmentPage extends ConsumerWidget {
                           width: 150,
                           height: 150,
                           fit: BoxFit.fill,
-                          //File('$imagePath/$topimageName'),
-                          File('$imagePath/fwstop.png'),
+                          File('$imagePath/$topimageName.png'),
                         ),
                       ),
                       ClipRRect(
@@ -78,8 +78,7 @@ class ValkyrieEquipmentPage extends ConsumerWidget {
                           width: 150,
                           height: 150,
                           fit: BoxFit.fill,
-                          //File('$imagePath/$midimageName'),
-                          File('$imagePath/fwsmid.png'),
+                          File('$imagePath/$midimageName.png'),
                         ),
                       ),
                       ClipRRect(
@@ -90,8 +89,7 @@ class ValkyrieEquipmentPage extends ConsumerWidget {
                           width: 150,
                           height: 150,
                           fit: BoxFit.fill,
-                          //File('$imagePath/$botimageName'),
-                          File('$imagePath/fwsbot.png'),
+                          File('$imagePath/$botimageName.png'),
                         ),
                       ),
                     ],

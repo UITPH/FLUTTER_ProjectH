@@ -6,10 +6,16 @@ import 'package:flutter_honkai/providers/path_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class ElfCard extends ConsumerWidget {
+  final String id;
   final String name;
-  final String imageName;
+  final String overview;
 
-  const ElfCard({super.key, required this.name, required this.imageName});
+  const ElfCard({
+    super.key,
+    required this.id,
+    required this.name,
+    required this.overview,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -20,7 +26,7 @@ class ElfCard extends ConsumerWidget {
         Navigator.of(context).push(
           MaterialPageRoute(
             builder: (context) {
-              return ElfOverviewPage();
+              return ElfOverviewPage(overview: overview);
             },
           ),
         );
@@ -36,7 +42,7 @@ class ElfCard extends ConsumerWidget {
               color: Colors.white,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(20),
-                child: Image.file(File('$imagePath/$imageName')),
+                child: Image.file(File('$imagePath/$id.png')),
               ),
             ),
             Text(name, style: TextStyle(fontSize: 16, color: Colors.white)),

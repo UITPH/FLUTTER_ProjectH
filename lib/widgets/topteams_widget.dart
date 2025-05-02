@@ -42,7 +42,7 @@ class TopteamsWidget extends ConsumerWidget {
                   width: 100,
                   height: 100,
                   fit: BoxFit.fill,
-                  File('$valkimagePath/$valk1'),
+                  File('$valkimagePath/$valk1.png'),
                 ),
               ),
               ClipRRect(
@@ -51,7 +51,7 @@ class TopteamsWidget extends ConsumerWidget {
                   width: 100,
                   height: 100,
                   fit: BoxFit.fill,
-                  File('$valkimagePath/$valk2'),
+                  File('$valkimagePath/$valk2.png'),
                 ),
               ),
               ClipRRect(
@@ -60,7 +60,7 @@ class TopteamsWidget extends ConsumerWidget {
                   width: 100,
                   height: 100,
                   fit: BoxFit.fill,
-                  File('$valkimagePath/$valk3'),
+                  File('$valkimagePath/$valk3.png'),
                 ),
               ),
               ClipRRect(
@@ -69,14 +69,14 @@ class TopteamsWidget extends ConsumerWidget {
                   width: 100,
                   height: 100,
                   fit: BoxFit.fill,
-                  File('$elfimagePath/$elf'),
+                  File('$elfimagePath/$elf.png'),
                 ),
               ),
             ],
           ),
-          Visibility(visible: note != "", child: SizedBox(height: 20)),
+          Visibility(visible: note != '', child: SizedBox(height: 10)),
           Visibility(
-            visible: note != "",
+            visible: note != '',
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10.0),
               child: Text(

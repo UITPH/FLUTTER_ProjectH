@@ -1,47 +1,72 @@
+import 'dart:convert';
+
 class ValkyrieModel {
-  final String label;
   final String id;
-  final String imageName;
+  final String name;
   final int astralop;
-  final List<dynamic> dame;
+  final List damage;
   final int type;
-  final List<dynamic> lineup;
-  final List<dynamic> equip;
+  final List equipment;
+  final List note;
+  final List leader;
+  final List firstvalkList;
+  final List secondvalkList;
+  final List elfList;
 
   ValkyrieModel({
-    required this.label,
     required this.id,
-    required this.imageName,
+    required this.name,
     required this.astralop,
-    required this.dame,
+    required this.damage,
     required this.type,
-    required this.lineup,
-    required this.equip,
+    required this.equipment,
+    required this.note,
+    required this.leader,
+    required this.firstvalkList,
+    required this.secondvalkList,
+    required this.elfList,
   });
 
-  factory ValkyrieModel.fromJson(Map<String, dynamic> json) {
+  factory ValkyrieModel.fromMap(Map<String, dynamic> map) {
     return ValkyrieModel(
-      label: json['label'],
-      id: json['id'],
-      imageName: json['imageName'],
-      astralop: json['astralop'],
-      dame: json['dame'],
-      type: json['type'],
-      lineup: json['lineup'],
-      equip: json['equip'],
+      id: map['id'],
+      name: map['name'],
+      astralop: map['astralop'],
+      damage: jsonDecode(map['damage']),
+      type: map['type'],
+      equipment: jsonDecode(map['equipment']),
+      note: jsonDecode(map['note']),
+      leader: jsonDecode(map['leader']),
+      firstvalkList: jsonDecode(map['first_valk_list']),
+      secondvalkList: jsonDecode(map['second_valk_list']),
+      elfList: jsonDecode(map['elf_list']),
     );
   }
 
-  Map<String, dynamic> toJson() {
+  Map<String, dynamic> toMainMap() {
     return {
-      'label': label,
       'id': id,
-      'imageName': imageName,
+      'name': name,
       'astralop': astralop,
-      'dame': dame,
+      'damage': jsonEncode(damage),
       'type': type,
-      'lineup': lineup,
-      'equip': equip,
+      'equipment': jsonEncode(equipment),
+      'is_deleted': 0,
     };
+  }
+
+  List<Map<String, dynamic>> toLineUpListMap() {
+    List<Map<String, dynamic>> res = [];
+    for (int i = 0; i < note.length; i++) {
+      res.add({
+        'id_valk': id,
+        'note': note[i],
+        'leader': leader[i],
+        'first_valk_list': jsonEncode(firstvalkList[i]),
+        'second_valk_list': jsonEncode(secondvalkList[i]),
+        'elf_list': jsonEncode(elfList[i]),
+      });
+    }
+    return res;
   }
 }

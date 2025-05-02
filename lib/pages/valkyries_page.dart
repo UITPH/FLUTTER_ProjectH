@@ -22,47 +22,6 @@ class _ValkyriesPageState extends ConsumerState<ValkyriesPage> {
 
   List<ValkyrieModel> filteredValkyries = [];
 
-  //dummy data
-  // final List<String> overview = ['role.txt', 'pullrec.txt'];
-  // //FWS PS LP TFM RS JDS HoH teri kiana ds
-  // final List<Map<String, dynamic>> lineup = [
-  //   {
-  //     "note": "Ba-dum! Fiery Wishing Star DPS",
-  //     "leader": "FWS.png",
-  //     "firstvalks": [
-  //       "PS.png",
-  //       "LP.png",
-  //       "TFM.png",
-  //       "RS.png",
-  //       "JDS.png",
-  //       "HoH.png",
-  //     ],
-  //     "secondvalks": [],
-  //     "elfs": ["teri.png", "kiana.png", "ds.png"],
-  //   },
-  //   {
-  //     "note": "Reign Solaris DPS",
-  //     "leader": "RS.png",
-  //     "firstvalks": ["FWS.png"],
-  //     "secondvalks": [
-  //       "PS.png",
-  //       "LP.png",
-  //       "TFM.png",
-  //       "RS.png",
-  //       "JDS.png",
-  //       "HoH.png",
-  //     ],
-  //     "elfs": ["teri.png", "sera.png", "bunny.png", "ds.png", "songque.png"],
-  //   },
-  // ];
-  // final List<String> equip = [
-  //   'fwsweap.png',
-  //   'fwstop.png',
-  //   'fwsmid.png',
-  //   'fwsbot.png',
-  // ];
-  // final String rankup = 'rankup.txt';
-
   @override
   void initState() {
     super.initState();
@@ -104,7 +63,8 @@ class _ValkyriesPageState extends ConsumerState<ValkyriesPage> {
           bool matchesAstralop =
               astralopFilter == 0 || valk.astralop == astralopFilter;
           bool matchesType = typeFilter == 0 || valk.type == typeFilter;
-          bool matchesDame = dameFilter == 0 || valkdame(valk.dame, dameFilter);
+          bool matchesDame =
+              dameFilter == 0 || valkdame(valk.damage, dameFilter);
           return matchesAstralop && matchesType && matchesDame;
         }).toList();
 
@@ -294,27 +254,33 @@ class _ValkyriesPageState extends ConsumerState<ValkyriesPage> {
                           final bool isFav = favorites.isValkFavorite(
                             filteredValkyries[index].id,
                           );
-                          final String label = filteredValkyries[index].label;
                           final String id = filteredValkyries[index].id;
-                          final String imageName =
-                              filteredValkyries[index].imageName;
-                          final List<dynamic> lineup =
-                              filteredValkyries[index].lineup;
-                          final List<dynamic> equip =
-                              filteredValkyries[index].equip;
+                          final String name = filteredValkyries[index].name;
+                          final List equipment =
+                              filteredValkyries[index].equipment;
+                          final List note = filteredValkyries[index].note;
+                          final List leader = filteredValkyries[index].leader;
+                          final List firstvalkList =
+                              filteredValkyries[index].firstvalkList;
+                          final List secondvalkList =
+                              filteredValkyries[index].secondvalkList;
+                          final List elfList = filteredValkyries[index].elfList;
                           return ValkCard(
-                            label: label,
-                            imageName: imageName,
+                            id: id,
+                            name: name,
                             onTap: () {
                               Navigator.of(context).push(
                                 MaterialPageRoute(
                                   builder:
                                       (context) => ValkyrieDetailsPage(
-                                        label: label,
-                                        //sau nay goi theo model
+                                        name: name,
                                         id: id,
-                                        lineup: lineup,
-                                        equip: equip,
+                                        equipment: equipment,
+                                        note: note,
+                                        leader: leader,
+                                        firstvalkList: firstvalkList,
+                                        secondvalkList: secondvalkList,
+                                        elfList: elfList,
                                       ),
                                 ),
                               );

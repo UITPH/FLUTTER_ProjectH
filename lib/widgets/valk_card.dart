@@ -4,15 +4,15 @@ import 'package:flutter_honkai/providers/path_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class ValkCard extends ConsumerWidget {
-  final String label;
-  final String imageName;
+  final String id;
+  final String name;
   final bool isFav;
   final VoidCallback onTap;
   final VoidCallback onSecondaryTap;
   const ValkCard({
     super.key,
-    required this.label,
-    required this.imageName,
+    required this.id,
+    required this.name,
     required this.onTap,
     required this.isFav,
     required this.onSecondaryTap,
@@ -53,14 +53,14 @@ class ValkCard extends ConsumerWidget {
                 child: Image.file(
                   width: 100,
                   height: 100,
-                  File('$imagePath/$imageName'),
+                  File('$imagePath/$id.png'),
                 ),
               ),
             ),
             Text(
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 16, color: Colors.white),
-              label,
+              name,
             ),
           ],
         ),

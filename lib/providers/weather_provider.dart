@@ -1,33 +1,26 @@
-import 'dart:io';
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_honkai/models/weather_model.dart';
+import 'package:flutter_honkai/services/database_helper.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:path_provider/path_provider.dart';
 
 class WeatherProvider extends ChangeNotifier {
   final List<WeatherModel> _weathers = [];
   List<WeatherModel> get weathers => _weathers;
 
   WeatherProvider() {
-    _loadElfs();
+    _loadWeathers();
   }
 
-  Future<void> _loadElfs() async {
-    _weathers.addAll(await loadWeathersListFromJson());
+  Future<void> _loadWeathers() async {
+    _weathers.addAll(await loadWeathersListFromDataBase());
     notifyListeners();
   }
 }
 
-Future<List<WeatherModel>> loadWeathersListFromJson() async {
-  final dir = await getApplicationDocumentsDirectory();
-  final file = File('${dir.path}/Honkai Station/json/weathers.json');
-  if (!await file.exists()) {
-    return [];
-  }
-  final data = await file.readAsString();
-  final List<dynamic> jsonList = json.decode(data);
-  return jsonList.map((e) => WeatherModel.fromJson(e)).toList();
+Future<List<WeatherModel>> loadWeathersListFromDataBase() async {
+  final db = await DatabaseHelper.getDatabase();
+  final List<Map<String, dynamic>> data = await db.query('weathers');
+  return data.map((e) => WeatherModel.fromMap(e)).toList();
 }
 
 final weatherProvider = ChangeNotifierProvider<WeatherProvider>(

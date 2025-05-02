@@ -1,23 +1,19 @@
 class WeatherModel {
-  final String label;
-  final String value;
-  final String weatherspecific;
+  final String id;
+  final String name;
+  final String specific;
 
-  WeatherModel({
-    required this.label,
-    required this.value,
-    required this.weatherspecific,
-  });
+  WeatherModel({required this.id, required this.name, required this.specific});
 
-  factory WeatherModel.fromJson(Map<String, dynamic> json) {
+  factory WeatherModel.fromMap(Map<String, dynamic> map) {
     return WeatherModel(
-      label: json['label'],
-      value: json['value'],
-      weatherspecific: json['weatherspecific'],
+      id: map['id'],
+      name: map['name'],
+      specific: map['specific'],
     );
   }
 
-  Map<String, dynamic> toJson() {
-    return {'label': label, 'value': value, 'weatherspecific': weatherspecific};
+  Map<String, dynamic> toMap() {
+    return {'id': id, 'name': name, 'specific': specific};
   }
 }

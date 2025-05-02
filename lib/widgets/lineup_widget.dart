@@ -42,7 +42,6 @@ class LineupWidget extends ConsumerWidget {
               borderRadius: BorderRadius.circular(15),
             ),
             child: Wrap(
-              spacing: 5,
               runSpacing: 10,
               alignment: WrapAlignment.center,
               crossAxisAlignment: WrapCrossAlignment.center,
@@ -54,7 +53,7 @@ class LineupWidget extends ConsumerWidget {
                     child: Image.file(
                       width: 100,
                       height: 100,
-                      File('$valkimagePath/$leader'),
+                      File('$valkimagePath/$leader.png'),
                     ),
                   ),
                 ),
@@ -70,7 +69,7 @@ class LineupWidget extends ConsumerWidget {
                           child: Image.file(
                             width: 100,
                             height: 100,
-                            File('$valkimagePath/${firstvalks[index]}'),
+                            File('$valkimagePath/${firstvalks[index]}.png'),
                           ),
                         ),
                       ),
@@ -92,7 +91,7 @@ class LineupWidget extends ConsumerWidget {
                           child: Image.file(
                             width: 100,
                             height: 100,
-                            File('$valkimagePath/${secondvalks[index]}'),
+                            File('$valkimagePath/${secondvalks[index]}.png'),
                           ),
                         ),
                       ),
@@ -111,7 +110,7 @@ class LineupWidget extends ConsumerWidget {
                           child: Image.file(
                             width: 100,
                             height: 100,
-                            File('$elfimagePath/${elfs[index]}'),
+                            File('$elfimagePath/${elfs[index]}.png'),
                           ),
                         ),
                       ),

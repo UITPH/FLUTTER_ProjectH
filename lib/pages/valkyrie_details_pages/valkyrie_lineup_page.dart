@@ -2,8 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_honkai/widgets/lineup_widget.dart';
 
 class ValkyrieLineupPage extends StatelessWidget {
-  final List<dynamic> lineup;
-  const ValkyrieLineupPage({super.key, required this.lineup});
+  final List note;
+  final List leader;
+  final List firstvalkList;
+  final List secondvalkList;
+  final List elfList;
+  const ValkyrieLineupPage({
+    super.key,
+    required this.note,
+    required this.leader,
+    required this.firstvalkList,
+    required this.secondvalkList,
+    required this.elfList,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -26,14 +37,14 @@ class ValkyrieLineupPage extends StatelessWidget {
                 vertical: 50,
               ),
               child: ListView.builder(
-                itemCount: lineup.length,
+                itemCount: note.length,
                 itemBuilder: (context, index) {
                   return LineupWidget(
-                    note: lineup[index]['note'],
-                    leader: lineup[index]['leader'],
-                    firstvalks: lineup[index]['firstvalks'],
-                    secondvalks: lineup[index]['secondvalks'],
-                    elfs: lineup[index]['elfs'],
+                    note: note[index],
+                    leader: leader[index],
+                    firstvalks: firstvalkList[index],
+                    secondvalks: secondvalkList[index],
+                    elfs: elfList[index],
                   );
                 },
               ),

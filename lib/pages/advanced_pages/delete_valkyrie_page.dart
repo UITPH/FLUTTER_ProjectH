@@ -17,7 +17,6 @@ class _DeleteValkyriePageState extends ConsumerState<DeleteValkyriePage> {
   int astralopFilter = 0;
   int typeFilter = 0;
   int dameFilter = 0;
-  int refreshkey = 0;
   List<ValkyrieModel> filteredValkyries = [];
 
   @override
@@ -60,7 +59,8 @@ class _DeleteValkyriePageState extends ConsumerState<DeleteValkyriePage> {
           bool matchesAstralop =
               astralopFilter == 0 || valk.astralop == astralopFilter;
           bool matchesType = typeFilter == 0 || valk.type == typeFilter;
-          bool matchesDame = dameFilter == 0 || valkdame(valk.dame, dameFilter);
+          bool matchesDame =
+              dameFilter == 0 || valkdame(valk.damage, dameFilter);
           return matchesAstralop && matchesType && matchesDame;
         }).toList();
 
@@ -245,15 +245,9 @@ class _DeleteValkyriePageState extends ConsumerState<DeleteValkyriePage> {
                       mainAxisSpacing: 40,
                     ),
                     itemBuilder: (context, index) {
-                      final String label = filteredValkyries[index].label;
-                      final String imageName =
-                          filteredValkyries[index].imageName;
+                      final String name = filteredValkyries[index].name;
                       final String id = filteredValkyries[index].id;
-                      return AdvanceValkCard(
-                        label: label,
-                        id: id,
-                        imageName: imageName,
-                      );
+                      return AdvanceValkCard(name: name, id: id);
                     },
                   ),
                 ),

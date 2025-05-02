@@ -104,7 +104,7 @@ class _MainScaffoldState extends State<MainScaffold> {
           ValkyriesPage(),
           ElfPage(),
           AbyssPage(),
-          AbyssPage(),
+          ArenaPage(),
           FavoritePage(),
           isSecondaryLongPress ? AdvancedPage() : CrystalCalPage(),
         ],

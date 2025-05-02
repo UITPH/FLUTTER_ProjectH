@@ -3,44 +3,28 @@ import 'dart:io';
 import 'package:flutter_honkai/providers/path_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class BossCard extends ConsumerWidget {
-  final String label;
-  final String imageName;
-  final bool isFav;
+class FavoriteAbyssbossCard extends ConsumerWidget {
+  final String id;
+  final String name;
   final VoidCallback onTap;
   final VoidCallback onSecondaryTap;
 
-  const BossCard({
+  const FavoriteAbyssbossCard({
     super.key,
-    required this.label,
-    required this.imageName,
-    required this.isFav,
+    required this.id,
+    required this.name,
     required this.onTap,
     required this.onSecondaryTap,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final String imagePath = ref.read(bossImagesPathProvider);
+    final String imagePath = ref.read(abyssbossImagesPathProvider);
 
     return GestureDetector(
       onTap: onTap,
       onSecondaryTap: onSecondaryTap,
       child: GridTile(
-        header: SizedBox(
-          height: 21,
-          child: Stack(
-            children: [
-              Positioned(
-                right: 0,
-                child: Icon(
-                  color: isFav ? Colors.pinkAccent : Colors.white,
-                  isFav ? Icons.favorite : Icons.favorite_border,
-                ),
-              ),
-            ],
-          ),
-        ),
         child: Column(
           children: [
             Card(
@@ -51,11 +35,11 @@ class BossCard extends ConsumerWidget {
               color: Colors.black,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(10),
-                child: Image.file(File('$imagePath/$imageName')),
+                child: Image.file(File('$imagePath/$id.png')),
               ),
             ),
             Text(
-              label,
+              name,
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 16, color: Colors.white),
             ),

@@ -1,43 +1,85 @@
-import 'dart:io';
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_honkai/models/valkyrie_model.dart';
+import 'package:flutter_honkai/services/database_helper.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:path_provider/path_provider.dart';
 
 class ValkyrieProvider extends ChangeNotifier {
   final List<ValkyrieModel> _valkyries = [];
   List<ValkyrieModel> get valkyries => _valkyries;
+  bool _isLoaded = false;
 
   ValkyrieProvider() {
     _loadValkyries();
   }
 
   Future<void> _loadValkyries() async {
-    _valkyries.addAll(await loadValkyriesListFromJson());
+    _valkyries.addAll(await loadValkyriesListFromDataBase());
+    _isLoaded = true;
     notifyListeners();
   }
 
-  Future<void> saveValkyriesListToJson(List<ValkyrieModel> valkyries) async {
-    final dir = await getApplicationDocumentsDirectory();
-    final file = File('${dir.path}/Honkai Station/json/valkyries.json');
-    List<Map<String, dynamic>> jsonList =
-        valkyries.map((e) => e.toJson()).toList();
-    final String data = JsonEncoder.withIndent('    ').convert(jsonList);
-    await file.writeAsString(data);
+  void addValkyrie(ValkyrieModel newValkyrie) {
+    if (_isLoaded == false) return;
+    _valkyries.add(newValkyrie);
+    notifyListeners();
+  }
+
+  void removeValkyrie(String id) {
+    if (_isLoaded == false) return;
+    _valkyries.removeWhere((valk) => valk.id == id);
+    notifyListeners();
+  }
+
+  void restoreValkyrie(String id) async {
+    final db = await DatabaseHelper.getDatabase();
+    final List<Map<String, dynamic>> data = await db.rawQuery(
+      '''
+    SELECT
+      valkyries.id,
+      valkyries.name,
+      valkyries.astralop,
+      valkyries.damage,
+      valkyries.type,
+      valkyries.equipment,
+      '[' || GROUP_CONCAT('"' || valk_lineup.note ||'"') || ']' AS note,
+      '[' || GROUP_CONCAT('"' || valk_lineup.leader ||'"') || ']' AS leader,
+      '[' || GROUP_CONCAT(valk_lineup.first_valk_list) || ']' AS first_valk_list,
+      '[' || GROUP_CONCAT(valk_lineup.second_valk_list) || ']' AS second_valk_list,
+      '[' || GROUP_CONCAT(valk_lineup.elf_list) || ']' AS elf_list
+    FROM valkyries
+    JOIN valk_lineup ON valkyries.id = valk_lineup.id_valk
+	  WHERE valkyries.id = ?
+    GROUP BY valkyries.id
+''',
+      [id],
+    );
+    _valkyries.add(ValkyrieModel.fromMap(data[0]));
     notifyListeners();
   }
 }
 
-Future<List<ValkyrieModel>> loadValkyriesListFromJson() async {
-  final dir = await getApplicationDocumentsDirectory();
-  final file = File('${dir.path}/Honkai Station/json/valkyries.json');
-  if (!await file.exists()) {
-    return [];
-  }
-  final data = await file.readAsString();
-  final List<dynamic> jsonList = json.decode(data);
-  return jsonList.map((e) => ValkyrieModel.fromJson(e)).toList();
+Future<List<ValkyrieModel>> loadValkyriesListFromDataBase() async {
+  final db = await DatabaseHelper.getDatabase();
+  final List<Map<String, dynamic>> data = await db.rawQuery('''
+    SELECT
+      valkyries.id,
+      valkyries.name,
+      valkyries.astralop,
+      valkyries.damage,
+      valkyries.type,
+      valkyries.equipment,
+      '[' || GROUP_CONCAT('"' || valk_lineup.note ||'"') || ']' AS note,
+      '[' || GROUP_CONCAT('"' || valk_lineup.leader ||'"') || ']' AS leader,
+      '[' || GROUP_CONCAT(valk_lineup.first_valk_list) || ']' AS first_valk_list,
+      '[' || GROUP_CONCAT(valk_lineup.second_valk_list) || ']' AS second_valk_list,
+      '[' || GROUP_CONCAT(valk_lineup.elf_list) || ']' AS elf_list
+    FROM valkyries
+    JOIN valk_lineup ON valkyries.id = valk_lineup.id_valk
+	  WHERE valkyries.is_deleted = 0
+    GROUP BY valkyries.id
+    ORDER BY valkyries.ROWID
+''');
+  return data.map((e) => ValkyrieModel.fromMap(e)).toList();
 }
 
 final valkyrieProvider = ChangeNotifierProvider<ValkyrieProvider>(

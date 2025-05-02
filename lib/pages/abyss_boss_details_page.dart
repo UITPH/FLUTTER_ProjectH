@@ -5,22 +5,31 @@ import 'package:flutter_honkai/widgets/topteams_widget.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class AbyssBossDetailsPage extends ConsumerStatefulWidget {
-  final String label;
-  final String imageName;
-  final String weatherLabel;
-  final String weatherspecific;
-  final String mechanics;
+  final String id;
+  final String name;
+  final String weatherName;
+  final String weatherSpecific;
+  final String mechanic;
   final String resistance;
-  final List<dynamic> teamrec;
+  final List firstValk;
+  final List secondValk;
+  final List thirdValk;
+  final List elf;
+  final List note;
+
   const AbyssBossDetailsPage({
     super.key,
-    required this.label,
-    required this.imageName,
-    required this.weatherLabel,
-    required this.weatherspecific,
-    required this.mechanics,
+    required this.id,
+    required this.name,
+    required this.weatherName,
+    required this.weatherSpecific,
+    required this.mechanic,
     required this.resistance,
-    required this.teamrec,
+    required this.firstValk,
+    required this.secondValk,
+    required this.thirdValk,
+    required this.elf,
+    required this.note,
   });
 
   @override
@@ -33,7 +42,7 @@ class _AbyssBossDetailsPageState extends ConsumerState<AbyssBossDetailsPage> {
 
   @override
   void initState() {
-    bossimagePath = ref.read(bossImagesPathProvider);
+    bossimagePath = ref.read(abyssbossImagesPathProvider);
     super.initState();
   }
 
@@ -46,7 +55,7 @@ class _AbyssBossDetailsPageState extends ConsumerState<AbyssBossDetailsPage> {
         backgroundColor: Colors.transparent,
         title: Text(
           style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-          '${widget.label} - ${widget.weatherLabel}',
+          '${widget.name} - ${widget.weatherName}',
         ),
       ),
       body: Stack(
@@ -72,10 +81,11 @@ class _AbyssBossDetailsPageState extends ConsumerState<AbyssBossDetailsPage> {
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
+                      spacing: 10,
                       children: [
                         Image.file(
                           height: 150,
-                          File('$bossimagePath/${widget.imageName}'),
+                          File('$bossimagePath/${widget.id}.png'),
                           fit: BoxFit.fill,
                         ),
                         Container(
@@ -108,7 +118,7 @@ class _AbyssBossDetailsPageState extends ConsumerState<AbyssBossDetailsPage> {
                                       ),
                                       child: Text(
                                         style: TextStyle(fontSize: 20),
-                                        widget.weatherspecific,
+                                        widget.weatherSpecific,
                                       ),
                                     ),
                                   ],
@@ -131,7 +141,7 @@ class _AbyssBossDetailsPageState extends ConsumerState<AbyssBossDetailsPage> {
                                       ),
                                       child: Text(
                                         style: TextStyle(fontSize: 20),
-                                        widget.mechanics,
+                                        widget.mechanic,
                                       ),
                                     ),
                                   ],
@@ -179,13 +189,13 @@ class _AbyssBossDetailsPageState extends ConsumerState<AbyssBossDetailsPage> {
                       spacing: 20,
                       runSpacing: 20,
                       children: List.generate(
-                        widget.teamrec.length,
+                        widget.firstValk.length,
                         (index) => TopteamsWidget(
-                          valk1: widget.teamrec[index][0],
-                          valk2: widget.teamrec[index][1],
-                          valk3: widget.teamrec[index][2],
-                          elf: widget.teamrec[index][3],
-                          note: widget.teamrec[index][4],
+                          valk1: widget.firstValk[index],
+                          valk2: widget.secondValk[index],
+                          valk3: widget.thirdValk[index],
+                          elf: widget.elf[index],
+                          note: widget.note[index],
                         ),
                       ),
                     ),

@@ -51,8 +51,9 @@ class ElfPage extends ConsumerWidget {
                         ),
                         itemBuilder: (context, index) {
                           return ElfCard(
+                            id: elfs[index].id,
                             name: elfs[index].name,
-                            imageName: elfs[index].imageName,
+                            overview: elfs[index].overview,
                           );
                         },
                       ),

@@ -1,14 +1,19 @@
 class ElfModel {
+  final String id;
   final String name;
-  final String imageName;
+  final String overview;
 
-  ElfModel({required this.name, required this.imageName});
+  ElfModel({required this.id, required this.name, required this.overview});
 
-  factory ElfModel.fromJson(Map<String, dynamic> json) {
-    return ElfModel(name: json['name'], imageName: json['imageName']);
+  factory ElfModel.fromMap(Map<String, dynamic> map) {
+    return ElfModel(
+      id: map['id'],
+      name: map['name'],
+      overview: map['overview'],
+    );
   }
 
-  Map<String, dynamic> toJson() {
-    return {'name': name, 'imageName': imageName};
+  Map<String, dynamic> tomap() {
+    return {'id': id, 'name': name, 'overview': overview};
   }
 }

@@ -9,16 +9,25 @@ import 'package:flutter_honkai/widgets/valk_navi_child.dart';
 import 'package:path_provider/path_provider.dart';
 
 class ValkyrieDetailsPage extends StatefulWidget {
-  final String label;
+  final String name;
   final String id;
-  final List<dynamic> lineup;
-  final List<dynamic> equip;
+  final List equipment;
+  final List note;
+  final List leader;
+  final List firstvalkList;
+  final List secondvalkList;
+  final List elfList;
+
   const ValkyrieDetailsPage({
     super.key,
-    required this.label,
+    required this.name,
     required this.id,
-    required this.lineup,
-    required this.equip,
+    required this.equipment,
+    required this.note,
+    required this.leader,
+    required this.firstvalkList,
+    required this.secondvalkList,
+    required this.elfList,
   });
 
   @override
@@ -47,11 +56,16 @@ class _ValkyrieDetailsPageState extends State<ValkyrieDetailsPage> {
       '${dir.path}/Honkai Station/text/${widget.id}/rankup.txt',
     );
 
-    final role = await roleFile.readAsString();
-    final pullrec = await pullrecFile.readAsString();
-    final rankup = await rankupFile.readAsString();
+    if (await roleFile.exists() &&
+        await pullrecFile.exists() &&
+        await rankupFile.exists()) {
+      final role = await roleFile.readAsString();
+      final pullrec = await pullrecFile.readAsString();
+      final rankup = await rankupFile.readAsString();
+      return {'role': role, 'pullrec': pullrec, 'rankup': rankup};
+    }
 
-    return {'role': role, 'pullrec': pullrec, 'rankup': rankup};
+    return {'role': 'role', 'pullrec': 'pullrec', 'rankup': 'rankup'};
   }
 
   @override
@@ -77,7 +91,7 @@ class _ValkyrieDetailsPageState extends State<ValkyrieDetailsPage> {
               backgroundColor: Colors.transparent,
               title: Text(
                 style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-                widget.label,
+                widget.name,
               ),
               bottom: PreferredSize(
                 preferredSize: const Size.fromHeight(70),
@@ -127,12 +141,19 @@ class _ValkyrieDetailsPageState extends State<ValkyrieDetailsPage> {
                   role: data['role']!,
                   pullrec: data['pullrec']!,
                 ),
-                ValkyrieLineupPage(lineup: widget.lineup),
+                ValkyrieLineupPage(
+                  note: widget.note,
+                  leader: widget.leader,
+                  firstvalkList: widget.firstvalkList,
+                  secondvalkList: widget.secondvalkList,
+                  elfList: widget.elfList,
+                ),
                 ValkyrieEquipmentPage(
-                  weapimageName: widget.equip[0],
-                  topimageName: widget.equip[1],
-                  midimageName: widget.equip[2],
-                  botimageName: widget.equip[3],
+                  id: widget.id,
+                  weapimageName: widget.equipment[0],
+                  topimageName: widget.equipment[1],
+                  midimageName: widget.equipment[2],
+                  botimageName: widget.equipment[3],
                 ),
                 ValkyrieRankupPage(rankup: data['rankup']!),
               ],
