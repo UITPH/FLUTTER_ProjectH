@@ -14,7 +14,7 @@ void main() async {
   WindowOptions windowOptions = const WindowOptions(
     size: Size(1440, 900),
     center: true,
-    minimumSize: Size(1440, 900),
+    minimumSize: Size(1360, 765),
     maximumSize: Size(2560, 1600),
     title: "Honkai Station",
   );
