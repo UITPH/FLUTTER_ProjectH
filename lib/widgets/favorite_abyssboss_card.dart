@@ -35,7 +35,11 @@ class FavoriteAbyssbossCard extends ConsumerWidget {
               color: Colors.black,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(10),
-                child: Image.file(File('$imagePath/$id.png')),
+                child: Image.file(
+                  height: 65,
+                  width: 190,
+                  File('$imagePath/$id.png'),
+                ),
               ),
             ),
             Text(

@@ -41,7 +41,7 @@ class _MainScaffoldState extends State<MainScaffold> {
             children: [
               Expanded(
                 child: TopNaviChild(
-                  text: 'Home',
+                  text: isSecondaryLongPress ? 'Advance' : 'Home',
                   isSelected: currentnavi == 0,
                   onTap: () => onTap(0),
                   onSecondaryLongPress:
@@ -87,8 +87,7 @@ class _MainScaffoldState extends State<MainScaffold> {
               ),
               Expanded(
                 child: TopNaviChild(
-                  text:
-                      isSecondaryLongPress ? 'Advanced' : 'Crystal Calculator',
+                  text: 'Crystal Calculator',
                   isSelected: currentnavi == 6,
                   onTap: () => onTap(6),
                 ),
@@ -100,13 +99,13 @@ class _MainScaffoldState extends State<MainScaffold> {
       body: IndexedStack(
         index: currentnavi,
         children: [
-          HomePage(),
+          isSecondaryLongPress ? AdvancedPage() : HomePage(),
           ValkyriesPage(),
           ElfPage(),
           AbyssPage(),
           ArenaPage(),
           FavoritePage(),
-          isSecondaryLongPress ? AdvancedPage() : CrystalCalPage(),
+          CrystalCalPage(),
         ],
       ),
     );

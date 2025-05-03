@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
 import 'dart:io';
-
-import 'package:flutter_honkai/pages/elf_overview_page.dart';
 import 'package:flutter_honkai/providers/path_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class ElfCard extends ConsumerWidget {
   final String id;
   final String name;
-  final String overview;
+  final bool isFav;
+  final VoidCallback onTap;
+  final VoidCallback onSecondaryTap;
 
   const ElfCard({
     super.key,
     required this.id,
     required this.name,
-    required this.overview,
+    required this.isFav,
+    required this.onTap,
+    required this.onSecondaryTap,
   });
 
   @override
@@ -22,16 +24,24 @@ class ElfCard extends ConsumerWidget {
     final String imagePath = ref.read(elfImagesPathProvider);
 
     return GestureDetector(
-      onTap: () {
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) {
-              return ElfOverviewPage(overview: overview);
-            },
-          ),
-        );
-      },
+      onTap: onTap,
+      onSecondaryTap: onSecondaryTap,
       child: GridTile(
+        header: SizedBox(
+          height: 30,
+          child: Stack(
+            children: [
+              Positioned(
+                right: 40,
+                child: Icon(
+                  size: 30,
+                  color: isFav ? Colors.pinkAccent : Colors.white,
+                  isFav ? Icons.favorite : Icons.favorite_border,
+                ),
+              ),
+            ],
+          ),
+        ),
         child: Column(
           children: [
             Card(

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_honkai/pages/elf_overview_page.dart';
 import 'package:flutter_honkai/providers/elf_provider.dart';
+import 'package:flutter_honkai/providers/favorite_provider.dart';
 import 'package:flutter_honkai/widgets/elf_card.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -9,6 +11,7 @@ class ElfPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final elfs = ref.read(elfProvider).elfs;
+    final favories = ref.watch(favoriteProvider);
     return Scaffold(
       body: Stack(
         children: [
@@ -43,17 +46,32 @@ class ElfPage extends ConsumerWidget {
                       flex: 3,
                       child: GridView.builder(
                         itemCount: elfs.length,
-                        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                          maxCrossAxisExtent: 150,
-                          childAspectRatio: 0.9,
-                          crossAxisSpacing: 40,
-                          mainAxisSpacing: 40,
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 4,
+                          mainAxisExtent: 200,
                         ),
                         itemBuilder: (context, index) {
+                          final id = elfs[index].id;
+                          final name = elfs[index].name;
+                          bool isFav = favories.isElfFavorite(id);
                           return ElfCard(
-                            id: elfs[index].id,
-                            name: elfs[index].name,
-                            overview: elfs[index].overview,
+                            id: id,
+                            name: name,
+                            onTap: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) {
+                                    return ElfOverviewPage(
+                                      overview: elfs[index].overview,
+                                    );
+                                  },
+                                ),
+                              );
+                            },
+                            isFav: isFav,
+                            onSecondaryTap: () async {
+                              ref.read(favoriteProvider).toggleElf(id);
+                            },
                           );
                         },
                       ),

@@ -287,9 +287,7 @@ class _ValkyriesPageState extends ConsumerState<ValkyriesPage> {
                             },
                             isFav: isFav,
                             onSecondaryTap: () async {
-                              ref
-                                  .read(favoriteProvider)
-                                  .toggleValk(filteredValkyries[index].id);
+                              ref.read(favoriteProvider).toggleValk(id);
                             },
                           );
                         },
