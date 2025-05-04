@@ -255,6 +255,9 @@ class _CrystalCalPageState extends State<CrystalCalPage> {
                                       if (value == '') {
                                         return "Please enter Version length";
                                       }
+                                      if (int.parse(value!) < 1) {
+                                        return 'Version length must be larger than 0';
+                                      }
                                       return null;
                                     },
                                     onSaved: (value) {
@@ -472,21 +475,18 @@ class _CrystalCalPageState extends State<CrystalCalPage> {
                                       ),
                                       border: OutlineInputBorder(),
                                     ),
-                                    autovalidateMode:
-                                        AutovalidateMode.onUserInteraction,
-                                    validator: (value) {
-                                      if (value == '') {
-                                        return 'Please enter you MP remaining days';
-                                      }
-                                      return null;
-                                    },
-                                    onSaved: (value) {
-                                      mpRemained = int.parse(value!);
+                                    onChanged: (value) {
+                                      setState(() {
+                                        mpRemained =
+                                            value == '' ? 0 : int.parse(value);
+                                      });
                                     },
                                   ),
                                 ),
                                 Expanded(
                                   child: TextFormField(
+                                    enabled:
+                                        mpRemained != null && mpRemained != 0,
                                     controller: inputmpclaimedController,
                                     inputFormatters: [
                                       FilteringTextInputFormatter.digitsOnly,
