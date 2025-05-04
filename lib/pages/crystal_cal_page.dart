@@ -130,6 +130,18 @@ class _CrystalCalPageState extends State<CrystalCalPage> {
     });
   }
 
+  int getDaysInCurrentMonth() {
+    DateTime now = DateTime.now();
+    int year = now.year;
+    int month = now.month;
+
+    DateTime firstDayThisMonth = DateTime(year, month, 1);
+    DateTime firstDayNextMonth =
+        (month < 12) ? DateTime(year, month + 1, 1) : DateTime(year + 1, 1, 1);
+
+    return firstDayNextMonth.difference(firstDayThisMonth).inDays;
+  }
+
   @override
   void initState() {
     datecontroller.text =
@@ -421,6 +433,12 @@ class _CrystalCalPageState extends State<CrystalCalPage> {
                                       if (value == '') {
                                         return 'Please enter your Sign-in days claimed';
                                       }
+                                      final dayscurmonth =
+                                          getDaysInCurrentMonth();
+                                      if (int.parse(value!) < 0 ||
+                                          int.parse(value) > dayscurmonth) {
+                                        return 'Please enter day in range 0 - $dayscurmonth';
+                                      }
                                       return null;
                                     },
                                     onSaved: (value) {
@@ -492,6 +510,10 @@ class _CrystalCalPageState extends State<CrystalCalPage> {
                                     validator: (value) {
                                       if (value == '') {
                                         return 'Please enter your MP days claimed';
+                                      }
+                                      if (int.parse(value!) < 0 ||
+                                          int.parse(value) > 15) {
+                                        return 'Please enter day in range 0 - 15';
                                       }
                                       return null;
                                     },
