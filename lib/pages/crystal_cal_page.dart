@@ -13,6 +13,7 @@ class CrystalCalPage extends StatefulWidget {
 
 class _CrystalCalPageState extends State<CrystalCalPage> {
   final _formKey = GlobalKey<FormState>();
+  final _formfieldKey = GlobalKey<FormFieldState>();
 
   DateTime _selectedDate = DateTime.now();
   int totalCrys = 0;
@@ -226,7 +227,6 @@ class _CrystalCalPageState extends State<CrystalCalPage> {
                                         ),
                                       ),
                                     ),
-                                    //onSaved: (value) {},
                                   ),
                                 ),
                                 Expanded(
@@ -475,18 +475,36 @@ class _CrystalCalPageState extends State<CrystalCalPage> {
                                       ),
                                       border: OutlineInputBorder(),
                                     ),
+                                    onSaved: (value) {
+                                      setState(() {
+                                        mpRemained =
+                                            value == '' ? 0 : int.parse(value!);
+                                        if (mpRemained == 0) {
+                                          inputmpclaimedController.clear();
+                                          _formfieldKey.currentState!
+                                              .validate();
+                                        }
+                                      });
+                                    },
                                     onChanged: (value) {
                                       setState(() {
                                         mpRemained =
                                             value == '' ? 0 : int.parse(value);
+                                        if (mpRemained == 0) {
+                                          inputmpclaimedController.clear();
+                                          _formfieldKey.currentState!
+                                              .validate();
+                                        }
                                       });
                                     },
                                   ),
                                 ),
                                 Expanded(
                                   child: TextFormField(
+                                    key: _formfieldKey,
                                     enabled:
-                                        mpRemained != null && mpRemained != 0,
+                                        inputmpremainedController.text != '' &&
+                                        inputmpremainedController.text != '0',
                                     controller: inputmpclaimedController,
                                     inputFormatters: [
                                       FilteringTextInputFormatter.digitsOnly,
@@ -505,9 +523,14 @@ class _CrystalCalPageState extends State<CrystalCalPage> {
                                       ),
                                       border: OutlineInputBorder(),
                                     ),
+
                                     autovalidateMode:
                                         AutovalidateMode.onUserInteraction,
                                     validator: (value) {
+                                      if (mpRemained == null ||
+                                          mpRemained == 0) {
+                                        return null;
+                                      }
                                       if (value == '') {
                                         return 'Please enter your MP days claimed';
                                       }
@@ -518,7 +541,8 @@ class _CrystalCalPageState extends State<CrystalCalPage> {
                                       return null;
                                     },
                                     onSaved: (value) {
-                                      mpClaimed = int.parse(value!);
+                                      mpClaimed =
+                                          value == '' ? 0 : int.parse(value!);
                                     },
                                   ),
                                 ),
