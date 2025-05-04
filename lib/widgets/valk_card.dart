@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:flutter_honkai/providers/path_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_honkai/widgets/clickable.dart';
 
 class ValkCard extends ConsumerWidget {
   final String id;
@@ -22,27 +23,27 @@ class ValkCard extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final String imagePath = ref.read(valkImagesPathPathProvider);
 
-    return GestureDetector(
-      onTap: onTap,
-      onSecondaryTap: onSecondaryTap,
-      child: GridTile(
-        header: SizedBox(
-          height: 21,
-          child: Stack(
-            children: [
-              Positioned(
-                right: 15,
-                child: Icon(
-                  color: isFav ? Colors.pinkAccent : Colors.white,
-                  isFav ? Icons.favorite : Icons.favorite_border,
-                ),
-              ),
-            ],
-          ),
-        ),
-        child: Column(
+    return GridTile(
+      header: SizedBox(
+        height: 25,
+        child: Stack(
           children: [
-            Card(
+            Positioned(
+              right: 15,
+              child: Icon(
+                color: isFav ? Colors.pinkAccent : Colors.white,
+                isFav ? Icons.favorite : Icons.favorite_border,
+              ),
+            ),
+          ],
+        ),
+      ),
+      child: Column(
+        children: [
+          Clickable(
+            onTap: onTap,
+            onSecondaryTap: onSecondaryTap,
+            child: Card(
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20),
               ),
@@ -57,13 +58,13 @@ class ValkCard extends ConsumerWidget {
                 ),
               ),
             ),
-            Text(
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 16, color: Colors.white),
-              name,
-            ),
-          ],
-        ),
+          ),
+          Text(
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 16, color: Colors.white),
+            name,
+          ),
+        ],
       ),
     );
   }

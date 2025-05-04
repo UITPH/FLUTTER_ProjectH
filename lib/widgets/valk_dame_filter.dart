@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_honkai/widgets/clickable.dart';
 
 class ValkDameFilter extends StatelessWidget {
   final String imageName;
@@ -14,7 +15,7 @@ class ValkDameFilter extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return Clickable(
       onTap: onTap,
       child: AnimatedContainer(
         duration: Duration(milliseconds: 200),

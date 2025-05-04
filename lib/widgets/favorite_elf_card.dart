@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:flutter_honkai/providers/path_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_honkai/widgets/clickable.dart';
 
 class FavoriteElfCard extends ConsumerWidget {
   final String id;
@@ -21,13 +22,13 @@ class FavoriteElfCard extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final String imagePath = ref.read(elfImagesPathProvider);
 
-    return GestureDetector(
-      onTap: onTap,
-      onSecondaryTap: onSecondaryTap,
-      child: GridTile(
-        child: Column(
-          children: [
-            Card(
+    return GridTile(
+      child: Column(
+        children: [
+          Clickable(
+            onTap: onTap,
+            onSecondaryTap: onSecondaryTap,
+            child: Card(
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20),
               ),
@@ -42,9 +43,9 @@ class FavoriteElfCard extends ConsumerWidget {
                 ),
               ),
             ),
-            Text(name, style: TextStyle(fontSize: 16, color: Colors.white)),
-          ],
-        ),
+          ),
+          Text(name, style: TextStyle(fontSize: 16, color: Colors.white)),
+        ],
       ),
     );
   }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_honkai/widgets/clickable.dart';
 
 class PreviewValkCard extends ConsumerWidget {
   final String name;
@@ -15,7 +16,7 @@ class PreviewValkCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return GestureDetector(
+    return Clickable(
       onTap: onTap,
       child: GridTile(
         child: Column(

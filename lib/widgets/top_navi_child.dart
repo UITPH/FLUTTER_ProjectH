@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_honkai/widgets/clickable.dart';
 
 class TopNaviChild extends StatelessWidget {
   final String text;
@@ -16,7 +17,7 @@ class TopNaviChild extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return Clickable(
       onSecondaryLongPress: onSecondaryLongPress,
       onTap: onTap,
       child: Padding(

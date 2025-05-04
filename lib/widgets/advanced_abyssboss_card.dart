@@ -1,9 +1,9 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_honkai/models/abyssboss_model.dart';
-import 'package:flutter_honkai/providers/abyssboss_provider.dart';
-import 'package:flutter_honkai/providers/delete_provider.dart';
 import 'dart:io';
 
+import 'package:flutter/material.dart';
+import 'package:flutter_honkai/providers/abyssboss_provider.dart';
+import 'package:flutter_honkai/providers/delete_provider.dart';
+import 'package:flutter_honkai/widgets/clickable.dart';
 import 'package:flutter_honkai/providers/path_provider.dart';
 import 'package:flutter_honkai/services/database_helper.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -14,11 +14,7 @@ class AdvanceAbyssbossCard extends ConsumerWidget {
 
   const AdvanceAbyssbossCard({super.key, required this.id, required this.name});
 
-  void showBasicAlertDialog(
-    BuildContext context,
-    List<AbyssBossModel> bosses,
-    WidgetRef ref,
-  ) {
+  void showBasicAlertDialog(BuildContext context, WidgetRef ref) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -75,16 +71,15 @@ class AdvanceAbyssbossCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final String imagePath = ref.read(abyssbossImagesPathProvider);
-    List<AbyssBossModel> bosses = ref.read(abyssBossProvider).bosses;
 
-    return GestureDetector(
-      onTap: () {
-        showBasicAlertDialog(context, bosses, ref);
-      },
-      child: GridTile(
-        child: Column(
-          children: [
-            Card(
+    return GridTile(
+      child: Column(
+        children: [
+          Clickable(
+            onTap: () {
+              showBasicAlertDialog(context, ref);
+            },
+            child: Card(
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
               ),
@@ -99,9 +94,9 @@ class AdvanceAbyssbossCard extends ConsumerWidget {
                 ),
               ),
             ),
-            Text(name, style: TextStyle(fontSize: 16, color: Colors.white)),
-          ],
-        ),
+          ),
+          Text(name, style: TextStyle(fontSize: 16, color: Colors.white)),
+        ],
       ),
     );
   }

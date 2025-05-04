@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_honkai/widgets/clickable.dart';
 
 class ValkNaviChild extends StatefulWidget {
   final String text;
@@ -51,7 +52,7 @@ class _ValkNaviChildState extends State<ValkNaviChild> {
           (event) => setState(() {
             isHover = false;
           }),
-      child: GestureDetector(
+      child: Clickable(
         onTap: widget.onTap,
         child: Padding(
           padding: EdgeInsets.all(8.0),
