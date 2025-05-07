@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="D:\Project\FLUTTER_ProjectH\flutter_honkai\build\windows\x64\CMakeFiles\fbd21024dd1032ef87b90dd52db539d5\INSTALL_force.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{78BA81CE-328F-3FA1-85CF-9C7213B8DD47}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

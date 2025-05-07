@@ -1,0 +1,28 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_honkai/models/abyssboss_model.dart';
+import 'package:flutter_honkai/services/database_helper.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+class AbyssBossProvider extends ChangeNotifier {
+  final List<AbyssBossModel> _bosses = [];
+  List<AbyssBossModel> get bosses => _bosses;
+
+  Future<void> loadBosses() async {
+    _bosses.addAll(await loadBossesListFromDataBase());
+    notifyListeners();
+  }
+}
+
+Future<List<AbyssBossModel>> loadBossesListFromDataBase() async {
+  final db = DatabaseHelper.supabase;
+  final data = await db
+      .from('abyssbosses')
+      .select(
+        'id, name, id_weather, mechanic, resistance, abyssboss_teamrec(first_valk, second_valk, third_valk, elf, note)',
+      );
+  return data.map((e) => AbyssBossModel.fromMap(e)).toList();
+}
+
+final abyssBossProvider = ChangeNotifierProvider<AbyssBossProvider>(
+  (ref) => AbyssBossProvider(),
+);
