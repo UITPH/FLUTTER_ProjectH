@@ -1,4 +1,4 @@
-# Install script for directory: D:/Project/FLUTTER_ProjectH/flutter_honkai/windows
+# Install script for directory: D:/Project/FLUTTER_ProjectH/flutter_honkai/user/windows
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -34,189 +34,189 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("D:/Project/FLUTTER_ProjectH/flutter_honkai/build/windows/x64/flutter/cmake_install.cmake")
+  include("D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/x64/flutter/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("D:/Project/FLUTTER_ProjectH/flutter_honkai/build/windows/x64/runner/cmake_install.cmake")
+  include("D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/x64/runner/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("D:/Project/FLUTTER_ProjectH/flutter_honkai/build/windows/x64/plugins/app_links/cmake_install.cmake")
+  include("D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/x64/plugins/app_links/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("D:/Project/FLUTTER_ProjectH/flutter_honkai/build/windows/x64/plugins/connectivity_plus/cmake_install.cmake")
+  include("D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/x64/plugins/connectivity_plus/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("D:/Project/FLUTTER_ProjectH/flutter_honkai/build/windows/x64/plugins/screen_retriever_windows/cmake_install.cmake")
+  include("D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/x64/plugins/screen_retriever_windows/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("D:/Project/FLUTTER_ProjectH/flutter_honkai/build/windows/x64/plugins/url_launcher_windows/cmake_install.cmake")
+  include("D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/x64/plugins/url_launcher_windows/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("D:/Project/FLUTTER_ProjectH/flutter_honkai/build/windows/x64/plugins/window_manager/cmake_install.cmake")
+  include("D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/x64/plugins/window_manager/cmake_install.cmake")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Runtime" OR NOT CMAKE_INSTALL_COMPONENT)
   if(CMAKE_INSTALL_CONFIG_NAME MATCHES "^([Dd][Ee][Bb][Uu][Gg])$")
     list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
-     "D:/Project/FLUTTER_ProjectH/flutter_honkai/build/windows/x64/runner/Debug/flutter_honkai.exe")
+     "D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/x64/runner/Debug/flutter_honkai.exe")
     if(CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
       message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
     endif()
     if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
       message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
     endif()
-    file(INSTALL DESTINATION "D:/Project/FLUTTER_ProjectH/flutter_honkai/build/windows/x64/runner/Debug" TYPE EXECUTABLE FILES "D:/Project/FLUTTER_ProjectH/flutter_honkai/build/windows/x64/runner/Debug/flutter_honkai.exe")
+    file(INSTALL DESTINATION "D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/x64/runner/Debug" TYPE EXECUTABLE FILES "D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/x64/runner/Debug/flutter_honkai.exe")
   elseif(CMAKE_INSTALL_CONFIG_NAME MATCHES "^([Pp][Rr][Oo][Ff][Ii][Ll][Ee])$")
     list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
-     "D:/Project/FLUTTER_ProjectH/flutter_honkai/build/windows/x64/runner/Profile/flutter_honkai.exe")
+     "D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/x64/runner/Profile/flutter_honkai.exe")
     if(CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
       message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
     endif()
     if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
       message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
     endif()
-    file(INSTALL DESTINATION "D:/Project/FLUTTER_ProjectH/flutter_honkai/build/windows/x64/runner/Profile" TYPE EXECUTABLE FILES "D:/Project/FLUTTER_ProjectH/flutter_honkai/build/windows/x64/runner/Profile/flutter_honkai.exe")
+    file(INSTALL DESTINATION "D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/x64/runner/Profile" TYPE EXECUTABLE FILES "D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/x64/runner/Profile/flutter_honkai.exe")
   elseif(CMAKE_INSTALL_CONFIG_NAME MATCHES "^([Rr][Ee][Ll][Ee][Aa][Ss][Ee])$")
     list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
-     "D:/Project/FLUTTER_ProjectH/flutter_honkai/build/windows/x64/runner/Release/flutter_honkai.exe")
+     "D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/x64/runner/Release/flutter_honkai.exe")
     if(CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
       message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
     endif()
     if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
       message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
     endif()
-    file(INSTALL DESTINATION "D:/Project/FLUTTER_ProjectH/flutter_honkai/build/windows/x64/runner/Release" TYPE EXECUTABLE FILES "D:/Project/FLUTTER_ProjectH/flutter_honkai/build/windows/x64/runner/Release/flutter_honkai.exe")
+    file(INSTALL DESTINATION "D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/x64/runner/Release" TYPE EXECUTABLE FILES "D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/x64/runner/Release/flutter_honkai.exe")
   endif()
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Runtime" OR NOT CMAKE_INSTALL_COMPONENT)
   if(CMAKE_INSTALL_CONFIG_NAME MATCHES "^([Dd][Ee][Bb][Uu][Gg])$")
     list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
-     "D:/Project/FLUTTER_ProjectH/flutter_honkai/build/windows/x64/runner/Debug/data/icudtl.dat")
+     "D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/x64/runner/Debug/data/icudtl.dat")
     if(CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
       message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
     endif()
     if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
       message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
     endif()
-    file(INSTALL DESTINATION "D:/Project/FLUTTER_ProjectH/flutter_honkai/build/windows/x64/runner/Debug/data" TYPE FILE FILES "D:/Project/FLUTTER_ProjectH/flutter_honkai/windows/flutter/ephemeral/icudtl.dat")
+    file(INSTALL DESTINATION "D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/x64/runner/Debug/data" TYPE FILE FILES "D:/Project/FLUTTER_ProjectH/flutter_honkai/user/windows/flutter/ephemeral/icudtl.dat")
   elseif(CMAKE_INSTALL_CONFIG_NAME MATCHES "^([Pp][Rr][Oo][Ff][Ii][Ll][Ee])$")
     list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
-     "D:/Project/FLUTTER_ProjectH/flutter_honkai/build/windows/x64/runner/Profile/data/icudtl.dat")
+     "D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/x64/runner/Profile/data/icudtl.dat")
     if(CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
       message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
     endif()
     if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
       message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
     endif()
-    file(INSTALL DESTINATION "D:/Project/FLUTTER_ProjectH/flutter_honkai/build/windows/x64/runner/Profile/data" TYPE FILE FILES "D:/Project/FLUTTER_ProjectH/flutter_honkai/windows/flutter/ephemeral/icudtl.dat")
+    file(INSTALL DESTINATION "D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/x64/runner/Profile/data" TYPE FILE FILES "D:/Project/FLUTTER_ProjectH/flutter_honkai/user/windows/flutter/ephemeral/icudtl.dat")
   elseif(CMAKE_INSTALL_CONFIG_NAME MATCHES "^([Rr][Ee][Ll][Ee][Aa][Ss][Ee])$")
     list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
-     "D:/Project/FLUTTER_ProjectH/flutter_honkai/build/windows/x64/runner/Release/data/icudtl.dat")
+     "D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/x64/runner/Release/data/icudtl.dat")
     if(CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
       message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
     endif()
     if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
       message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
     endif()
-    file(INSTALL DESTINATION "D:/Project/FLUTTER_ProjectH/flutter_honkai/build/windows/x64/runner/Release/data" TYPE FILE FILES "D:/Project/FLUTTER_ProjectH/flutter_honkai/windows/flutter/ephemeral/icudtl.dat")
+    file(INSTALL DESTINATION "D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/x64/runner/Release/data" TYPE FILE FILES "D:/Project/FLUTTER_ProjectH/flutter_honkai/user/windows/flutter/ephemeral/icudtl.dat")
   endif()
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Runtime" OR NOT CMAKE_INSTALL_COMPONENT)
   if(CMAKE_INSTALL_CONFIG_NAME MATCHES "^([Dd][Ee][Bb][Uu][Gg])$")
     list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
-     "D:/Project/FLUTTER_ProjectH/flutter_honkai/build/windows/x64/runner/Debug/flutter_windows.dll")
+     "D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/x64/runner/Debug/flutter_windows.dll")
     if(CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
       message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
     endif()
     if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
       message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
     endif()
-    file(INSTALL DESTINATION "D:/Project/FLUTTER_ProjectH/flutter_honkai/build/windows/x64/runner/Debug" TYPE FILE FILES "D:/Project/FLUTTER_ProjectH/flutter_honkai/windows/flutter/ephemeral/flutter_windows.dll")
+    file(INSTALL DESTINATION "D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/x64/runner/Debug" TYPE FILE FILES "D:/Project/FLUTTER_ProjectH/flutter_honkai/user/windows/flutter/ephemeral/flutter_windows.dll")
   elseif(CMAKE_INSTALL_CONFIG_NAME MATCHES "^([Pp][Rr][Oo][Ff][Ii][Ll][Ee])$")
     list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
-     "D:/Project/FLUTTER_ProjectH/flutter_honkai/build/windows/x64/runner/Profile/flutter_windows.dll")
+     "D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/x64/runner/Profile/flutter_windows.dll")
     if(CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
       message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
     endif()
     if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
       message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
     endif()
-    file(INSTALL DESTINATION "D:/Project/FLUTTER_ProjectH/flutter_honkai/build/windows/x64/runner/Profile" TYPE FILE FILES "D:/Project/FLUTTER_ProjectH/flutter_honkai/windows/flutter/ephemeral/flutter_windows.dll")
+    file(INSTALL DESTINATION "D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/x64/runner/Profile" TYPE FILE FILES "D:/Project/FLUTTER_ProjectH/flutter_honkai/user/windows/flutter/ephemeral/flutter_windows.dll")
   elseif(CMAKE_INSTALL_CONFIG_NAME MATCHES "^([Rr][Ee][Ll][Ee][Aa][Ss][Ee])$")
     list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
-     "D:/Project/FLUTTER_ProjectH/flutter_honkai/build/windows/x64/runner/Release/flutter_windows.dll")
+     "D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/x64/runner/Release/flutter_windows.dll")
     if(CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
       message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
     endif()
     if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
       message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
     endif()
-    file(INSTALL DESTINATION "D:/Project/FLUTTER_ProjectH/flutter_honkai/build/windows/x64/runner/Release" TYPE FILE FILES "D:/Project/FLUTTER_ProjectH/flutter_honkai/windows/flutter/ephemeral/flutter_windows.dll")
+    file(INSTALL DESTINATION "D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/x64/runner/Release" TYPE FILE FILES "D:/Project/FLUTTER_ProjectH/flutter_honkai/user/windows/flutter/ephemeral/flutter_windows.dll")
   endif()
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Runtime" OR NOT CMAKE_INSTALL_COMPONENT)
   if(CMAKE_INSTALL_CONFIG_NAME MATCHES "^([Dd][Ee][Bb][Uu][Gg])$")
     list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
-     "D:/Project/FLUTTER_ProjectH/flutter_honkai/build/windows/x64/runner/Debug/app_links_plugin.dll;D:/Project/FLUTTER_ProjectH/flutter_honkai/build/windows/x64/runner/Debug/connectivity_plus_plugin.dll;D:/Project/FLUTTER_ProjectH/flutter_honkai/build/windows/x64/runner/Debug/screen_retriever_windows_plugin.dll;D:/Project/FLUTTER_ProjectH/flutter_honkai/build/windows/x64/runner/Debug/url_launcher_windows_plugin.dll;D:/Project/FLUTTER_ProjectH/flutter_honkai/build/windows/x64/runner/Debug/window_manager_plugin.dll")
+     "D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/x64/runner/Debug/app_links_plugin.dll;D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/x64/runner/Debug/connectivity_plus_plugin.dll;D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/x64/runner/Debug/screen_retriever_windows_plugin.dll;D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/x64/runner/Debug/url_launcher_windows_plugin.dll;D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/x64/runner/Debug/window_manager_plugin.dll")
     if(CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
       message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
     endif()
     if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
       message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
     endif()
-    file(INSTALL DESTINATION "D:/Project/FLUTTER_ProjectH/flutter_honkai/build/windows/x64/runner/Debug" TYPE FILE FILES
-      "D:/Project/FLUTTER_ProjectH/flutter_honkai/build/windows/x64/plugins/app_links/Debug/app_links_plugin.dll"
-      "D:/Project/FLUTTER_ProjectH/flutter_honkai/build/windows/x64/plugins/connectivity_plus/Debug/connectivity_plus_plugin.dll"
-      "D:/Project/FLUTTER_ProjectH/flutter_honkai/build/windows/x64/plugins/screen_retriever_windows/Debug/screen_retriever_windows_plugin.dll"
-      "D:/Project/FLUTTER_ProjectH/flutter_honkai/build/windows/x64/plugins/url_launcher_windows/Debug/url_launcher_windows_plugin.dll"
-      "D:/Project/FLUTTER_ProjectH/flutter_honkai/build/windows/x64/plugins/window_manager/Debug/window_manager_plugin.dll"
+    file(INSTALL DESTINATION "D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/x64/runner/Debug" TYPE FILE FILES
+      "D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/x64/plugins/app_links/Debug/app_links_plugin.dll"
+      "D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/x64/plugins/connectivity_plus/Debug/connectivity_plus_plugin.dll"
+      "D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/x64/plugins/screen_retriever_windows/Debug/screen_retriever_windows_plugin.dll"
+      "D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/x64/plugins/url_launcher_windows/Debug/url_launcher_windows_plugin.dll"
+      "D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/x64/plugins/window_manager/Debug/window_manager_plugin.dll"
       )
   elseif(CMAKE_INSTALL_CONFIG_NAME MATCHES "^([Pp][Rr][Oo][Ff][Ii][Ll][Ee])$")
     list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
-     "D:/Project/FLUTTER_ProjectH/flutter_honkai/build/windows/x64/runner/Profile/app_links_plugin.dll;D:/Project/FLUTTER_ProjectH/flutter_honkai/build/windows/x64/runner/Profile/connectivity_plus_plugin.dll;D:/Project/FLUTTER_ProjectH/flutter_honkai/build/windows/x64/runner/Profile/screen_retriever_windows_plugin.dll;D:/Project/FLUTTER_ProjectH/flutter_honkai/build/windows/x64/runner/Profile/url_launcher_windows_plugin.dll;D:/Project/FLUTTER_ProjectH/flutter_honkai/build/windows/x64/runner/Profile/window_manager_plugin.dll")
+     "D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/x64/runner/Profile/app_links_plugin.dll;D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/x64/runner/Profile/connectivity_plus_plugin.dll;D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/x64/runner/Profile/screen_retriever_windows_plugin.dll;D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/x64/runner/Profile/url_launcher_windows_plugin.dll;D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/x64/runner/Profile/window_manager_plugin.dll")
     if(CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
       message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
     endif()
     if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
       message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
     endif()
-    file(INSTALL DESTINATION "D:/Project/FLUTTER_ProjectH/flutter_honkai/build/windows/x64/runner/Profile" TYPE FILE FILES
-      "D:/Project/FLUTTER_ProjectH/flutter_honkai/build/windows/x64/plugins/app_links/Profile/app_links_plugin.dll"
-      "D:/Project/FLUTTER_ProjectH/flutter_honkai/build/windows/x64/plugins/connectivity_plus/Profile/connectivity_plus_plugin.dll"
-      "D:/Project/FLUTTER_ProjectH/flutter_honkai/build/windows/x64/plugins/screen_retriever_windows/Profile/screen_retriever_windows_plugin.dll"
-      "D:/Project/FLUTTER_ProjectH/flutter_honkai/build/windows/x64/plugins/url_launcher_windows/Profile/url_launcher_windows_plugin.dll"
-      "D:/Project/FLUTTER_ProjectH/flutter_honkai/build/windows/x64/plugins/window_manager/Profile/window_manager_plugin.dll"
+    file(INSTALL DESTINATION "D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/x64/runner/Profile" TYPE FILE FILES
+      "D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/x64/plugins/app_links/Profile/app_links_plugin.dll"
+      "D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/x64/plugins/connectivity_plus/Profile/connectivity_plus_plugin.dll"
+      "D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/x64/plugins/screen_retriever_windows/Profile/screen_retriever_windows_plugin.dll"
+      "D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/x64/plugins/url_launcher_windows/Profile/url_launcher_windows_plugin.dll"
+      "D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/x64/plugins/window_manager/Profile/window_manager_plugin.dll"
       )
   elseif(CMAKE_INSTALL_CONFIG_NAME MATCHES "^([Rr][Ee][Ll][Ee][Aa][Ss][Ee])$")
     list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
-     "D:/Project/FLUTTER_ProjectH/flutter_honkai/build/windows/x64/runner/Release/app_links_plugin.dll;D:/Project/FLUTTER_ProjectH/flutter_honkai/build/windows/x64/runner/Release/connectivity_plus_plugin.dll;D:/Project/FLUTTER_ProjectH/flutter_honkai/build/windows/x64/runner/Release/screen_retriever_windows_plugin.dll;D:/Project/FLUTTER_ProjectH/flutter_honkai/build/windows/x64/runner/Release/url_launcher_windows_plugin.dll;D:/Project/FLUTTER_ProjectH/flutter_honkai/build/windows/x64/runner/Release/window_manager_plugin.dll")
+     "D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/x64/runner/Release/app_links_plugin.dll;D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/x64/runner/Release/connectivity_plus_plugin.dll;D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/x64/runner/Release/screen_retriever_windows_plugin.dll;D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/x64/runner/Release/url_launcher_windows_plugin.dll;D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/x64/runner/Release/window_manager_plugin.dll")
     if(CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
       message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
     endif()
     if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
       message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
     endif()
-    file(INSTALL DESTINATION "D:/Project/FLUTTER_ProjectH/flutter_honkai/build/windows/x64/runner/Release" TYPE FILE FILES
-      "D:/Project/FLUTTER_ProjectH/flutter_honkai/build/windows/x64/plugins/app_links/Release/app_links_plugin.dll"
-      "D:/Project/FLUTTER_ProjectH/flutter_honkai/build/windows/x64/plugins/connectivity_plus/Release/connectivity_plus_plugin.dll"
-      "D:/Project/FLUTTER_ProjectH/flutter_honkai/build/windows/x64/plugins/screen_retriever_windows/Release/screen_retriever_windows_plugin.dll"
-      "D:/Project/FLUTTER_ProjectH/flutter_honkai/build/windows/x64/plugins/url_launcher_windows/Release/url_launcher_windows_plugin.dll"
-      "D:/Project/FLUTTER_ProjectH/flutter_honkai/build/windows/x64/plugins/window_manager/Release/window_manager_plugin.dll"
+    file(INSTALL DESTINATION "D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/x64/runner/Release" TYPE FILE FILES
+      "D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/x64/plugins/app_links/Release/app_links_plugin.dll"
+      "D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/x64/plugins/connectivity_plus/Release/connectivity_plus_plugin.dll"
+      "D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/x64/plugins/screen_retriever_windows/Release/screen_retriever_windows_plugin.dll"
+      "D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/x64/plugins/url_launcher_windows/Release/url_launcher_windows_plugin.dll"
+      "D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/x64/plugins/window_manager/Release/window_manager_plugin.dll"
       )
   endif()
 endif()
@@ -224,49 +224,49 @@ endif()
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Runtime" OR NOT CMAKE_INSTALL_COMPONENT)
   if(CMAKE_INSTALL_CONFIG_NAME MATCHES "^([Dd][Ee][Bb][Uu][Gg])$")
     list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
-     "D:/Project/FLUTTER_ProjectH/flutter_honkai/build/windows/x64/runner/Debug/")
+     "D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/x64/runner/Debug/")
     if(CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
       message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
     endif()
     if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
       message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
     endif()
-    file(INSTALL DESTINATION "D:/Project/FLUTTER_ProjectH/flutter_honkai/build/windows/x64/runner/Debug" TYPE DIRECTORY FILES "D:/Project/FLUTTER_ProjectH/flutter_honkai/build/native_assets/windows/")
+    file(INSTALL DESTINATION "D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/x64/runner/Debug" TYPE DIRECTORY FILES "D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/native_assets/windows/")
   elseif(CMAKE_INSTALL_CONFIG_NAME MATCHES "^([Pp][Rr][Oo][Ff][Ii][Ll][Ee])$")
     list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
-     "D:/Project/FLUTTER_ProjectH/flutter_honkai/build/windows/x64/runner/Profile/")
+     "D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/x64/runner/Profile/")
     if(CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
       message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
     endif()
     if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
       message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
     endif()
-    file(INSTALL DESTINATION "D:/Project/FLUTTER_ProjectH/flutter_honkai/build/windows/x64/runner/Profile" TYPE DIRECTORY FILES "D:/Project/FLUTTER_ProjectH/flutter_honkai/build/native_assets/windows/")
+    file(INSTALL DESTINATION "D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/x64/runner/Profile" TYPE DIRECTORY FILES "D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/native_assets/windows/")
   elseif(CMAKE_INSTALL_CONFIG_NAME MATCHES "^([Rr][Ee][Ll][Ee][Aa][Ss][Ee])$")
     list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
-     "D:/Project/FLUTTER_ProjectH/flutter_honkai/build/windows/x64/runner/Release/")
+     "D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/x64/runner/Release/")
     if(CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
       message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
     endif()
     if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
       message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
     endif()
-    file(INSTALL DESTINATION "D:/Project/FLUTTER_ProjectH/flutter_honkai/build/windows/x64/runner/Release" TYPE DIRECTORY FILES "D:/Project/FLUTTER_ProjectH/flutter_honkai/build/native_assets/windows/")
+    file(INSTALL DESTINATION "D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/x64/runner/Release" TYPE DIRECTORY FILES "D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/native_assets/windows/")
   endif()
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Runtime" OR NOT CMAKE_INSTALL_COMPONENT)
   if(CMAKE_INSTALL_CONFIG_NAME MATCHES "^([Dd][Ee][Bb][Uu][Gg])$")
     
-  file(REMOVE_RECURSE "D:/Project/FLUTTER_ProjectH/flutter_honkai/build/windows/x64/runner/Debug/data/flutter_assets")
+  file(REMOVE_RECURSE "D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/x64/runner/Debug/data/flutter_assets")
   
   elseif(CMAKE_INSTALL_CONFIG_NAME MATCHES "^([Pp][Rr][Oo][Ff][Ii][Ll][Ee])$")
     
-  file(REMOVE_RECURSE "D:/Project/FLUTTER_ProjectH/flutter_honkai/build/windows/x64/runner/Profile/data/flutter_assets")
+  file(REMOVE_RECURSE "D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/x64/runner/Profile/data/flutter_assets")
   
   elseif(CMAKE_INSTALL_CONFIG_NAME MATCHES "^([Rr][Ee][Ll][Ee][Aa][Ss][Ee])$")
     
-  file(REMOVE_RECURSE "D:/Project/FLUTTER_ProjectH/flutter_honkai/build/windows/x64/runner/Release/data/flutter_assets")
+  file(REMOVE_RECURSE "D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/x64/runner/Release/data/flutter_assets")
   
   endif()
 endif()
@@ -274,58 +274,58 @@ endif()
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Runtime" OR NOT CMAKE_INSTALL_COMPONENT)
   if(CMAKE_INSTALL_CONFIG_NAME MATCHES "^([Dd][Ee][Bb][Uu][Gg])$")
     list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
-     "D:/Project/FLUTTER_ProjectH/flutter_honkai/build/windows/x64/runner/Debug/data/flutter_assets")
+     "D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/x64/runner/Debug/data/flutter_assets")
     if(CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
       message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
     endif()
     if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
       message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
     endif()
-    file(INSTALL DESTINATION "D:/Project/FLUTTER_ProjectH/flutter_honkai/build/windows/x64/runner/Debug/data" TYPE DIRECTORY FILES "D:/Project/FLUTTER_ProjectH/flutter_honkai/build//flutter_assets")
+    file(INSTALL DESTINATION "D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/x64/runner/Debug/data" TYPE DIRECTORY FILES "D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build//flutter_assets")
   elseif(CMAKE_INSTALL_CONFIG_NAME MATCHES "^([Pp][Rr][Oo][Ff][Ii][Ll][Ee])$")
     list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
-     "D:/Project/FLUTTER_ProjectH/flutter_honkai/build/windows/x64/runner/Profile/data/flutter_assets")
+     "D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/x64/runner/Profile/data/flutter_assets")
     if(CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
       message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
     endif()
     if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
       message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
     endif()
-    file(INSTALL DESTINATION "D:/Project/FLUTTER_ProjectH/flutter_honkai/build/windows/x64/runner/Profile/data" TYPE DIRECTORY FILES "D:/Project/FLUTTER_ProjectH/flutter_honkai/build//flutter_assets")
+    file(INSTALL DESTINATION "D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/x64/runner/Profile/data" TYPE DIRECTORY FILES "D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build//flutter_assets")
   elseif(CMAKE_INSTALL_CONFIG_NAME MATCHES "^([Rr][Ee][Ll][Ee][Aa][Ss][Ee])$")
     list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
-     "D:/Project/FLUTTER_ProjectH/flutter_honkai/build/windows/x64/runner/Release/data/flutter_assets")
+     "D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/x64/runner/Release/data/flutter_assets")
     if(CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
       message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
     endif()
     if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
       message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
     endif()
-    file(INSTALL DESTINATION "D:/Project/FLUTTER_ProjectH/flutter_honkai/build/windows/x64/runner/Release/data" TYPE DIRECTORY FILES "D:/Project/FLUTTER_ProjectH/flutter_honkai/build//flutter_assets")
+    file(INSTALL DESTINATION "D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/x64/runner/Release/data" TYPE DIRECTORY FILES "D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build//flutter_assets")
   endif()
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Runtime" OR NOT CMAKE_INSTALL_COMPONENT)
   if(CMAKE_INSTALL_CONFIG_NAME MATCHES "^([Pp][Rr][Oo][Ff][Ii][Ll][Ee])$")
     list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
-     "D:/Project/FLUTTER_ProjectH/flutter_honkai/build/windows/x64/runner/Profile/data/app.so")
+     "D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/x64/runner/Profile/data/app.so")
     if(CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
       message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
     endif()
     if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
       message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
     endif()
-    file(INSTALL DESTINATION "D:/Project/FLUTTER_ProjectH/flutter_honkai/build/windows/x64/runner/Profile/data" TYPE FILE FILES "D:/Project/FLUTTER_ProjectH/flutter_honkai/build/windows/app.so")
+    file(INSTALL DESTINATION "D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/x64/runner/Profile/data" TYPE FILE FILES "D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/app.so")
   elseif(CMAKE_INSTALL_CONFIG_NAME MATCHES "^([Rr][Ee][Ll][Ee][Aa][Ss][Ee])$")
     list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
-     "D:/Project/FLUTTER_ProjectH/flutter_honkai/build/windows/x64/runner/Release/data/app.so")
+     "D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/x64/runner/Release/data/app.so")
     if(CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
       message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
     endif()
     if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
       message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
     endif()
-    file(INSTALL DESTINATION "D:/Project/FLUTTER_ProjectH/flutter_honkai/build/windows/x64/runner/Release/data" TYPE FILE FILES "D:/Project/FLUTTER_ProjectH/flutter_honkai/build/windows/app.so")
+    file(INSTALL DESTINATION "D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/x64/runner/Release/data" TYPE FILE FILES "D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/app.so")
   endif()
 endif()
 
@@ -344,6 +344,6 @@ endif()
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-  file(WRITE "D:/Project/FLUTTER_ProjectH/flutter_honkai/build/windows/x64/${CMAKE_INSTALL_MANIFEST}"
+  file(WRITE "D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/x64/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
 endif()

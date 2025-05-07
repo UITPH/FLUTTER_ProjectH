@@ -1,4 +1,4 @@
-# Install script for directory: D:/Project/FLUTTER_ProjectH/flutter_honkai/windows/flutter/ephemeral/.plugin_symlinks/connectivity_plus/windows
+# Install script for directory: D:/Project/FLUTTER_ProjectH/flutter_honkai/user/windows/flutter/ephemeral/.plugin_symlinks/connectivity_plus/windows
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

@@ -21,7 +21,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{AFDEC306-A64E-309A-A246-3289B58AE4CF}</ProjectGuid>
+    <ProjectGuid>{92288036-F457-344C-8BA4-75CA0030AB65}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <WindowsTargetPlatformVersion>10.0.22621.0</WindowsTargetPlatformVersion>
     <Platform>x64</Platform>
@@ -88,11 +88,11 @@
     </Midl>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <CustomBuild Include="D:\Project\FLUTTER_ProjectH\flutter_honkai\windows\runner\CMakeLists.txt">
+    <CustomBuild Include="D:\Project\FLUTTER_ProjectH\flutter_honkai\admin\windows\runner\CMakeLists.txt">
       <UseUtf8Encoding>Always</UseUtf8Encoding>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule D:/Project/FLUTTER_ProjectH/flutter_honkai/windows/runner/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule D:/Project/FLUTTER_ProjectH/flutter_honkai/admin/windows/runner/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
-"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SD:/Project/FLUTTER_ProjectH/flutter_honkai/windows -BD:/Project/FLUTTER_ProjectH/flutter_honkai/build/windows/x64 --check-stamp-file D:/Project/FLUTTER_ProjectH/flutter_honkai/build/windows/x64/runner/CMakeFiles/generate.stamp
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SD:/Project/FLUTTER_ProjectH/flutter_honkai/admin/windows -BD:/Project/FLUTTER_ProjectH/flutter_honkai/admin/build/windows/x64 --check-stamp-file D:/Project/FLUTTER_ProjectH/flutter_honkai/admin/build/windows/x64/runner/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -101,11 +101,11 @@ exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">D:\Project\FLUTTER_ProjectH\flutter_honkai\build\windows\x64\runner\CMakeFiles\generate.stamp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">D:\Project\FLUTTER_ProjectH\flutter_honkai\admin\build\windows\x64\runner\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">Building Custom Rule D:/Project/FLUTTER_ProjectH/flutter_honkai/windows/runner/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">Building Custom Rule D:/Project/FLUTTER_ProjectH/flutter_honkai/admin/windows/runner/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">setlocal
-"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SD:/Project/FLUTTER_ProjectH/flutter_honkai/windows -BD:/Project/FLUTTER_ProjectH/flutter_honkai/build/windows/x64 --check-stamp-file D:/Project/FLUTTER_ProjectH/flutter_honkai/build/windows/x64/runner/CMakeFiles/generate.stamp
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SD:/Project/FLUTTER_ProjectH/flutter_honkai/admin/windows -BD:/Project/FLUTTER_ProjectH/flutter_honkai/admin/build/windows/x64 --check-stamp-file D:/Project/FLUTTER_ProjectH/flutter_honkai/admin/build/windows/x64/runner/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -114,11 +114,11 @@ exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">D:\Project\FLUTTER_ProjectH\flutter_honkai\build\windows\x64\runner\CMakeFiles\generate.stamp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">D:\Project\FLUTTER_ProjectH\flutter_honkai\admin\build\windows\x64\runner\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule D:/Project/FLUTTER_ProjectH/flutter_honkai/windows/runner/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule D:/Project/FLUTTER_ProjectH/flutter_honkai/admin/windows/runner/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
-"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SD:/Project/FLUTTER_ProjectH/flutter_honkai/windows -BD:/Project/FLUTTER_ProjectH/flutter_honkai/build/windows/x64 --check-stamp-file D:/Project/FLUTTER_ProjectH/flutter_honkai/build/windows/x64/runner/CMakeFiles/generate.stamp
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SD:/Project/FLUTTER_ProjectH/flutter_honkai/admin/windows -BD:/Project/FLUTTER_ProjectH/flutter_honkai/admin/build/windows/x64 --check-stamp-file D:/Project/FLUTTER_ProjectH/flutter_honkai/admin/build/windows/x64/runner/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -127,21 +127,21 @@ exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">D:\Project\FLUTTER_ProjectH\flutter_honkai\build\windows\x64\runner\CMakeFiles\generate.stamp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">D:\Project\FLUTTER_ProjectH\flutter_honkai\admin\build\windows\x64\runner\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="D:\Project\FLUTTER_ProjectH\flutter_honkai\build\windows\x64\ZERO_CHECK.vcxproj">
-      <Project>{506873B3-DE8E-3034-B3A9-9C926C4BD518}</Project>
+    <ProjectReference Include="D:\Project\FLUTTER_ProjectH\flutter_honkai\admin\build\windows\x64\ZERO_CHECK.vcxproj">
+      <Project>{A12BA141-4C2C-3FD5-ABED-C25780EA2858}</Project>
       <Name>ZERO_CHECK</Name>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </ProjectReference>
-    <ProjectReference Include="D:\Project\FLUTTER_ProjectH\flutter_honkai\build\windows\x64\runner\flutter_honkai.vcxproj">
-      <Project>{D65DC814-0F39-35BB-8605-C224E30AAE58}</Project>
+    <ProjectReference Include="D:\Project\FLUTTER_ProjectH\flutter_honkai\admin\build\windows\x64\runner\flutter_honkai.vcxproj">
+      <Project>{8F616A42-81D0-323F-AD6B-51E78F154BAF}</Project>
       <Name>flutter_honkai</Name>
     </ProjectReference>
   </ItemGroup>

@@ -1,4 +1,4 @@
-# Install script for directory: D:/Project/FLUTTER_ProjectH/flutter_honkai/windows/flutter
+# Install script for directory: D:/Project/FLUTTER_ProjectH/flutter_honkai/admin/windows/flutter
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

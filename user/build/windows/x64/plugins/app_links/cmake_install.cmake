@@ -1,4 +1,4 @@
-# Install script for directory: D:/Project/FLUTTER_ProjectH/flutter_honkai/windows/flutter/ephemeral/.plugin_symlinks/app_links/windows
+# Install script for directory: D:/Project/FLUTTER_ProjectH/flutter_honkai/user/windows/flutter/ephemeral/.plugin_symlinks/app_links/windows
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
