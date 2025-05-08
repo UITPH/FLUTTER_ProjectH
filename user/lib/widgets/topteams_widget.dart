@@ -1,5 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_honkai/providers/elf_provider.dart';
+import 'package:flutter_honkai/providers/valkyrie_provider.dart';
 import 'package:flutter_honkai/services/database_helper.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -20,7 +22,12 @@ class TopteamsWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final valkyries = ref.watch(valkyrieProvider).valkyries;
+    final elfs = ref.watch(elfProvider).elfs;
     Widget getElfImage(String id) {
+      if (elfs.where((elf) => elf.id == id).isEmpty) {
+        return Placeholder(fallbackHeight: 100, fallbackWidth: 100);
+      }
       final db = DatabaseHelper.supabase;
       final url = db.storage.from('data').getPublicUrl('images/elfs/$id.png');
 
@@ -38,6 +45,9 @@ class TopteamsWidget extends ConsumerWidget {
     }
 
     Widget getValkImage(String id) {
+      if (valkyries.where((valk) => valk.id == id).isEmpty) {
+        return Placeholder(fallbackHeight: 100, fallbackWidth: 100);
+      }
       final db = DatabaseHelper.supabase;
       final url = db.storage
           .from('data')

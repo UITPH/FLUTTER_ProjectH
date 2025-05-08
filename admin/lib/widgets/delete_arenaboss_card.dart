@@ -1,8 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_honkai/providers/arenaboss_provider.dart';
 import 'package:flutter_honkai/providers/delete_provider.dart';
-import 'dart:io';
-import 'package:flutter_honkai/providers/path_provider.dart';
 import 'package:flutter_honkai/services/database_helper.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_honkai/widgets/clickable.dart';
@@ -15,7 +14,24 @@ class DeleteArenabossCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final String imagePath = ref.read(arenabossImagesPathProvider);
+    Widget getArenaBossImage(String id) {
+      final db = DatabaseHelper.supabase;
+      final url = db.storage
+          .from('data')
+          .getPublicUrl('images/arenabosses/$id.png');
+
+      return CachedNetworkImage(
+        height: 80,
+        width: 250,
+        fit: BoxFit.contain,
+        placeholder:
+            (context, url) => LinearProgressIndicator(
+              valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+            ),
+        errorWidget: (context, url, error) => Icon(Icons.error),
+        imageUrl: url,
+      );
+    }
 
     return GridTile(
       child: Column(
@@ -44,23 +60,12 @@ class DeleteArenabossCard extends ConsumerWidget {
                           //notify other widgets to update
                           ref.read(arenabossProvider).removeBoss(id);
                           //delete relevant images
-                          final bossImagePath = ref.read(
-                            arenabossImagesPathProvider,
-                          );
-                          final bossImageFile = File('$bossImagePath/$id.png');
-                          await bossImageFile.delete();
+                          final db = DatabaseHelper.supabase;
+                          await db.storage.from('data').remove([
+                            'images/arenabosses/$id.png',
+                          ]);
                           //delete from database
-                          final db = await DatabaseHelper.getDatabase();
-                          await db.delete(
-                            'arenaboss_teamrec',
-                            where: 'id_arenaboss = ?',
-                            whereArgs: [id],
-                          );
-                          await db.delete(
-                            'arenabosses',
-                            where: 'id = ?',
-                            whereArgs: [id],
-                          );
+                          await db.from('arenabosses').delete().eq('id', id);
                           ref.read(deleteProvider).deleteArenaBoss(id);
                         },
                         child: Text(
@@ -75,16 +80,13 @@ class DeleteArenabossCard extends ConsumerWidget {
                         onPressed: () async {
                           Navigator.of(context).pop();
                           //restore
-                          ref.read(deleteProvider).deleteArenaBoss(id);
-                          ref.read(arenabossProvider).restoreBoss(id);
+                          ref.read(deleteProvider).restoreArenaBoss(id, ref);
                           //restore in database
-                          final db = await DatabaseHelper.getDatabase();
-                          await db.update(
-                            'arenabosses',
-                            {'is_deleted': 0},
-                            where: 'id = ?',
-                            whereArgs: [id],
-                          );
+                          final db = DatabaseHelper.supabase;
+                          await db
+                              .from('arenabosses')
+                              .update({'is_deleted': 0})
+                              .eq('id', id);
                         },
                         child: Text(
                           style: TextStyle(
@@ -107,11 +109,7 @@ class DeleteArenabossCard extends ConsumerWidget {
               color: Colors.black,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(10),
-                child: Image.file(
-                  height: 80,
-                  width: 250,
-                  File('$imagePath/$id.png'),
-                ),
+                child: getArenaBossImage(id),
               ),
             ),
           ),

@@ -1,10 +1,8 @@
-import 'dart:io';
-
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_honkai/providers/abyssboss_provider.dart';
 import 'package:flutter_honkai/providers/delete_provider.dart';
 import 'package:flutter_honkai/widgets/clickable.dart';
-import 'package:flutter_honkai/providers/path_provider.dart';
 import 'package:flutter_honkai/services/database_helper.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -44,13 +42,11 @@ class AdvanceAbyssbossCard extends ConsumerWidget {
                 //notify other widgets to update
                 ref.read(abyssBossProvider).removeBoss(id);
                 //soft delete in database
-                final db = await DatabaseHelper.getDatabase();
-                await db.update(
-                  'abyssbosses',
-                  {'is_deleted': 1},
-                  where: 'id = ?',
-                  whereArgs: [id],
-                );
+                final db = DatabaseHelper.supabase;
+                await db
+                    .from('abyssbosses')
+                    .update({'is_deleted': 1})
+                    .eq('id', id);
                 if (context.mounted) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
@@ -70,7 +66,24 @@ class AdvanceAbyssbossCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final String imagePath = ref.read(abyssbossImagesPathProvider);
+    Widget getAbyssBossImage(String id) {
+      final db = DatabaseHelper.supabase;
+      final url = db.storage
+          .from('data')
+          .getPublicUrl('images/abyssbosses/$id.png');
+
+      return CachedNetworkImage(
+        height: 80,
+        width: 250,
+        fit: BoxFit.contain,
+        placeholder:
+            (context, url) => LinearProgressIndicator(
+              valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+            ),
+        errorWidget: (context, url, error) => Icon(Icons.error),
+        imageUrl: url,
+      );
+    }
 
     return GridTile(
       child: Column(
@@ -87,11 +100,7 @@ class AdvanceAbyssbossCard extends ConsumerWidget {
               color: Colors.black,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(10),
-                child: Image.file(
-                  height: 80,
-                  width: 250,
-                  File('$imagePath/$id.png'),
-                ),
+                child: getAbyssBossImage(id),
               ),
             ),
           ),

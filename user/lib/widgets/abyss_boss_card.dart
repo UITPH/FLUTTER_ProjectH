@@ -31,7 +31,7 @@ class AbyssBossCard extends ConsumerWidget {
       return CachedNetworkImage(
         height: 80,
         width: 250,
-        fit: BoxFit.fill,
+        fit: BoxFit.contain,
         placeholder:
             (context, url) => LinearProgressIndicator(
               valueColor: AlwaysStoppedAnimation<Color>(Colors.white),

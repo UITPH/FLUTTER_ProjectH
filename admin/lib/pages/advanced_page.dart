@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_honkai/pages/advanced_pages/delete_arena_boss_page.dart';
-import 'package:flutter_honkai/pages/advanced_pages/insert_abyss_boss_page.dart';
-import 'package:flutter_honkai/pages/advanced_pages/insert_arena_boss_page.dart';
-import 'package:flutter_honkai/pages/advanced_pages/insert_valkyrie_page.dart';
-import 'package:flutter_honkai/pages/advanced_pages/delete_abyss_boss_page.dart';
-import 'package:flutter_honkai/pages/advanced_pages/delete_valkyrie_page.dart';
+import 'package:flutter_honkai/pages/delete_arena_boss_page.dart';
+import 'package:flutter_honkai/pages/insert_abyss_boss_page.dart';
+import 'package:flutter_honkai/pages/insert_arena_boss_page.dart';
+import 'package:flutter_honkai/pages/insert_valkyrie_page.dart';
+import 'package:flutter_honkai/pages/delete_abyss_boss_page.dart';
+import 'package:flutter_honkai/pages/delete_valkyrie_page.dart';
 import 'package:flutter_honkai/pages/delete_page.dart';
-import 'package:flutter_honkai/providers/delete_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class AdvancedPage extends StatefulWidget {
@@ -60,7 +59,7 @@ class AdvancedPageHome extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ref.read(deleteProvider).init();
+    //ref.read(deleteProvider).init();
     return Center(
       child: Column(
         spacing: 50,

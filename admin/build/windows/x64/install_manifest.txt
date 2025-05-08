@@ -1,6 +1,9 @@
 D:/Project/FLUTTER_ProjectH/flutter_honkai/admin/build/windows/x64/runner/Debug/data/icudtl.dat
 D:/Project/FLUTTER_ProjectH/flutter_honkai/admin/build/windows/x64/runner/Debug/flutter_windows.dll
+D:/Project/FLUTTER_ProjectH/flutter_honkai/admin/build/windows/x64/runner/Debug/app_links_plugin.dll
+D:/Project/FLUTTER_ProjectH/flutter_honkai/admin/build/windows/x64/runner/Debug/connectivity_plus_plugin.dll
 D:/Project/FLUTTER_ProjectH/flutter_honkai/admin/build/windows/x64/runner/Debug/screen_retriever_windows_plugin.dll
+D:/Project/FLUTTER_ProjectH/flutter_honkai/admin/build/windows/x64/runner/Debug/url_launcher_windows_plugin.dll
 D:/Project/FLUTTER_ProjectH/flutter_honkai/admin/build/windows/x64/runner/Debug/window_manager_plugin.dll
 D:/Project/FLUTTER_ProjectH/flutter_honkai/admin/build/windows/x64/runner/Debug/data/flutter_assets/AssetManifest.bin
 D:/Project/FLUTTER_ProjectH/flutter_honkai/admin/build/windows/x64/runner/Debug/data/flutter_assets/AssetManifest.json

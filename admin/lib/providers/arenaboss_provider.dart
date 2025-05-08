@@ -6,71 +6,32 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class ArenabossProvider extends ChangeNotifier {
   final List<ArenaBossModel> _bosses = [];
   List<ArenaBossModel> get bosses => _bosses;
-  bool _isLoaded = false;
-
-  ArenabossProvider() {
-    _loadBosses();
-  }
-
-  Future<void> _loadBosses() async {
-    _bosses.addAll(await loadBossesListFromDataBase());
-    _isLoaded = true;
-    notifyListeners();
-  }
 
   void addBoss(ArenaBossModel newBoss) {
-    if (_isLoaded == false) return;
-    _bosses.add(newBoss);
+    _bosses.insert(0, newBoss);
     notifyListeners();
   }
 
   void removeBoss(String id) {
-    if (_isLoaded == false) return;
     _bosses.removeWhere((boss) => boss.id == id);
     notifyListeners();
   }
 
-  void restoreBoss(String id) async {
-    final db = await DatabaseHelper.getDatabase();
-    final List<Map<String, dynamic>> data = await db.rawQuery(
-      '''
-      SELECT
-        arenabosses.id,
-        arenabosses.name,
-        arenabosses.rank,
-          '[' || GROUP_CONCAT('"' || arenaboss_teamrec.first_valk ||'"') || ']' AS first_valk,
-          '[' || GROUP_CONCAT('"' || arenaboss_teamrec.second_valk ||'"') || ']' AS second_valk,
-          '[' || GROUP_CONCAT('"' || arenaboss_teamrec.third_valk ||'"') || ']' AS third_valk,
-          '[' || GROUP_CONCAT('"' || arenaboss_teamrec.elf ||'"') || ']' AS elf
-        FROM arenabosses
-        JOIN arenaboss_teamrec ON arenabosses.id = arenaboss_teamrec.id_arenaboss
-        WHERE arenabosses.id = ?
-        GROUP BY arenabosses.id
-''',
-      [id],
-    );
-    _bosses.add(ArenaBossModel.fromMap(data[0]));
+  Future<void> loadBosses() async {
+    _bosses.addAll(await loadBossesListFromDataBase());
     notifyListeners();
   }
 }
 
 Future<List<ArenaBossModel>> loadBossesListFromDataBase() async {
-  final db = await DatabaseHelper.getDatabase();
-  final List<Map<String, dynamic>> data = await db.rawQuery('''
-    SELECT
-      arenabosses.id,
-      arenabosses.name,
-      arenabosses.rank,
-        '[' || GROUP_CONCAT('"' || arenaboss_teamrec.first_valk ||'"') || ']' AS first_valk,
-        '[' || GROUP_CONCAT('"' || arenaboss_teamrec.second_valk ||'"') || ']' AS second_valk,
-        '[' || GROUP_CONCAT('"' || arenaboss_teamrec.third_valk ||'"') || ']' AS third_valk,
-        '[' || GROUP_CONCAT('"' || arenaboss_teamrec.elf ||'"') || ']' AS elf
-      FROM arenabosses
-      JOIN arenaboss_teamrec ON arenabosses.id = arenaboss_teamrec.id_arenaboss
-      WHERE arenabosses.is_deleted = 0
-      GROUP BY arenabosses.id
-      ORDER BY arenabosses.ROWID
-  ''');
+  final db = DatabaseHelper.supabase;
+  final data = await db
+      .from('arenabosses')
+      .select(
+        'id, name, rank, arenaboss_teamrec(first_valk, second_valk, third_valk, elf)',
+      )
+      .eq('is_deleted', 0)
+      .order('order', ascending: false);
   return data.map((e) => ArenaBossModel.fromMap(e)).toList();
 }
 

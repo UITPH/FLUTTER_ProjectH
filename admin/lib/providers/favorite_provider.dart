@@ -1,6 +1,9 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_honkai/services/database_helper.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:path_provider/path_provider.dart';
 
 class FavoriteNotifier extends ChangeNotifier {
   final List<String> _valkFavorites = [];
@@ -44,94 +47,86 @@ class FavoriteNotifier extends ChangeNotifier {
   Future<void> toggleValk(String newID) async {
     if (isValkFavorite(newID)) {
       _valkFavorites.removeWhere((id) => id == newID);
-      final db = await DatabaseHelper.getDatabase();
-      await db.delete(
-        'favorite_valkyries',
-        where: 'id_valk = ?',
-        whereArgs: [newID],
-      );
     } else {
       _valkFavorites.add(newID);
-      final db = await DatabaseHelper.getDatabase();
-      await db.insert('favorite_valkyries', {'id_valk': newID});
     }
-
+    final dir = await getApplicationDocumentsDirectory();
+    final file = File(
+      '${dir.path}/Honkai Station/favorite/favorite_valkyries.txt',
+    );
+    await file.writeAsString(jsonEncode(_valkFavorites));
     notifyListeners();
   }
 
   Future<void> toggleElf(String newID) async {
     if (isElfFavorite(newID)) {
       _elfFavorites.removeWhere((id) => id == newID);
-      final db = await DatabaseHelper.getDatabase();
-      await db.delete('favorite_elfs', where: 'id_elf = ?', whereArgs: [newID]);
     } else {
       _elfFavorites.add(newID);
-      final db = await DatabaseHelper.getDatabase();
-      await db.insert('favorite_elfs', {'id_elf': newID});
     }
-
+    final dir = await getApplicationDocumentsDirectory();
+    final file = File('${dir.path}/Honkai Station/favorite/favorite_elfs.txt');
+    await file.writeAsString(jsonEncode(_elfFavorites));
     notifyListeners();
   }
 
   void toggleAbyssBoss(String newID) async {
     if (isAbyssBossFavorite(newID)) {
       _abyssbossFavorites.removeWhere((id) => id == newID);
-      final db = await DatabaseHelper.getDatabase();
-      await db.delete(
-        'favorite_abyssbosses',
-        where: 'id_boss = ?',
-        whereArgs: [newID],
-      );
     } else {
       _abyssbossFavorites.add(newID);
-      final db = await DatabaseHelper.getDatabase();
-      await db.insert('favorite_abyssbosses', {'id_boss': newID});
     }
-
+    final dir = await getApplicationDocumentsDirectory();
+    final file = File(
+      '${dir.path}/Honkai Station/favorite/favorite_abyssbosses.txt',
+    );
+    await file.writeAsString(jsonEncode(_abyssbossFavorites));
     notifyListeners();
   }
 
   void toggleArenaBoss(String newID) async {
     if (isArenaBossFavorite(newID)) {
       _arenabossFavorites.removeWhere((id) => id == newID);
-      final db = await DatabaseHelper.getDatabase();
-      await db.delete(
-        'favorite_arenabosses',
-        where: 'id_boss = ?',
-        whereArgs: [newID],
-      );
     } else {
       _arenabossFavorites.add(newID);
-      final db = await DatabaseHelper.getDatabase();
-      await db.insert('favorite_arenabosses', {'id_boss': newID});
     }
-
+    final dir = await getApplicationDocumentsDirectory();
+    final file = File(
+      '${dir.path}/Honkai Station/favorite/favorite_arenabosses.txt',
+    );
+    await file.writeAsString(jsonEncode(_arenabossFavorites));
     notifyListeners();
   }
 }
 
 Future<List<String>> loadFavoriteValkIDList() async {
-  final db = await DatabaseHelper.getDatabase();
-  final data = await db.query('favorite_valkyries');
-  return data.map((e) => e['id_valk'] as String).toList();
+  final dir = await getApplicationDocumentsDirectory();
+  final file = File(
+    '${dir.path}/Honkai Station/favorite/favorite_valkyries.txt',
+  );
+  return jsonDecode(await file.readAsString()).cast<String>();
 }
 
 Future<List<String>> loadFavoriteElfIDList() async {
-  final db = await DatabaseHelper.getDatabase();
-  final data = await db.query('favorite_elfs');
-  return data.map((e) => e['id_elf'] as String).toList();
+  final dir = await getApplicationDocumentsDirectory();
+  final file = File('${dir.path}/Honkai Station/favorite/favorite_elfs.txt');
+  return jsonDecode(await file.readAsString()).cast<String>();
 }
 
 Future<List<String>> loadFavoriteAbyssBossIDList() async {
-  final db = await DatabaseHelper.getDatabase();
-  final data = await db.query('favorite_abyssbosses');
-  return data.map((e) => e['id_boss'] as String).toList();
+  final dir = await getApplicationDocumentsDirectory();
+  final file = File(
+    '${dir.path}/Honkai Station/favorite/favorite_abyssbosses.txt',
+  );
+  return jsonDecode(await file.readAsString()).cast<String>();
 }
 
 Future<List<String>> loadFavoriteArenaBossIDList() async {
-  final db = await DatabaseHelper.getDatabase();
-  final data = await db.query('favorite_arenabosses');
-  return data.map((e) => e['id_boss'] as String).toList();
+  final dir = await getApplicationDocumentsDirectory();
+  final file = File(
+    '${dir.path}/Honkai Station/favorite/favorite_arenabosses.txt',
+  );
+  return jsonDecode(await file.readAsString()).cast<String>();
 }
 
 final favoriteProvider = ChangeNotifierProvider<FavoriteNotifier>(

@@ -8,6 +8,7 @@ class WeatherProvider extends ChangeNotifier {
   List<WeatherModel> get weathers => _weathers;
 
   Future<void> loadWeathers() async {
+    _weathers.clear();
     _weathers.addAll(await loadWeathersListFromDataBase());
     notifyListeners();
   }

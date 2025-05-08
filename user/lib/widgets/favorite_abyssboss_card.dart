@@ -29,7 +29,7 @@ class FavoriteAbyssbossCard extends ConsumerWidget {
       return CachedNetworkImage(
         height: 65,
         width: 190,
-        fit: BoxFit.fill,
+        fit: BoxFit.contain,
         placeholder:
             (context, url) => LinearProgressIndicator(
               valueColor: AlwaysStoppedAnimation<Color>(Colors.white),

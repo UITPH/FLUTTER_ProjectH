@@ -7,19 +7,15 @@ class WeatherProvider extends ChangeNotifier {
   final List<WeatherModel> _weathers = [];
   List<WeatherModel> get weathers => _weathers;
 
-  WeatherProvider() {
-    _loadWeathers();
-  }
-
-  Future<void> _loadWeathers() async {
+  Future<void> loadWeathers() async {
     _weathers.addAll(await loadWeathersListFromDataBase());
     notifyListeners();
   }
 }
 
 Future<List<WeatherModel>> loadWeathersListFromDataBase() async {
-  final db = await DatabaseHelper.getDatabase();
-  final List<Map<String, dynamic>> data = await db.query('weathers');
+  final db = DatabaseHelper.supabase;
+  final data = await db.from('weathers').select();
   return data.map((e) => WeatherModel.fromMap(e)).toList();
 }
 

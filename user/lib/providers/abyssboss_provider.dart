@@ -8,6 +8,7 @@ class AbyssBossProvider extends ChangeNotifier {
   List<AbyssBossModel> get bosses => _bosses;
 
   Future<void> loadBosses() async {
+    _bosses.clear();
     _bosses.addAll(await loadBossesListFromDataBase());
     notifyListeners();
   }
@@ -19,7 +20,9 @@ Future<List<AbyssBossModel>> loadBossesListFromDataBase() async {
       .from('abyssbosses')
       .select(
         'id, name, id_weather, mechanic, resistance, abyssboss_teamrec(first_valk, second_valk, third_valk, elf, note)',
-      );
+      )
+      .eq('is_deleted', 0)
+      .order('order', ascending: false);
   return data.map((e) => AbyssBossModel.fromMap(e)).toList();
 }
 

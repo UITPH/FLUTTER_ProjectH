@@ -1,0 +1,10 @@
+^D:\PROJECT\FLUTTER_PROJECTH\FLUTTER_HONKAI\USER\BUILD\WINDOWS\X64\CMAKEFILES\9276B1F045332CCF13AE4D1E9DD677D6\INSTALL_FORCE.RULE
+setlocal
+cd .
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

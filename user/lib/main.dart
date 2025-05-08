@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_honkai/pages/loading_page.dart';
+import 'package:flutter_honkai/providers/realtime_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:window_manager/window_manager.dart';
 
 void main() async {
@@ -23,15 +23,15 @@ void main() async {
   });
 
   await windowManager.setAspectRatio(16 / 10);
-  databaseFactory = databaseFactoryFfi;
   runApp(ProviderScope(child: MyApp()));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerWidget {
   const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    ref.read(realtimeServiceProvider);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Honkai Station',

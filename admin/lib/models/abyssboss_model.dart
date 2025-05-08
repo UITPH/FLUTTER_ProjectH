@@ -1,16 +1,10 @@
-import 'dart:convert';
-
 class AbyssBossModel {
   final String id;
   final String name;
   final String idWeather;
   final String mechanic;
   final String resistance;
-  final List firstValk;
-  final List secondValk;
-  final List thirdValk;
-  final List elf;
-  final List note;
+  final List teamrec;
 
   AbyssBossModel({
     required this.id,
@@ -18,11 +12,7 @@ class AbyssBossModel {
     required this.idWeather,
     required this.mechanic,
     required this.resistance,
-    required this.firstValk,
-    required this.secondValk,
-    required this.thirdValk,
-    required this.elf,
-    required this.note,
+    required this.teamrec,
   });
 
   factory AbyssBossModel.fromMap(Map<String, dynamic> map) {
@@ -32,35 +22,31 @@ class AbyssBossModel {
       idWeather: map['id_weather'],
       mechanic: map['mechanic'],
       resistance: map['resistance'],
-      firstValk: jsonDecode(map['first_valk']),
-      secondValk: jsonDecode(map['second_valk']),
-      thirdValk: jsonDecode(map['third_valk']),
-      elf: jsonDecode(map['elf']),
-      note: jsonDecode(map['note']),
+      teamrec: map['abyssboss_teamrec'],
     );
   }
 
-  Map<String, dynamic> toMainMap() {
-    return {
+  Map<String, dynamic> toBossMap() {
+    return ({
       'id': id,
       'name': name,
       'id_weather': idWeather,
       'mechanic': mechanic,
       'resistance': resistance,
       'is_deleted': 0,
-    };
+    });
   }
 
-  List<Map<String, dynamic>> toTeamrecListMap() {
-    List<Map<String, dynamic>> res = [];
-    for (int i = 0; i < firstValk.length; i++) {
+  List toTeamrecListMap() {
+    final List<Map<String, dynamic>> res = [];
+    for (var team in teamrec) {
       res.add({
         'id_abyssboss': id,
-        'first_valk': firstValk[i],
-        'second_valk': secondValk[i],
-        'third_valk': thirdValk[i],
-        'elf': elf[i],
-        'note': note[i],
+        'first_valk': team['first_valk'],
+        'second_valk': team['second_valk'],
+        'third_valk': team['third_valk'],
+        'elf': team['elf'],
+        'note': team['note'],
       });
     }
     return res;

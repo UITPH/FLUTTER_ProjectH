@@ -1,23 +1,11 @@
-import 'package:sqflite/sqflite.dart';
-import 'package:path_provider/path_provider.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+
+final serviceKey =
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNueHJ6dWl1bGFqbWp4ZGp5eXZzIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc0NjQ0OTQ2MywiZXhwIjoyMDYyMDI1NDYzfQ.5BB0g9JdNIs1agSEBeFAtww_qRywjOH6L6ONLOoNaLQ';
 
 class DatabaseHelper {
-  static Database? _database;
-
-  static Future<Database> getDatabase() async {
-    if (_database != null) {
-      return _database!;
-    } else {
-      var dir = await getApplicationDocumentsDirectory();
-      var path =
-          '${dir.path}/Honkai Station/honkai_station.db'; // Đường dẫn đến database sẵn có
-      _database = await openDatabase(
-        path,
-        onConfigure: (db) async {
-          await db.execute('PRAGMA foreign_keys = ON');
-        },
-      );
-      return _database!;
-    }
-  }
+  static SupabaseClient supabase = SupabaseClient(
+    'https://cnxrzuiulajmjxdjyyvs.supabase.co',
+    serviceKey,
+  );
 }

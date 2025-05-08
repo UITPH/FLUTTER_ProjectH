@@ -7,11 +7,10 @@ class ValkyrieModel {
   final List damage;
   final int type;
   final List equipment;
-  final List note;
-  final List leader;
-  final List firstvalkList;
-  final List secondvalkList;
-  final List elfList;
+  final List lineup;
+  final String role;
+  final String pullrec;
+  final String rankup;
 
   ValkyrieModel({
     required this.id,
@@ -20,11 +19,10 @@ class ValkyrieModel {
     required this.damage,
     required this.type,
     required this.equipment,
-    required this.note,
-    required this.leader,
-    required this.firstvalkList,
-    required this.secondvalkList,
-    required this.elfList,
+    required this.lineup,
+    required this.role,
+    required this.pullrec,
+    required this.rankup,
   });
 
   factory ValkyrieModel.fromMap(Map<String, dynamic> map) {
@@ -35,15 +33,14 @@ class ValkyrieModel {
       damage: jsonDecode(map['damage']),
       type: map['type'],
       equipment: jsonDecode(map['equipment']),
-      note: jsonDecode(map['note']),
-      leader: jsonDecode(map['leader']),
-      firstvalkList: jsonDecode(map['first_valk_list']),
-      secondvalkList: jsonDecode(map['second_valk_list']),
-      elfList: jsonDecode(map['elf_list']),
+      lineup: map['valk_lineup'],
+      role: map['role'],
+      pullrec: map['pullrec'],
+      rankup: map['rankup'],
     );
   }
 
-  Map<String, dynamic> toMainMap() {
+  Map<String, dynamic> toValkMap() {
     return {
       'id': id,
       'name': name,
@@ -51,20 +48,23 @@ class ValkyrieModel {
       'damage': jsonEncode(damage),
       'type': type,
       'equipment': jsonEncode(equipment),
+      'role': role,
+      'pullrec': pullrec,
+      'rankup': rankup,
       'is_deleted': 0,
     };
   }
 
-  List<Map<String, dynamic>> toLineUpListMap() {
-    List<Map<String, dynamic>> res = [];
-    for (int i = 0; i < note.length; i++) {
+  List toLineupListMap() {
+    final List<Map<String, dynamic>> res = [];
+    for (var line in lineup) {
       res.add({
         'id_valk': id,
-        'note': note[i],
-        'leader': leader[i],
-        'first_valk_list': jsonEncode(firstvalkList[i]),
-        'second_valk_list': jsonEncode(secondvalkList[i]),
-        'elf_list': jsonEncode(elfList[i]),
+        'note': line['note'],
+        'leader': line['leader'],
+        'first_valk_list': line['first_valk_list'],
+        'second_valk_list': line['second_valk_list'],
+        'elf_list': line['elf_list'],
       });
     }
     return res;

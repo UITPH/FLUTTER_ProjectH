@@ -1,8 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_honkai/providers/abyssboss_provider.dart';
 import 'package:flutter_honkai/providers/delete_provider.dart';
-import 'dart:io';
-import 'package:flutter_honkai/providers/path_provider.dart';
 import 'package:flutter_honkai/services/database_helper.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_honkai/widgets/clickable.dart';
@@ -15,7 +14,24 @@ class DeleteAbyssbossCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final String imagePath = ref.read(abyssbossImagesPathProvider);
+    Widget getAbyssBossImage(String id) {
+      final db = DatabaseHelper.supabase;
+      final url = db.storage
+          .from('data')
+          .getPublicUrl('images/abyssbosses/$id.png');
+
+      return CachedNetworkImage(
+        height: 80,
+        width: 250,
+        fit: BoxFit.contain,
+        placeholder:
+            (context, url) => LinearProgressIndicator(
+              valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+            ),
+        errorWidget: (context, url, error) => Icon(Icons.error),
+        imageUrl: url,
+      );
+    }
 
     return GridTile(
       child: Column(
@@ -44,23 +60,12 @@ class DeleteAbyssbossCard extends ConsumerWidget {
                           //notify other widgets to update
                           ref.read(abyssBossProvider).removeBoss(id);
                           //delete relevant images
-                          final bossImagePath = ref.read(
-                            abyssbossImagesPathProvider,
-                          );
-                          final bossImageFile = File('$bossImagePath/$id.png');
-                          await bossImageFile.delete();
+                          final db = DatabaseHelper.supabase;
+                          await db.storage.from('data').remove([
+                            'images/abyssbosses/$id.png',
+                          ]);
                           //delete from database
-                          final db = await DatabaseHelper.getDatabase();
-                          await db.delete(
-                            'abyssboss_teamrec',
-                            where: 'id_abyssboss = ?',
-                            whereArgs: [id],
-                          );
-                          await db.delete(
-                            'abyssbosses',
-                            where: 'id = ?',
-                            whereArgs: [id],
-                          );
+                          await db.from('abyssbosses').delete().eq('id', id);
                           ref.read(deleteProvider).deleteAbyssBoss(id);
                         },
                         child: Text(
@@ -75,16 +80,13 @@ class DeleteAbyssbossCard extends ConsumerWidget {
                         onPressed: () async {
                           Navigator.of(context).pop();
                           //restore
-                          ref.read(deleteProvider).deleteAbyssBoss(id);
-                          ref.read(abyssBossProvider).restoreBoss(id);
+                          ref.read(deleteProvider).restoreAbyssBoss(id, ref);
                           //restore in database
-                          final db = await DatabaseHelper.getDatabase();
-                          await db.update(
-                            'abyssbosses',
-                            {'is_deleted': 0},
-                            where: 'id = ?',
-                            whereArgs: [id],
-                          );
+                          final db = DatabaseHelper.supabase;
+                          await db
+                              .from('abyssbosses')
+                              .update({'is_deleted': 0})
+                              .eq('id', id);
                         },
                         child: Text(
                           style: TextStyle(
@@ -107,11 +109,7 @@ class DeleteAbyssbossCard extends ConsumerWidget {
               color: Colors.black,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(10),
-                child: Image.file(
-                  height: 80,
-                  width: 250,
-                  File('$imagePath/$id.png'),
-                ),
+                child: getAbyssBossImage(id),
               ),
             ),
           ),

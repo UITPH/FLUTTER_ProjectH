@@ -1,8 +1,6 @@
-import 'dart:io';
-
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_honkai/providers/delete_provider.dart';
-import 'package:flutter_honkai/providers/path_provider.dart';
 import 'package:flutter_honkai/providers/valkyrie_provider.dart';
 import 'package:flutter_honkai/services/database_helper.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -44,13 +42,11 @@ class AdvanceValkCard extends ConsumerWidget {
                 //notify other widgets to update
                 ref.read(valkyrieProvider).removeValkyrie(id);
                 //soft delete in database
-                final db = await DatabaseHelper.getDatabase();
-                await db.update(
-                  'valkyries',
-                  {'is_deleted': 1},
-                  where: 'id = ?',
-                  whereArgs: [id],
-                );
+                final db = DatabaseHelper.supabase;
+                await db
+                    .from('valkyries')
+                    .update({'is_deleted': 1})
+                    .eq('id', id);
                 if (context.mounted) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
@@ -70,7 +66,23 @@ class AdvanceValkCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final String imagePath = ref.read(valkImagesPathPathProvider);
+    Widget getValkImage(String id) {
+      final db = DatabaseHelper.supabase;
+      final url = db.storage
+          .from('data')
+          .getPublicUrl('images/valkyries/$id.png');
+
+      return CachedNetworkImage(
+        width: 100,
+        height: 100,
+        placeholder:
+            (context, url) => LinearProgressIndicator(
+              valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+            ),
+        errorWidget: (context, url, error) => Icon(Icons.error),
+        imageUrl: url,
+      );
+    }
 
     return GridTile(
       child: Column(
@@ -87,11 +99,7 @@ class AdvanceValkCard extends ConsumerWidget {
               color: Colors.white,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(20),
-                child: Image.file(
-                  width: 100,
-                  height: 100,
-                  File('$imagePath/$id.png'),
-                ),
+                child: getValkImage(id),
               ),
             ),
           ),

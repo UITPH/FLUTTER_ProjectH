@@ -8,6 +8,7 @@ class ElfProvider extends ChangeNotifier {
   List<ElfModel> get elfs => _elfs;
 
   Future<void> loadElfs() async {
+    _elfs.clear();
     _elfs.addAll(await loadElfsListFromDataBase());
     notifyListeners();
   }
@@ -15,7 +16,7 @@ class ElfProvider extends ChangeNotifier {
 
 Future<List<ElfModel>> loadElfsListFromDataBase() async {
   final db = DatabaseHelper.supabase;
-  final data = await db.from('elfs').select();
+  final data = await db.from('elfs').select().order('order', ascending: false);
   return data.map((e) => ElfModel.fromMap(e)).toList();
 }
 

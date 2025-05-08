@@ -8,6 +8,7 @@ class ValkyrieProvider extends ChangeNotifier {
   List<ValkyrieModel> get valkyries => _valkyries;
 
   Future<void> loadValkyries() async {
+    _valkyries.clear();
     _valkyries.addAll(await loadValkyriesListFromDataBase());
     notifyListeners();
   }
@@ -20,7 +21,8 @@ Future<List<ValkyrieModel>> loadValkyriesListFromDataBase() async {
       .select(
         'id, name, astralop, damage, type, equipment, valk_lineup(note, leader, first_valk_list, second_valk_list, elf_list), role, pullrec, rankup',
       )
-      .order('order', ascending: true);
+      .eq('is_deleted', 0)
+      .order('order', ascending: false);
   return data.map((e) => ValkyrieModel.fromMap(e)).toList();
 }
 
