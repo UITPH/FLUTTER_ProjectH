@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_honkai/models/abyssboss_model.dart';
 import 'package:flutter_honkai/models/arenaboss_model.dart';
+import 'package:flutter_honkai/models/elf_model.dart';
 import 'package:flutter_honkai/models/valkyrie_model.dart';
 import 'package:flutter_honkai/providers/abyssboss_provider.dart';
 import 'package:flutter_honkai/providers/arenaboss_provider.dart';
+import 'package:flutter_honkai/providers/elf_provider.dart';
 import 'package:flutter_honkai/providers/valkyrie_provider.dart';
 import 'package:flutter_honkai/services/database_helper.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -12,10 +14,12 @@ class DeleteNotifier extends ChangeNotifier {
   final List<ValkyrieModel> _valkDeletes = [];
   final List<AbyssBossModel> _abyssbossDeletes = [];
   final List<ArenaBossModel> _arenabossDeletes = [];
+  final List<ElfModel> _elfDeletes = [];
 
   List<ValkyrieModel> get valkDeletes => _valkDeletes;
   List<AbyssBossModel> get abyssbossDeletes => _abyssbossDeletes;
   List<ArenaBossModel> get arenabossDeletes => _arenabossDeletes;
+  List<ElfModel> get elfDeletes => _elfDeletes;
 
   DeleteNotifier() {
     _loadDeletes();
@@ -27,6 +31,7 @@ class DeleteNotifier extends ChangeNotifier {
     _valkDeletes.addAll(await loadDeleteValkModelList());
     _abyssbossDeletes.addAll(await loadDeleteAbyssBossModelList());
     _arenabossDeletes.addAll(await loadDeleteArenaBossModelList());
+    _elfDeletes.addAll(await loadDeleteElfModelList());
     notifyListeners(); // Thông báo UI cập nhật sau khi tải dữ liệu
   }
 
@@ -80,6 +85,23 @@ class DeleteNotifier extends ChangeNotifier {
     _arenabossDeletes.remove(boss);
     notifyListeners();
   }
+
+  Future<void> addElf(ElfModel elf) async {
+    _elfDeletes.add(elf);
+    notifyListeners();
+  }
+
+  Future<void> deleteElf(String id) async {
+    _elfDeletes.removeWhere((elf) => elf.id == id);
+    notifyListeners();
+  }
+
+  Future<void> restoreElf(String id, WidgetRef ref) async {
+    final elf = _elfDeletes.firstWhere((elf) => elf.id == id);
+    ref.read(elfProvider).addElf(elf);
+    _elfDeletes.remove(elf);
+    notifyListeners();
+  }
 }
 
 Future<List<ValkyrieModel>> loadDeleteValkModelList() async {
@@ -116,6 +138,16 @@ Future<List<ArenaBossModel>> loadDeleteArenaBossModelList() async {
       .eq('is_deleted', 1)
       .order('order', ascending: false);
   return data.map((e) => ArenaBossModel.fromMap(e)).toList();
+}
+
+Future<List<ElfModel>> loadDeleteElfModelList() async {
+  final db = DatabaseHelper.supabase;
+  final data = await db
+      .from('elfs')
+      .select()
+      .eq('is_deleted', 1)
+      .order('order', ascending: false);
+  return data.map((e) => ElfModel.fromMap(e)).toList();
 }
 
 final deleteProvider = ChangeNotifierProvider<DeleteNotifier>(

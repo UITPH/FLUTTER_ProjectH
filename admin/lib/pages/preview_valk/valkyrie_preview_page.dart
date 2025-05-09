@@ -82,7 +82,10 @@ class _ValkyriePreviewPageState extends ConsumerState<ValkyriePreviewPage> {
         }).toList();
 
     return Scaffold(
-      appBar: AppBar(title: Text('PREVIEW')),
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        title: Text(style: TextStyle(fontWeight: FontWeight.bold), 'PREVIEW'),
+      ),
       body: Stack(
         children: [
           SizedBox(

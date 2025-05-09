@@ -42,7 +42,7 @@ class DeleteArenabossCard extends ConsumerWidget {
                 context: context,
                 builder: (BuildContext context) {
                   return AlertDialog(
-                    title: Text("Delete permanently or restore this valk"),
+                    title: Text("Delete permanently or restore this boss"),
                     actions: [
                       TextButton(
                         onPressed: () {

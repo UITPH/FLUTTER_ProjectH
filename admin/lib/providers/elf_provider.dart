@@ -7,6 +7,16 @@ class ElfProvider extends ChangeNotifier {
   final List<ElfModel> _elfs = [];
   List<ElfModel> get elfs => _elfs;
 
+  void addElf(ElfModel newElf) {
+    _elfs.insert(0, newElf);
+    notifyListeners();
+  }
+
+  void removeElf(String id) {
+    _elfs.removeWhere((elf) => elf.id == id);
+    notifyListeners();
+  }
+
   Future<void> loadElfs() async {
     _elfs.addAll(await loadElfsListFromDataBase());
     notifyListeners();
@@ -15,7 +25,11 @@ class ElfProvider extends ChangeNotifier {
 
 Future<List<ElfModel>> loadElfsListFromDataBase() async {
   final db = DatabaseHelper.supabase;
-  final data = await db.from('elfs').select();
+  final data = await db
+      .from('elfs')
+      .select()
+      .eq('is_deleted', 0)
+      .order('order', ascending: false);
   return data.map((e) => ElfModel.fromMap(e)).toList();
 }
 

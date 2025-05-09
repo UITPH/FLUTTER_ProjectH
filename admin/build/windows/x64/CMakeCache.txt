@@ -62,7 +62,7 @@ CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO:STRING=/debug /INCREMENTAL
 CMAKE_FIND_PACKAGE_REDIRECTS_DIR:STATIC=D:/Project/FLUTTER_ProjectH/flutter_honkai/admin/build/windows/x64/CMakeFiles/pkgRedirects
 
 //...
-CMAKE_INSTALL_PREFIX:PATH=$<TARGET_FILE_DIR:flutter_honkai>
+CMAKE_INSTALL_PREFIX:PATH=$<TARGET_FILE_DIR:flutter_honkai_manager>
 
 //Path to a program.
 CMAKE_LINKER:FILEPATH=C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.43.34808/bin/Hostx64/x64/link.exe

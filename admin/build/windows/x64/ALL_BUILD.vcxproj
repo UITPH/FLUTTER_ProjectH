@@ -148,9 +148,9 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <Project>{A70ED6C0-6335-3F9F-A7E0-10267E844894}</Project>
       <Name>connectivity_plus_plugin</Name>
     </ProjectReference>
-    <ProjectReference Include="D:\Project\FLUTTER_ProjectH\flutter_honkai\admin\build\windows\x64\runner\flutter_honkai.vcxproj">
-      <Project>{8F616A42-81D0-323F-AD6B-51E78F154BAF}</Project>
-      <Name>flutter_honkai</Name>
+    <ProjectReference Include="D:\Project\FLUTTER_ProjectH\flutter_honkai\admin\build\windows\x64\runner\flutter_honkai_manager.vcxproj">
+      <Project>{E2F4EF83-CCED-3D16-83F5-F9727A9C9213}</Project>
+      <Name>flutter_honkai_manager</Name>
     </ProjectReference>
     <ProjectReference Include="D:\Project\FLUTTER_ProjectH\flutter_honkai\admin\build\windows\x64\flutter\flutter_wrapper_app.vcxproj">
       <Project>{3821B7C5-CDB7-3F71-8213-EAE41D7832AD}</Project>

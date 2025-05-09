@@ -68,7 +68,6 @@ class _DeleteValkyriePageState extends ConsumerState<DeleteValkyriePage> {
       appBar: AppBar(
         scrolledUnderElevation: 0,
         backgroundColor: Colors.transparent,
-        //foregroundColor: Colors.transparent,
         title: Text('Delete Valkyrie Page'),
       ),
       body: SafeArea(

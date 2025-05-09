@@ -9,7 +9,6 @@ D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/x64/runner/Release
 D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/x64/runner/Release/data/flutter_assets/AssetManifest.json
 D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/x64/runner/Release/data/flutter_assets/FontManifest.json
 D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/x64/runner/Release/data/flutter_assets/fonts/MaterialIcons-Regular.otf
-D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/x64/runner/Release/data/flutter_assets/lib/assets/images/aicrystal.png
 D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/x64/runner/Release/data/flutter_assets/lib/assets/images/citybridge.jpg
 D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/x64/runner/Release/data/flutter_assets/lib/assets/images/crystal.png
 D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/x64/runner/Release/data/flutter_assets/lib/assets/images/elybridge.jpg
@@ -18,9 +17,7 @@ D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/x64/runner/Release
 D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/x64/runner/Release/data/flutter_assets/lib/assets/images/futurebridge.png
 D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/x64/runner/Release/data/flutter_assets/lib/assets/images/honkai-ai.png
 D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/x64/runner/Release/data/flutter_assets/lib/assets/images/loading.jpg
-D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/x64/runner/Release/data/flutter_assets/lib/assets/images/logo.png
 D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/x64/runner/Release/data/flutter_assets/lib/assets/images/logo2.png
-D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/x64/runner/Release/data/flutter_assets/lib/assets/images/quantasea.png
 D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/x64/runner/Release/data/flutter_assets/lib/assets/images/taixuanbridge.jpg
 D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/x64/runner/Release/data/flutter_assets/lib/assets/images/types&dame/bio.png
 D:/Project/FLUTTER_ProjectH/flutter_honkai/user/build/windows/x64/runner/Release/data/flutter_assets/lib/assets/images/types&dame/bleed.png

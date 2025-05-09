@@ -30,10 +30,10 @@ class FavoritePage extends ConsumerWidget {
     final elfFavorites = ref.watch(favoriteProvider).elfFavorites;
     final abyssbossFavorites = ref.watch(favoriteProvider).abyssbossFavorites;
     final arenabossFavorites = ref.watch(favoriteProvider).arenabossFavorites;
-    final valkyries = ref.read(valkyrieProvider).valkyries;
-    final elfs = ref.read(elfProvider).elfs;
-    final abyssbosses = ref.read(abyssBossProvider).bosses;
-    final arenabosses = ref.read(arenabossProvider).bosses;
+    final valkyries = ref.watch(valkyrieProvider).valkyries;
+    final elfs = ref.watch(elfProvider).elfs;
+    final abyssbosses = ref.watch(abyssBossProvider).bosses;
+    final arenabosses = ref.watch(arenabossProvider).bosses;
     final List<ValkyrieModel> favoriteValkyries =
         valkyries.where((valk) => valkFavorites.contains(valk.id)).toList();
     final List<ElfModel> favoriteElfs =

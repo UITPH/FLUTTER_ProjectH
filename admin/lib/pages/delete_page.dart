@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_honkai/providers/delete_provider.dart';
 import 'package:flutter_honkai/widgets/delete_abyssboss_card.dart';
 import 'package:flutter_honkai/widgets/delete_arenaboss_card.dart';
+import 'package:flutter_honkai/widgets/delete_elf_card.dart';
 import 'package:flutter_honkai/widgets/delete_valk_card.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -13,6 +14,7 @@ class DeletePage extends ConsumerWidget {
     final valkDeletes = ref.watch(deleteProvider).valkDeletes;
     final abyssbossDeletes = ref.watch(deleteProvider).abyssbossDeletes;
     final arenabossDeletes = ref.watch(deleteProvider).arenabossDeletes;
+    final elfDeletes = ref.watch(deleteProvider).elfDeletes;
     return Scaffold(
       appBar: AppBar(title: Text('Restore')),
       body: Stack(
@@ -33,13 +35,14 @@ class DeletePage extends ConsumerWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Expanded(
+                      flex: 8,
                       child: Column(
                         children: [
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 50),
                             child: Text(
                               style: TextStyle(
-                                fontSize: 35,
+                                fontSize: 30,
                                 fontWeight: FontWeight.bold,
                               ),
                               'Deleted Valkyries',
@@ -62,13 +65,42 @@ class DeletePage extends ConsumerWidget {
                       ),
                     ),
                     Expanded(
+                      flex: 7,
                       child: Column(
                         children: [
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 50),
                             child: Text(
                               style: TextStyle(
-                                fontSize: 35,
+                                fontSize: 30,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              'Deleted Elfs',
+                            ),
+                          ),
+                          Wrap(
+                            runSpacing: 30,
+                            children: List.generate(elfDeletes.length, (index) {
+                              final String id = elfDeletes[index].id;
+                              final String name = elfDeletes[index].name;
+                              return SizedBox(
+                                width: 150,
+                                child: DeleteElfCard(id: id, name: name),
+                              );
+                            }),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      flex: 10,
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 50),
+                            child: Text(
+                              style: TextStyle(
+                                fontSize: 30,
                                 fontWeight: FontWeight.bold,
                               ),
                               'Deleted Abyss Bosses',
@@ -83,7 +115,7 @@ class DeletePage extends ConsumerWidget {
                               final String id = abyssbossDeletes[index].id;
                               final String name = abyssbossDeletes[index].name;
                               return SizedBox(
-                                width: 200,
+                                width: 180,
                                 child: DeleteAbyssbossCard(id: id, name: name),
                               );
                             }),
@@ -92,13 +124,14 @@ class DeletePage extends ConsumerWidget {
                       ),
                     ),
                     Expanded(
+                      flex: 10,
                       child: Column(
                         children: [
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 50),
                             child: Text(
                               style: TextStyle(
-                                fontSize: 35,
+                                fontSize: 30,
                                 fontWeight: FontWeight.bold,
                               ),
                               'Deleted Arena Bosses',
@@ -113,7 +146,7 @@ class DeletePage extends ConsumerWidget {
                               final String id = arenabossDeletes[index].id;
                               final String name = arenabossDeletes[index].name;
                               return SizedBox(
-                                width: 200,
+                                width: 180,
                                 child: DeleteArenabossCard(id: id, name: name),
                               );
                             }),

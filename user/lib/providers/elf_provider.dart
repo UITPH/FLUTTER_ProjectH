@@ -16,7 +16,11 @@ class ElfProvider extends ChangeNotifier {
 
 Future<List<ElfModel>> loadElfsListFromDataBase() async {
   final db = DatabaseHelper.supabase;
-  final data = await db.from('elfs').select().order('order', ascending: false);
+  final data = await db
+      .from('elfs')
+      .select()
+      .eq('is_deleted', 0)
+      .order('order', ascending: false);
   return data.map((e) => ElfModel.fromMap(e)).toList();
 }
 

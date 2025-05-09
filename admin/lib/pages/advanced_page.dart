@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_honkai/pages/delete_arena_boss_page.dart';
+import 'package:flutter_honkai/pages/delete_elf_page.dart';
 import 'package:flutter_honkai/pages/insert_abyss_boss_page.dart';
 import 'package:flutter_honkai/pages/insert_arena_boss_page.dart';
+import 'package:flutter_honkai/pages/insert_elf_page.dart';
 import 'package:flutter_honkai/pages/insert_valkyrie_page.dart';
 import 'package:flutter_honkai/pages/delete_abyss_boss_page.dart';
 import 'package:flutter_honkai/pages/delete_valkyrie_page.dart';
@@ -43,6 +45,12 @@ class _AdvancedPageState extends State<AdvancedPage> {
           case '/arenabossdel':
             builder = (context) => DeleteArenaBossPage();
             break;
+          case '/elfins':
+            builder = (context) => InsertElfPage();
+            break;
+          case '/elfdel':
+            builder = (context) => DeleteElfPage();
+            break;
           case '/restore':
             builder = (context) => DeletePage();
           default:
@@ -59,7 +67,6 @@ class AdvancedPageHome extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    //ref.read(deleteProvider).init();
     return Center(
       child: Column(
         spacing: 50,
@@ -73,7 +80,7 @@ class AdvancedPageHome extends ConsumerWidget {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 15),
                   child: Text(
-                    style: TextStyle(color: Colors.white, fontSize: 20),
+                    style: TextStyle(color: Colors.greenAccent, fontSize: 20),
                     'Insert Valkyrie',
                   ),
                 ),
@@ -83,7 +90,7 @@ class AdvancedPageHome extends ConsumerWidget {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 15),
                   child: Text(
-                    style: TextStyle(color: Colors.white, fontSize: 20),
+                    style: TextStyle(color: Colors.redAccent, fontSize: 20),
                     'Delete Valkyrie',
                   ),
                 ),
@@ -99,7 +106,7 @@ class AdvancedPageHome extends ConsumerWidget {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 15),
                   child: Text(
-                    style: TextStyle(color: Colors.white, fontSize: 20),
+                    style: TextStyle(color: Colors.greenAccent, fontSize: 20),
                     'Insert Abyss Boss',
                   ),
                 ),
@@ -109,7 +116,7 @@ class AdvancedPageHome extends ConsumerWidget {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 15),
                   child: Text(
-                    style: TextStyle(color: Colors.white, fontSize: 20),
+                    style: TextStyle(color: Colors.redAccent, fontSize: 20),
                     'Delete Abyss Boss',
                   ),
                 ),
@@ -125,7 +132,7 @@ class AdvancedPageHome extends ConsumerWidget {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 15),
                   child: Text(
-                    style: TextStyle(color: Colors.white, fontSize: 20),
+                    style: TextStyle(color: Colors.greenAccent, fontSize: 20),
                     'Insert Arena Boss',
                   ),
                 ),
@@ -135,11 +142,37 @@ class AdvancedPageHome extends ConsumerWidget {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 15),
                   child: Text(
-                    style: TextStyle(color: Colors.white, fontSize: 20),
+                    style: TextStyle(color: Colors.redAccent, fontSize: 20),
                     'Delete Arena Boss',
                   ),
                 ),
                 onPressed: () => Navigator.pushNamed(context, '/arenabossdel'),
+              ),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            spacing: 20,
+            children: [
+              ElevatedButton(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 15),
+                  child: Text(
+                    style: TextStyle(color: Colors.greenAccent, fontSize: 20),
+                    'Insert Elf',
+                  ),
+                ),
+                onPressed: () => Navigator.pushNamed(context, '/elfins'),
+              ),
+              ElevatedButton(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 15),
+                  child: Text(
+                    style: TextStyle(color: Colors.redAccent, fontSize: 20),
+                    'Delete Elf',
+                  ),
+                ),
+                onPressed: () => Navigator.pushNamed(context, '/elfdel'),
               ),
             ],
           ),

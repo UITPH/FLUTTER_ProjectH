@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_honkai/pages/loading_page.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:window_manager/window_manager.dart';
 
 void main() async {
@@ -23,7 +22,6 @@ void main() async {
   });
 
   await windowManager.setAspectRatio(16 / 10);
-  databaseFactory = databaseFactoryFfi;
   runApp(ProviderScope(child: MyApp()));
 }
 
@@ -34,7 +32,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Honkai Station',
+      title: 'Honkai Station Manager',
       theme: ThemeData.dark(useMaterial3: true),
       home: LoadingPage(),
     );

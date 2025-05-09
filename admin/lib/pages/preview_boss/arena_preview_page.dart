@@ -46,7 +46,10 @@ class _ArenaPreviewPageState extends ConsumerState<ArenaPreviewPage> {
             )
             .toList();
     return Scaffold(
-      appBar: AppBar(title: Text('Preview')),
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        title: Text(style: TextStyle(fontWeight: FontWeight.bold), 'PREVIEW'),
+      ),
       body: Stack(
         children: [
           SizedBox(

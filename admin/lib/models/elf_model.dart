@@ -13,7 +13,7 @@ class ElfModel {
     );
   }
 
-  Map<String, dynamic> tomap() {
+  Map<String, dynamic> toMap() {
     return {'id': id, 'name': name, 'overview': overview};
   }
 }

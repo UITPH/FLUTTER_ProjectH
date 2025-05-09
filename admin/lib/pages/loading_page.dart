@@ -86,14 +86,10 @@ class _LoadingPageState extends ConsumerState<LoadingPage> {
     return Scaffold(
       body: Stack(
         children: [
-          SizedBox(
-            height: double.infinity,
+          Container(
             width: double.infinity,
-            child: Image(
-              image: AssetImage('lib/assets/images/taixuanbridge.jpg'),
-              opacity: AlwaysStoppedAnimation(0.2),
-              fit: BoxFit.cover,
-            ),
+            height: double.infinity,
+            color: Colors.black,
           ),
           Center(
             child: Column(

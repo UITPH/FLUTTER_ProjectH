@@ -10,7 +10,7 @@ class ElfPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final elfs = ref.read(elfProvider).elfs;
+    final elfs = ref.watch(elfProvider).elfs;
     final favories = ref.watch(favoriteProvider);
     return Scaffold(
       body: Stack(
