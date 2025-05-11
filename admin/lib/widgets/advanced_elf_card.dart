@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_honkai/providers/delete_provider.dart';
 import 'package:flutter_honkai/providers/elf_provider.dart';
+import 'package:flutter_honkai/providers/image_version_provider.dart';
 import 'package:flutter_honkai/services/database_helper.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_honkai/widgets/clickable.dart';
@@ -64,8 +65,14 @@ class AdvancedElfCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     Widget getElfImage(String id) {
+      final version =
+          ref
+              .read(imageVersionProvider)
+              .elfs
+              .firstWhere((elf) => elf['id'] == id)['version'];
       final db = DatabaseHelper.supabase;
-      final url = db.storage.from('data').getPublicUrl('images/elfs/$id.png');
+      final url =
+          '${db.storage.from('data').getPublicUrl('images/elfs/$id.png')}?v=$version';
 
       return CachedNetworkImage(
         width: 120,

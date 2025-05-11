@@ -283,29 +283,6 @@ class _InsertValkyriePageState extends ConsumerState<InsertValkyriePage> {
                       child: Padding(
                         padding: EdgeInsets.symmetric(horizontal: 20),
                         child: TextFormField(
-                          readOnly: false,
-                          enabled: true,
-                          decoration: InputDecoration(
-                            labelText: 'Name of valk',
-                          ),
-                          autovalidateMode: AutovalidateMode.onUserInteraction,
-                          validator: (value) {
-                            if (value == '') {
-                              return 'Please enter name of valk';
-                            }
-                            return null;
-                          },
-                          onChanged: (value) {
-                            name = value;
-                          },
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      flex: 2,
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 20),
-                        child: TextFormField(
                           maxLines: null,
                           keyboardType: TextInputType.multiline,
                           readOnly: false,
@@ -325,6 +302,29 @@ class _InsertValkyriePageState extends ConsumerState<InsertValkyriePage> {
                           },
                           onChanged: (value) {
                             id = value;
+                          },
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      flex: 2,
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 20),
+                        child: TextFormField(
+                          readOnly: false,
+                          enabled: true,
+                          decoration: InputDecoration(
+                            labelText: 'Name of valk',
+                          ),
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
+                          validator: (value) {
+                            if (value == '') {
+                              return 'Please enter name of valk';
+                            }
+                            return null;
+                          },
+                          onChanged: (value) {
+                            name = value;
                           },
                         ),
                       ),

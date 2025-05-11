@@ -6,11 +6,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class ArenaPreviewPage extends ConsumerStatefulWidget {
   final ArenaBossModel previewBoss;
-  final String imagePath;
+  final Widget image;
   const ArenaPreviewPage({
     super.key,
     required this.previewBoss,
-    required this.imagePath,
+    required this.image,
   });
 
   @override
@@ -116,7 +116,7 @@ class _ArenaPreviewPageState extends ConsumerState<ArenaPreviewPage> {
                             return PreviewBossCard(
                               id: id,
                               name: name,
-                              imagePath: widget.imagePath,
+                              image: widget.image,
                               onTap: () {
                                 Navigator.of(context).push(
                                   MaterialPageRoute(
@@ -124,7 +124,7 @@ class _ArenaPreviewPageState extends ConsumerState<ArenaPreviewPage> {
                                       return ArenabossPreviewDetailsPage(
                                         id: id,
                                         name: name,
-                                        imagePath: widget.imagePath,
+                                        image: widget.image,
                                         rank: rank,
                                         teamrec: teamrec,
                                       );

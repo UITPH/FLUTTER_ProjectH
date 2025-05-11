@@ -16,7 +16,11 @@ class DeletePage extends ConsumerWidget {
     final arenabossDeletes = ref.watch(deleteProvider).arenabossDeletes;
     final elfDeletes = ref.watch(deleteProvider).elfDeletes;
     return Scaffold(
-      appBar: AppBar(title: Text('Restore')),
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        title: Text(style: TextStyle(fontWeight: FontWeight.bold), 'Restore'),
+      ),
       body: Stack(
         children: [
           SizedBox(

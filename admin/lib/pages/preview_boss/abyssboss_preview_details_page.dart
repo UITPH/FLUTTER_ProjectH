@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'dart:io';
 import 'package:flutter_honkai/widgets/topteams_widget.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class AbyssbossPreviewDetailsPage extends ConsumerStatefulWidget {
   final String id;
   final String name;
-  final String imagePath;
+  final Widget image;
   final String weatherName;
   final String weatherSpecific;
   final String mechanic;
@@ -17,7 +16,7 @@ class AbyssbossPreviewDetailsPage extends ConsumerStatefulWidget {
     super.key,
     required this.id,
     required this.name,
-    required this.imagePath,
+    required this.image,
     required this.weatherName,
     required this.weatherSpecific,
     required this.mechanic,
@@ -74,11 +73,7 @@ class _AbyssbossPreviewDetailsPageState
                       spacing: 10,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Image.file(
-                          height: 150,
-                          File(widget.imagePath),
-                          fit: BoxFit.fill,
-                        ),
+                        widget.image,
                         Container(
                           alignment: Alignment.center,
                           decoration: BoxDecoration(

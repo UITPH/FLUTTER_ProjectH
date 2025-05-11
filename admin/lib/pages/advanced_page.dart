@@ -8,6 +8,9 @@ import 'package:flutter_honkai/pages/insert_valkyrie_page.dart';
 import 'package:flutter_honkai/pages/delete_abyss_boss_page.dart';
 import 'package:flutter_honkai/pages/delete_valkyrie_page.dart';
 import 'package:flutter_honkai/pages/delete_page.dart';
+import 'package:flutter_honkai/pages/modify_abyssboss_page.dart';
+import 'package:flutter_honkai/pages/modify_arenaboss_page.dart';
+import 'package:flutter_honkai/pages/modify_elf_page.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class AdvancedPage extends StatefulWidget {
@@ -27,6 +30,15 @@ class _AdvancedPageState extends State<AdvancedPage> {
           case '/':
             builder = (context) => AdvancedPageHome();
             break;
+          case '/elfins':
+            builder = (context) => InsertElfPage();
+            break;
+          case '/elfmod':
+            builder = (context) => ModifyElfPage();
+            break;
+          case '/elfdel':
+            builder = (context) => DeleteElfPage();
+            break;
           case '/valkins':
             builder = (context) => InsertValkyriePage();
             break;
@@ -36,21 +48,22 @@ class _AdvancedPageState extends State<AdvancedPage> {
           case '/abyssbossins':
             builder = (context) => InsertAbyssBossPage();
             break;
+          case '/abyssbossmod':
+            builder = (context) => ModifyAbyssbossPage();
+            break;
           case '/abyssbossdel':
             builder = (context) => DeleteAbyssBossPage();
             break;
           case '/arenabossins':
             builder = (context) => InsertArenaBossPage();
             break;
+          case '/arenabossmod':
+            builder = (context) => ModifyArenabossPage();
+            break;
           case '/arenabossdel':
             builder = (context) => DeleteArenaBossPage();
             break;
-          case '/elfins':
-            builder = (context) => InsertElfPage();
-            break;
-          case '/elfdel':
-            builder = (context) => DeleteElfPage();
-            break;
+
           case '/restore':
             builder = (context) => DeletePage();
           default:
@@ -81,10 +94,56 @@ class AdvancedPageHome extends ConsumerWidget {
                   padding: const EdgeInsets.symmetric(vertical: 15),
                   child: Text(
                     style: TextStyle(color: Colors.greenAccent, fontSize: 20),
+                    'Insert Elf',
+                  ),
+                ),
+                onPressed: () => Navigator.pushNamed(context, '/elfins'),
+              ),
+              ElevatedButton(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 15),
+                  child: Text(
+                    style: TextStyle(color: Colors.orangeAccent, fontSize: 20),
+                    'Modify Elf',
+                  ),
+                ),
+                onPressed: () => Navigator.pushNamed(context, '/elfmod'),
+              ),
+              ElevatedButton(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 15),
+                  child: Text(
+                    style: TextStyle(color: Colors.redAccent, fontSize: 20),
+                    'Delete Elf',
+                  ),
+                ),
+                onPressed: () => Navigator.pushNamed(context, '/elfdel'),
+              ),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            spacing: 20,
+            children: [
+              ElevatedButton(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 15),
+                  child: Text(
+                    style: TextStyle(color: Colors.greenAccent, fontSize: 20),
                     'Insert Valkyrie',
                   ),
                 ),
                 onPressed: () => Navigator.pushNamed(context, '/valkins'),
+              ),
+              ElevatedButton(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 15),
+                  child: Text(
+                    style: TextStyle(color: Colors.orangeAccent, fontSize: 20),
+                    'Modify Valkyrie',
+                  ),
+                ),
+                onPressed: () => Navigator.pushNamed(context, '/valkmod'),
               ),
               ElevatedButton(
                 child: Padding(
@@ -116,6 +175,16 @@ class AdvancedPageHome extends ConsumerWidget {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 15),
                   child: Text(
+                    style: TextStyle(color: Colors.orangeAccent, fontSize: 20),
+                    'Modify Abyss Boss',
+                  ),
+                ),
+                onPressed: () => Navigator.pushNamed(context, '/abyssbossmod'),
+              ),
+              ElevatedButton(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 15),
+                  child: Text(
                     style: TextStyle(color: Colors.redAccent, fontSize: 20),
                     'Delete Abyss Boss',
                   ),
@@ -142,6 +211,16 @@ class AdvancedPageHome extends ConsumerWidget {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 15),
                   child: Text(
+                    style: TextStyle(color: Colors.orangeAccent, fontSize: 20),
+                    'Modify Arena Boss',
+                  ),
+                ),
+                onPressed: () => Navigator.pushNamed(context, '/arenabossmod'),
+              ),
+              ElevatedButton(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 15),
+                  child: Text(
                     style: TextStyle(color: Colors.redAccent, fontSize: 20),
                     'Delete Arena Boss',
                   ),
@@ -150,33 +229,16 @@ class AdvancedPageHome extends ConsumerWidget {
               ),
             ],
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            spacing: 20,
-            children: [
-              ElevatedButton(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 15),
-                  child: Text(
-                    style: TextStyle(color: Colors.greenAccent, fontSize: 20),
-                    'Insert Elf',
-                  ),
-                ),
-                onPressed: () => Navigator.pushNamed(context, '/elfins'),
-              ),
-              ElevatedButton(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 15),
-                  child: Text(
-                    style: TextStyle(color: Colors.redAccent, fontSize: 20),
-                    'Delete Elf',
-                  ),
-                ),
-                onPressed: () => Navigator.pushNamed(context, '/elfdel'),
-              ),
-            ],
-          ),
+
           ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.transparent,
+              fixedSize: Size.fromWidth(500),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
+                side: BorderSide(width: 1, color: Colors.white),
+              ),
+            ),
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 15),
               child: Text(

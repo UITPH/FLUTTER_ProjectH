@@ -8,11 +8,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class AbyssPreviewPage extends ConsumerStatefulWidget {
   final AbyssBossModel previewBoss;
-  final String imagePath;
+  final Widget image;
   const AbyssPreviewPage({
     super.key,
     required this.previewBoss,
-    required this.imagePath,
+    required this.image,
   });
 
   @override
@@ -125,7 +125,7 @@ class _AbyssPreviewPageState extends ConsumerState<AbyssPreviewPage> {
                             return PreviewBossCard(
                               id: id,
                               name: name,
-                              imagePath: widget.imagePath,
+                              image: widget.image,
                               onTap: () {
                                 Navigator.of(context).push(
                                   MaterialPageRoute(
@@ -133,7 +133,7 @@ class _AbyssPreviewPageState extends ConsumerState<AbyssPreviewPage> {
                                       return AbyssbossPreviewDetailsPage(
                                         id: id,
                                         name: name,
-                                        imagePath: widget.imagePath,
+                                        image: widget.image,
                                         weatherName: weather.name,
                                         weatherSpecific: weather.specific,
                                         mechanic: mechanic,

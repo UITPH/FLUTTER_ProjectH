@@ -12,6 +12,7 @@ import 'package:flutter_honkai/providers/abyssboss_provider.dart';
 import 'package:flutter_honkai/providers/arenaboss_provider.dart';
 import 'package:flutter_honkai/providers/elf_provider.dart';
 import 'package:flutter_honkai/providers/favorite_provider.dart';
+import 'package:flutter_honkai/providers/image_version_provider.dart';
 import 'package:flutter_honkai/providers/valkyrie_provider.dart';
 import 'package:flutter_honkai/providers/weather_provider.dart';
 import 'package:flutter_honkai/widgets/favorite_abyssboss_card.dart';
@@ -25,6 +26,7 @@ class FavoritePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    ref.watch(imageVersionProvider);
     final weathers = ref.read(weatherProvider).weathers;
     final valkFavorites = ref.watch(favoriteProvider).valkFavorites;
     final elfFavorites = ref.watch(favoriteProvider).elfFavorites;

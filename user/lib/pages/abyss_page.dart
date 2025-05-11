@@ -3,6 +3,7 @@ import 'package:flutter_honkai/models/weather_model.dart';
 import 'package:flutter_honkai/pages/abyss_boss_details_page.dart';
 import 'package:flutter_honkai/providers/abyssboss_provider.dart';
 import 'package:flutter_honkai/providers/favorite_provider.dart';
+import 'package:flutter_honkai/providers/image_version_provider.dart';
 import 'package:flutter_honkai/providers/weather_provider.dart';
 import 'package:flutter_honkai/widgets/abyss_boss_card.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -24,6 +25,7 @@ class _AbyssPageState extends ConsumerState<AbyssPage> {
 
   @override
   Widget build(BuildContext context) {
+    ref.watch(imageVersionProvider);
     final favorite = ref.watch(favoriteProvider);
     final bosses = ref.watch(abyssBossProvider).bosses;
     final weathers = ref.read(weatherProvider).weathers;

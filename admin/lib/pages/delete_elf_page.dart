@@ -13,7 +13,7 @@ class DeleteElfPage extends ConsumerWidget {
       appBar: AppBar(
         scrolledUnderElevation: 0,
         backgroundColor: Colors.transparent,
-        title: Text('Delete Valkyrie Page'),
+        title: Text('Delete Elf Page'),
       ),
       body: SafeArea(
         child: Center(

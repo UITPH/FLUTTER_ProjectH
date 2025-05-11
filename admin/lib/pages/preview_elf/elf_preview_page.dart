@@ -6,10 +6,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class ElfPreviewPage extends ConsumerWidget {
   final ElfModel previewElf;
-  final String imagePath;
+  final Widget image;
   const ElfPreviewPage({
     required this.previewElf,
-    required this.imagePath,
+    required this.image,
     super.key,
   });
 
@@ -64,7 +64,7 @@ class ElfPreviewPage extends ConsumerWidget {
                           return PreviewElfCard(
                             id: id,
                             name: name,
-                            imagePath: imagePath,
+                            image: image,
                             onTap: () {
                               Navigator.of(context).push(
                                 MaterialPageRoute(

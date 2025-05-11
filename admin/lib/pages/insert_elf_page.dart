@@ -5,6 +5,7 @@ import 'package:flutter_honkai/models/elf_model.dart';
 import 'package:flutter_honkai/pages/advanced_page.dart';
 import 'package:flutter_honkai/pages/preview_elf/elf_preview_page.dart';
 import 'package:flutter_honkai/providers/elf_provider.dart';
+import 'package:flutter_honkai/providers/image_version_provider.dart';
 import 'package:flutter_honkai/services/database_helper.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -55,7 +56,11 @@ class _InsertElfPageState extends ConsumerState<InsertElfPage> {
           builder:
               (context) => ElfPreviewPage(
                 previewElf: previewElf,
-                imagePath: result!.files.single.path!,
+                image: Image.file(
+                  width: 120,
+                  height: 120,
+                  File(result!.files.single.path!),
+                ),
               ),
         ),
       );
@@ -114,6 +119,13 @@ class _InsertElfPageState extends ConsumerState<InsertElfPage> {
       final db = DatabaseHelper.supabase;
       await db.from('elfs').insert(newElf.toMap());
       ref.read(elfProvider).addElf(newElf);
+      //add version of image
+      final version = DateTime.now().millisecondsSinceEpoch.toString();
+      await db.from('elfs_image_version').insert({
+        'id': newElf.id,
+        'version': version,
+      });
+      ref.read(imageVersionProvider).addElf(newElf.id, version);
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(duration: Duration(seconds: 1), content: Text("Saved")),
@@ -234,27 +246,6 @@ class _InsertElfPageState extends ConsumerState<InsertElfPage> {
                       child: TextFormField(
                         readOnly: false,
                         enabled: true,
-                        decoration: InputDecoration(labelText: 'Name of elf'),
-                        autovalidateMode: AutovalidateMode.onUserInteraction,
-                        validator: (value) {
-                          if (value == '') {
-                            return 'Please enter name of elf';
-                          }
-                          return null;
-                        },
-                        onSaved: (value) {
-                          name = value;
-                        },
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    flex: 2,
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20),
-                      child: TextFormField(
-                        readOnly: false,
-                        enabled: true,
                         decoration: InputDecoration(
                           labelText: 'String id of elf',
                         ),
@@ -270,6 +261,27 @@ class _InsertElfPageState extends ConsumerState<InsertElfPage> {
                         },
                         onChanged: (value) {
                           id = value;
+                        },
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    flex: 2,
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 20),
+                      child: TextFormField(
+                        readOnly: false,
+                        enabled: true,
+                        decoration: InputDecoration(labelText: 'Name of elf'),
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        validator: (value) {
+                          if (value == '') {
+                            return 'Please enter name of elf';
+                          }
+                          return null;
+                        },
+                        onSaved: (value) {
+                          name = value;
                         },
                       ),
                     ),

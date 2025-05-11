@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'dart:io';
 import 'package:flutter_honkai/widgets/topteams_widget.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class ArenabossPreviewDetailsPage extends ConsumerStatefulWidget {
   final String id;
   final String name;
-  final String imagePath;
+  final Widget image;
   final int rank;
   final List teamrec;
 
@@ -14,7 +13,7 @@ class ArenabossPreviewDetailsPage extends ConsumerStatefulWidget {
     super.key,
     required this.id,
     required this.name,
-    required this.imagePath,
+    required this.image,
     required this.rank,
     required this.teamrec,
   });
@@ -64,11 +63,7 @@ class _ArenabossPreviewDetailsPageState
                 ),
                 child: Column(
                   children: [
-                    Image.file(
-                      height: 150,
-                      File(widget.imagePath),
-                      fit: BoxFit.fill,
-                    ),
+                    widget.image,
                     SizedBox(height: 50),
                     Text(
                       style: TextStyle(

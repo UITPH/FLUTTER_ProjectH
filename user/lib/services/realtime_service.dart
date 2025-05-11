@@ -1,6 +1,7 @@
 import 'package:flutter_honkai/providers/abyssboss_provider.dart';
 import 'package:flutter_honkai/providers/arenaboss_provider.dart';
 import 'package:flutter_honkai/providers/elf_provider.dart';
+import 'package:flutter_honkai/providers/image_version_provider.dart';
 import 'package:flutter_honkai/providers/valkyrie_provider.dart';
 import 'package:flutter_honkai/providers/weather_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -62,6 +63,36 @@ class RealtimeService {
           callback: (payload) {
             Future(() async {
               await ref.read(weatherProvider).loadWeathers();
+            });
+          },
+        )
+        .onPostgresChanges(
+          event: PostgresChangeEvent.all,
+          schema: 'public',
+          table: 'elfs_image_version',
+          callback: (payload) {
+            Future(() async {
+              await ref.read(imageVersionProvider).loadElfs();
+            });
+          },
+        )
+        .onPostgresChanges(
+          event: PostgresChangeEvent.all,
+          schema: 'public',
+          table: 'arenabosses_image_version',
+          callback: (payload) {
+            Future(() async {
+              await ref.read(imageVersionProvider).loadArenaBosses();
+            });
+          },
+        )
+        .onPostgresChanges(
+          event: PostgresChangeEvent.all,
+          schema: 'public',
+          table: 'abyssbosses_image_version',
+          callback: (payload) {
+            Future(() async {
+              await ref.read(imageVersionProvider).loadAbyssBosses();
             });
           },
         )

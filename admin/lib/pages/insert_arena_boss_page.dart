@@ -8,6 +8,7 @@ import 'package:flutter_honkai/pages/advanced_page.dart';
 import 'package:flutter_honkai/pages/preview_boss/arena_preview_page.dart';
 import 'package:flutter_honkai/providers/arenaboss_provider.dart';
 import 'package:flutter_honkai/providers/elf_provider.dart';
+import 'package:flutter_honkai/providers/image_version_provider.dart';
 import 'package:flutter_honkai/providers/valkyrie_provider.dart';
 import 'package:flutter_honkai/services/database_helper.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -76,7 +77,7 @@ class _InsertArenaBossPageState extends ConsumerState<InsertArenaBossPage> {
           builder:
               (context) => ArenaPreviewPage(
                 previewBoss: previewBoss,
-                imagePath: result!.files.single.path!,
+                image: Image.file(File(result!.files.single.path!)),
               ),
         ),
       );
@@ -143,6 +144,13 @@ class _InsertArenaBossPageState extends ConsumerState<InsertArenaBossPage> {
       await db.from('arenabosses').insert(newBoss.toBossMap());
       await db.from('arenaboss_teamrec').insert(newBoss.toTeamrecListMap());
       ref.read(arenabossProvider).addBoss(newBoss);
+      //add version of image
+      final version = DateTime.now().millisecondsSinceEpoch.toString();
+      await db.from('arenabosses_image_version').insert({
+        'id': newBoss.id,
+        'version': version,
+      });
+      ref.read(imageVersionProvider).addArenaBoss(newBoss.id, version);
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(duration: Duration(seconds: 1), content: Text("Saved")),
@@ -258,26 +266,7 @@ class _InsertArenaBossPageState extends ConsumerState<InsertArenaBossPage> {
                       ),
                     ),
                   ),
-                  Expanded(
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20),
-                      child: TextFormField(
-                        readOnly: false,
-                        enabled: true,
-                        decoration: InputDecoration(labelText: 'Name of boss'),
-                        autovalidateMode: AutovalidateMode.onUserInteraction,
-                        validator: (value) {
-                          if (value == '') {
-                            return 'Please enter name of boss';
-                          }
-                          return null;
-                        },
-                        onSaved: (value) {
-                          name = value;
-                        },
-                      ),
-                    ),
-                  ),
+
                   Expanded(
                     child: Padding(
                       padding: EdgeInsets.symmetric(horizontal: 20),
@@ -299,6 +288,26 @@ class _InsertArenaBossPageState extends ConsumerState<InsertArenaBossPage> {
                         },
                         onChanged: (value) {
                           id = value;
+                        },
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 20),
+                      child: TextFormField(
+                        readOnly: false,
+                        enabled: true,
+                        decoration: InputDecoration(labelText: 'Name of boss'),
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        validator: (value) {
+                          if (value == '') {
+                            return 'Please enter name of boss';
+                          }
+                          return null;
+                        },
+                        onSaved: (value) {
+                          name = value;
                         },
                       ),
                     ),

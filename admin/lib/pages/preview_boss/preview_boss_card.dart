@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
-import 'dart:io';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_honkai/widgets/clickable.dart';
 
 class PreviewBossCard extends ConsumerWidget {
   final String id;
   final String name;
-  final String imagePath;
+  final Widget image;
   final VoidCallback onTap;
 
   const PreviewBossCard({
     super.key,
     required this.id,
     required this.name,
-    required this.imagePath,
+    required this.image,
     required this.onTap,
   });
 
@@ -32,7 +31,7 @@ class PreviewBossCard extends ConsumerWidget {
               color: Colors.black,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(10),
-                child: Image.file(height: 80, width: 250, File(imagePath)),
+                child: SizedBox(height: 80, width: 250, child: image),
               ),
             ),
             Text(

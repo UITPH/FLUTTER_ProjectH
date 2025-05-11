@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_honkai/providers/arenaboss_provider.dart';
 import 'package:flutter_honkai/providers/delete_provider.dart';
+import 'package:flutter_honkai/providers/image_version_provider.dart';
 import 'package:flutter_honkai/services/database_helper.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_honkai/widgets/clickable.dart';
@@ -67,10 +68,14 @@ class AdvanceArenabossCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     Widget getArenaBossImage(String id) {
+      final version =
+          ref
+              .read(imageVersionProvider)
+              .arenabosses
+              .firstWhere((boss) => boss['id'] == id)['version'];
       final db = DatabaseHelper.supabase;
-      final url = db.storage
-          .from('data')
-          .getPublicUrl('images/arenabosses/$id.png');
+      final url =
+          '${db.storage.from('data').getPublicUrl('images/arenabosses/$id.png')}?v=$version';
 
       return CachedNetworkImage(
         height: 80,
