@@ -11,6 +11,7 @@ import 'package:flutter_honkai/pages/delete_page.dart';
 import 'package:flutter_honkai/pages/modify_abyssboss_page.dart';
 import 'package:flutter_honkai/pages/modify_arenaboss_page.dart';
 import 'package:flutter_honkai/pages/modify_elf_page.dart';
+import 'package:flutter_honkai/pages/modify_valkyrie_page.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class AdvancedPage extends StatefulWidget {
@@ -41,6 +42,9 @@ class _AdvancedPageState extends State<AdvancedPage> {
             break;
           case '/valkins':
             builder = (context) => InsertValkyriePage();
+            break;
+          case '/valkmod':
+            builder = (context) => ModifyValkyriePage();
             break;
           case '/valkdel':
             builder = (context) => DeleteValkyriePage();

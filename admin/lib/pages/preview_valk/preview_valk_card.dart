@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
-import 'dart:io';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_honkai/widgets/clickable.dart';
 
 class PreviewValkCard extends ConsumerWidget {
   final String name;
-  final String valkImagePath;
+  final Widget valkImage;
   final VoidCallback onTap;
   const PreviewValkCard({
     super.key,
     required this.name,
-    required this.valkImagePath,
+    required this.valkImage,
     required this.onTap,
   });
 
@@ -29,7 +28,7 @@ class PreviewValkCard extends ConsumerWidget {
               color: Colors.white,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(20),
-                child: Image.file(width: 100, height: 100, File(valkImagePath)),
+                child: SizedBox(width: 100, height: 100, child: valkImage),
               ),
             ),
             Text(

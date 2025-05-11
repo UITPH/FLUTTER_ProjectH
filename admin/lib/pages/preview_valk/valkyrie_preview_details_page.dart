@@ -8,11 +8,11 @@ import 'package:flutter_honkai/widgets/valk_navi_child.dart';
 class ValkyriePreviewDetailsPage extends StatefulWidget {
   final String name;
   final String id;
-  final String valkImagePath;
-  final String weapImagePath;
-  final String topImagePath;
-  final String midImagePath;
-  final String botImagePath;
+  final Widget valkImage;
+  final Widget weapImage;
+  final Widget topImage;
+  final Widget midImage;
+  final Widget botImage;
   final List lineup;
   final String role;
   final String pullrec;
@@ -22,11 +22,11 @@ class ValkyriePreviewDetailsPage extends StatefulWidget {
     super.key,
     required this.name,
     required this.id,
-    required this.valkImagePath,
-    required this.weapImagePath,
-    required this.topImagePath,
-    required this.midImagePath,
-    required this.botImagePath,
+    required this.valkImage,
+    required this.weapImage,
+    required this.topImage,
+    required this.midImage,
+    required this.botImage,
     required this.lineup,
     required this.role,
     required this.pullrec,
@@ -107,14 +107,14 @@ class _ValkyriePreviewDetailsPageState
           ValkyrieOverviewPage(role: widget.role, pullrec: widget.pullrec),
           ValkyriePreviewLineupPage(
             id: widget.id,
-            valkImagePath: widget.valkImagePath,
+            valkImage: widget.valkImage,
             lineup: widget.lineup,
           ),
           ValkyriePreviewEquipmentPage(
-            weapImagePath: widget.weapImagePath,
-            topImagePath: widget.topImagePath,
-            midImagePath: widget.midImagePath,
-            botImagePath: widget.botImagePath,
+            weapImage: widget.weapImage,
+            topImage: widget.topImage,
+            midImage: widget.midImage,
+            botImage: widget.botImage,
           ),
           ValkyrieRankupPage(rankup: widget.rankup),
         ],

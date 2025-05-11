@@ -153,6 +153,7 @@ class _InsertAbyssBossPageState extends ConsumerState<InsertAbyssBossPage> {
       await db.from('abyssbosses').insert(newBoss.toBossMap());
       await db.from('abyssboss_teamrec').insert(newBoss.toTeamrecListMap());
       ref.read(abyssBossProvider).addBoss(newBoss);
+      //add version of image
       final version = DateTime.now().millisecondsSinceEpoch.toString();
       await db.from('abyssbosses_image_version').insert({
         'id': newBoss.id,

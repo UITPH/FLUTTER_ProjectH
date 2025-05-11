@@ -23,6 +23,7 @@ class _LoadingPageState extends ConsumerState<LoadingPage> {
   bool isConnected = true;
 
   Future<void> _loadData() async {
+    await ref.read(imageVersionProvider).loadValkyries();
     await ref.read(imageVersionProvider).loadAbyssBosses();
     await ref.read(imageVersionProvider).loadArenaBosses();
     await ref.read(imageVersionProvider).loadElfs();

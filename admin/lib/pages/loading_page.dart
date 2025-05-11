@@ -25,6 +25,7 @@ class _LoadingPageState extends ConsumerState<LoadingPage> {
 
   Future<void> _loadData() async {
     ref.read(deleteProvider).init();
+    await ref.read(imageVersionProvider).loadValkyries();
     await ref.read(imageVersionProvider).loadAbyssBosses();
     await ref.read(imageVersionProvider).loadArenaBosses();
     await ref.read(imageVersionProvider).loadElfs();

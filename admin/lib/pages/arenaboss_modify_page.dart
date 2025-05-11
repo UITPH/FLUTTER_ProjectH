@@ -260,7 +260,7 @@ class _ArenabossModifyPageState extends ConsumerState<ArenabossModifyPage> {
             icon: Icon(Icons.info_outline_rounded),
           ),
         ],
-        title: Text('Insert Arena Boss Page'),
+        title: Text('Modify Arena Boss Page'),
       ),
       body: Form(
         key: _formKey,

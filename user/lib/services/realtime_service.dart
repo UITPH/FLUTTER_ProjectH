@@ -23,6 +23,7 @@ class RealtimeService {
           callback: (payload) {
             Future(() async {
               await ref.read(valkyrieProvider).loadValkyries();
+              await ref.read(imageVersionProvider).loadValkyries();
             });
           },
         )
@@ -93,6 +94,17 @@ class RealtimeService {
           callback: (payload) {
             Future(() async {
               await ref.read(imageVersionProvider).loadAbyssBosses();
+            });
+          },
+        )
+        .onPostgresChanges(
+          event: PostgresChangeEvent.all,
+          schema: 'public',
+          table: 'valkyries_image_version',
+          callback: (payload) {
+            Future(() async {
+              await ref.read(imageVersionProvider).loadValkyries();
+              await ref.read(valkyrieProvider).loadValkyries();
             });
           },
         )

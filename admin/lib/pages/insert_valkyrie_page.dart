@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +5,7 @@ import 'package:flutter_honkai/models/valkyrie_model.dart';
 import 'package:flutter_honkai/pages/advanced_page.dart';
 import 'package:flutter_honkai/pages/preview_valk/valkyrie_preview_page.dart';
 import 'package:flutter_honkai/providers/elf_provider.dart';
+import 'package:flutter_honkai/providers/image_version_provider.dart';
 import 'package:flutter_honkai/providers/valkyrie_provider.dart';
 import 'package:flutter_honkai/services/database_helper.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -104,11 +104,26 @@ class _InsertValkyriePageState extends ConsumerState<InsertValkyriePage> {
           builder:
               (context) => ValkyriePreviewPage(
                 previewValkyrie: previewValkyrie,
-                valkImagePath: resultvalk!.files.single.path!,
-                weapImagePath: resultweap!.files.single.path!,
-                topImagePath: resulttop!.files.single.path!,
-                midImagePath: resultmid!.files.single.path!,
-                botImagePath: resultbot!.files.single.path!,
+                valkImage: Image.file(
+                  fit: BoxFit.fill,
+                  File(resultvalk!.files.single.path!),
+                ),
+                weapImage: Image.file(
+                  fit: BoxFit.fill,
+                  File(resultweap!.files.single.path!),
+                ),
+                topImage: Image.file(
+                  fit: BoxFit.fill,
+                  File(resulttop!.files.single.path!),
+                ),
+                midImage: Image.file(
+                  fit: BoxFit.fill,
+                  File(resultmid!.files.single.path!),
+                ),
+                botImage: Image.file(
+                  fit: BoxFit.fill,
+                  File(resultbot!.files.single.path!),
+                ),
               ),
         ),
       );
@@ -207,8 +222,26 @@ class _InsertValkyriePageState extends ConsumerState<InsertValkyriePage> {
       //add to database
       final db = DatabaseHelper.supabase;
       await db.from('valkyries').insert(newValkyrie.toValkMap());
-      await db.from('valk_lineup').insert(newValkyrie.toLineupListMap());
+      final ids = await db
+          .from('lineup')
+          .insert(newValkyrie.toLineupListMap())
+          .select('id');
+      newValkyrie.addIdToLineup(ids);
+      await db
+          .from('lineup_first_valk_list')
+          .insert(newValkyrie.toLineupFirstValkListMap());
+      await db
+          .from('lineup_second_valk_list')
+          .insert(newValkyrie.toLineupSecondValkListMap());
+      await db.from('lineup_elf_list').insert(newValkyrie.toLineupElfListMap());
       ref.read(valkyrieProvider).addValkyrie(newValkyrie);
+      //add version of image
+      final version = DateTime.now().millisecondsSinceEpoch.toString();
+      await db.from('valkyries_image_version').upsert({
+        'id': newValkyrie.id,
+        'version': version,
+      });
+      ref.read(imageVersionProvider).addValkyrie(newValkyrie.id, version);
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(duration: Duration(seconds: 1), content: Text("Saved")),
@@ -283,8 +316,6 @@ class _InsertValkyriePageState extends ConsumerState<InsertValkyriePage> {
                       child: Padding(
                         padding: EdgeInsets.symmetric(horizontal: 20),
                         child: TextFormField(
-                          maxLines: null,
-                          keyboardType: TextInputType.multiline,
                           readOnly: false,
                           enabled: true,
                           decoration: InputDecoration(
@@ -1134,9 +1165,9 @@ class _InsertValkyriePageState extends ConsumerState<InsertValkyriePage> {
                           lineup.add({
                             'note': curnote,
                             'leader': curleader[0],
-                            'first_valk_list': jsonEncode(curfirstValkList),
-                            'second_valk_list': jsonEncode(cursecondValkList),
-                            'elf_list': jsonEncode(curelfList),
+                            'first_valk_list': curfirstValkList,
+                            'second_valk_list': cursecondValkList,
+                            'elf_list': curelfList,
                           });
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(

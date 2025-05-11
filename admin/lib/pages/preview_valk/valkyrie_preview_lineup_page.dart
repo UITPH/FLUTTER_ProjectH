@@ -1,16 +1,14 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_honkai/pages/preview_valk/lineup_widget.dart';
 
 class ValkyriePreviewLineupPage extends StatelessWidget {
   final String id;
-  final String valkImagePath;
+  final Widget valkImage;
   final List lineup;
   const ValkyriePreviewLineupPage({
     super.key,
     required this.id,
-    required this.valkImagePath,
+    required this.valkImage,
     required this.lineup,
   });
 
@@ -39,12 +37,12 @@ class ValkyriePreviewLineupPage extends StatelessWidget {
                 itemBuilder: (context, index) {
                   return LineupWidget(
                     id: id,
-                    valkImagePath: valkImagePath,
+                    valkImage: valkImage,
                     note: lineup[index]['note'],
                     leader: lineup[index]['leader'],
-                    firstvalks: jsonDecode(lineup[index]['first_valk_list']),
-                    secondvalks: jsonDecode(lineup[index]['second_valk_list']),
-                    elfs: jsonDecode(lineup[index]['elf_list']),
+                    firstvalks: lineup[index]['first_valk_list'],
+                    secondvalks: lineup[index]['second_valk_list'],
+                    elfs: lineup[index]['elf_list'],
                   );
                 },
               ),

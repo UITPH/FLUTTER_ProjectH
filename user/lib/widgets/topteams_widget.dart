@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_honkai/providers/elf_provider.dart';
+import 'package:flutter_honkai/providers/image_version_provider.dart';
 import 'package:flutter_honkai/providers/valkyrie_provider.dart';
 import 'package:flutter_honkai/services/database_helper.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -48,10 +49,14 @@ class TopteamsWidget extends ConsumerWidget {
       if (valkyries.where((valk) => valk.id == id).isEmpty) {
         return Placeholder(fallbackHeight: 100, fallbackWidth: 100);
       }
+      final version =
+          ref
+              .read(imageVersionProvider)
+              .valkyries
+              .firstWhere((valk) => valk['id'] == id)['version'];
       final db = DatabaseHelper.supabase;
-      final url = db.storage
-          .from('data')
-          .getPublicUrl('images/valkyries/$id.png');
+      final url =
+          '${db.storage.from('data').getPublicUrl('images/valkyries/$id.png')}?v=$version';
 
       return CachedNetworkImage(
         width: 100,

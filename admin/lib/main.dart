@@ -13,7 +13,7 @@ void main() async {
     center: true,
     minimumSize: Size(1360, 765),
     maximumSize: Size(2560, 1600),
-    title: "Honkai Station",
+    title: "Honkai Station Manager",
   );
 
   windowManager.waitUntilReadyToShow(windowOptions, () async {

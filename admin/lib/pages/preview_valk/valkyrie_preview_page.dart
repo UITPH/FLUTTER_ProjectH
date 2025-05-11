@@ -8,19 +8,19 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class ValkyriePreviewPage extends ConsumerStatefulWidget {
   final ValkyrieModel previewValkyrie;
-  final String valkImagePath;
-  final String weapImagePath;
-  final String topImagePath;
-  final String midImagePath;
-  final String botImagePath;
+  final Widget valkImage;
+  final Widget weapImage;
+  final Widget topImage;
+  final Widget midImage;
+  final Widget botImage;
   const ValkyriePreviewPage({
     super.key,
     required this.previewValkyrie,
-    required this.valkImagePath,
-    required this.weapImagePath,
-    required this.topImagePath,
-    required this.midImagePath,
-    required this.botImagePath,
+    required this.valkImage,
+    required this.weapImage,
+    required this.topImage,
+    required this.midImage,
+    required this.botImage,
   });
 
   @override
@@ -277,7 +277,7 @@ class _ValkyriePreviewPageState extends ConsumerState<ValkyriePreviewPage> {
                           final List lineup = filteredValkyries[index].lineup;
                           return PreviewValkCard(
                             name: name,
-                            valkImagePath: widget.valkImagePath,
+                            valkImage: widget.valkImage,
                             onTap: () {
                               Navigator.of(context).push(
                                 MaterialPageRoute(
@@ -286,11 +286,11 @@ class _ValkyriePreviewPageState extends ConsumerState<ValkyriePreviewPage> {
                                         name: name,
                                         id: id,
                                         lineup: lineup,
-                                        valkImagePath: widget.valkImagePath,
-                                        weapImagePath: widget.weapImagePath,
-                                        topImagePath: widget.topImagePath,
-                                        midImagePath: widget.midImagePath,
-                                        botImagePath: widget.botImagePath,
+                                        valkImage: widget.valkImage,
+                                        weapImage: widget.weapImage,
+                                        topImage: widget.topImage,
+                                        midImage: widget.midImage,
+                                        botImage: widget.botImage,
                                         role: role,
                                         pullrec: pullrec,
                                         rankup: rankup,

@@ -33,11 +33,36 @@ class ValkyrieModel {
       damage: jsonDecode(map['damage']),
       type: map['type'],
       equipment: jsonDecode(map['equipment']),
-      lineup: map['valk_lineup'],
+      lineup:
+          map['lineup']
+              .map(
+                (x) => <String, dynamic>{
+                  'id': x['id'],
+                  'note': x['name'],
+                  'leader': x['leader'],
+                  'first_valk_list':
+                      x['lineup_first_valk_list']
+                          .map((y) => y['id_valk'])
+                          .toList(),
+                  'second_valk_list':
+                      x['lineup_second_valk_list']
+                          .map((y) => y['id_valk'])
+                          .toList(),
+                  'elf_list':
+                      x['lineup_elf_list'].map((y) => y['id_elf']).toList(),
+                },
+              )
+              .toList(),
       role: map['role'],
       pullrec: map['pullrec'],
       rankup: map['rankup'],
     );
+  }
+
+  void addIdToLineup(List ids) {
+    lineup.asMap().forEach((index, line) {
+      line['id'] = ids[index]['id'];
+    });
   }
 
   Map<String, dynamic> toValkMap() {
@@ -59,13 +84,40 @@ class ValkyrieModel {
     final List<Map<String, dynamic>> res = [];
     for (var line in lineup) {
       res.add({
-        'id_valk': id,
-        'note': line['note'],
+        'id_owner_valk': id,
+        'name': line['note'],
         'leader': line['leader'],
-        'first_valk_list': line['first_valk_list'],
-        'second_valk_list': line['second_valk_list'],
-        'elf_list': line['elf_list'],
       });
+    }
+    return res;
+  }
+
+  List toLineupFirstValkListMap() {
+    final res = [];
+    for (var line in lineup) {
+      for (var valk in line['first_valk_list']) {
+        res.add({'id_lineup': line['id'], 'id_valk': valk});
+      }
+    }
+    return res;
+  }
+
+  List toLineupSecondValkListMap() {
+    final res = [];
+    for (var line in lineup) {
+      for (var valk in line['second_valk_list']) {
+        res.add({'id_lineup': line['id'], 'id_valk': valk});
+      }
+    }
+    return res;
+  }
+
+  List toLineupElfListMap() {
+    final res = [];
+    for (var line in lineup) {
+      for (var valk in line['elf_list']) {
+        res.add({'id_lineup': line['id'], 'id_elf': valk});
+      }
     }
     return res;
   }

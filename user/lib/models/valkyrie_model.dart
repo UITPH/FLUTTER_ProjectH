@@ -33,7 +33,25 @@ class ValkyrieModel {
       damage: jsonDecode(map['damage']),
       type: map['type'],
       equipment: jsonDecode(map['equipment']),
-      lineup: map['valk_lineup'],
+      lineup:
+          map['lineup']
+              .map(
+                (x) => <String, dynamic>{
+                  'note': x['name'],
+                  'leader': x['leader'],
+                  'first_valk_list':
+                      x['lineup_first_valk_list']
+                          .map((y) => y['id_valk'])
+                          .toList(),
+                  'second_valk_list':
+                      x['lineup_second_valk_list']
+                          .map((y) => y['id_valk'])
+                          .toList(),
+                  'elf_list':
+                      x['lineup_elf_list'].map((y) => y['id_elf']).toList(),
+                },
+              )
+              .toList(),
       role: map['role'],
       pullrec: map['pullrec'],
       rankup: map['rankup'],

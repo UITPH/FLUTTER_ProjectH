@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_honkai/providers/arenaboss_provider.dart';
+import 'package:flutter_honkai/providers/image_version_provider.dart';
 import 'package:flutter_honkai/widgets/advanced_arenaboss_card.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -25,6 +26,7 @@ class _DeleteArenaBossPageState extends ConsumerState<DeleteArenaBossPage> {
 
   @override
   Widget build(BuildContext context) {
+    ref.watch(imageVersionProvider);
     final bosses = ref.watch(arenabossProvider).bosses;
     final filteredBosses =
         bosses

@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
-import 'dart:io';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class ValkyriePreviewEquipmentPage extends ConsumerWidget {
-  final String weapImagePath;
-  final String topImagePath;
-  final String midImagePath;
-  final String botImagePath;
+  final Widget weapImage;
+  final Widget topImage;
+  final Widget midImage;
+  final Widget botImage;
 
   const ValkyriePreviewEquipmentPage({
     super.key,
-    required this.weapImagePath,
-    required this.topImagePath,
-    required this.midImagePath,
-    required this.botImagePath,
+    required this.weapImage,
+    required this.topImage,
+    required this.midImage,
+    required this.botImage,
   });
 
   @override
@@ -53,38 +52,34 @@ class ValkyriePreviewEquipmentPage extends ConsumerWidget {
                         borderRadius: BorderRadius.horizontal(
                           left: Radius.circular(15),
                         ),
-                        child: Image.file(
+                        child: SizedBox(
                           width: 150,
                           height: 150,
-                          fit: BoxFit.fill,
-                          File(weapImagePath),
+                          child: weapImage,
                         ),
                       ),
                       ClipRRect(
-                        child: Image.file(
+                        child: SizedBox(
                           width: 150,
                           height: 150,
-                          fit: BoxFit.fill,
-                          File(topImagePath),
+                          child: topImage,
                         ),
                       ),
                       ClipRRect(
-                        child: Image.file(
+                        child: SizedBox(
                           width: 150,
                           height: 150,
-                          fit: BoxFit.fill,
-                          File(midImagePath),
+                          child: midImage,
                         ),
                       ),
                       ClipRRect(
                         borderRadius: BorderRadius.horizontal(
                           right: Radius.circular(15),
                         ),
-                        child: Image.file(
+                        child: SizedBox(
                           width: 150,
                           height: 150,
-                          fit: BoxFit.fill,
-                          File(botImagePath),
+                          child: botImage,
                         ),
                       ),
                     ],

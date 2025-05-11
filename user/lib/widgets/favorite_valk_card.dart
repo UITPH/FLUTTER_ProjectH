@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_honkai/providers/image_version_provider.dart';
 import 'package:flutter_honkai/services/database_helper.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_honkai/widgets/clickable.dart';
@@ -23,10 +24,14 @@ class FavoriteValkCard extends ConsumerWidget {
     //final String imagePath = ref.read(valkImagesPathPathProvider);
 
     Widget getValkImage(String id) {
+      final version =
+          ref
+              .read(imageVersionProvider)
+              .valkyries
+              .firstWhere((valk) => valk['id'] == id)['version'];
       final db = DatabaseHelper.supabase;
-      final url = db.storage
-          .from('data')
-          .getPublicUrl('images/valkyries/$id.png');
+      final url =
+          '${db.storage.from('data').getPublicUrl('images/valkyries/$id.png')}?v=$version';
 
       return CachedNetworkImage(
         width: 100,

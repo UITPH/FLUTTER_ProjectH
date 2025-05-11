@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_honkai/models/valkyrie_model.dart';
 import 'package:flutter_honkai/pages/valkyrie_details_page.dart';
 import 'package:flutter_honkai/providers/favorite_provider.dart';
+import 'package:flutter_honkai/providers/image_version_provider.dart';
 import 'package:flutter_honkai/widgets/valk_astralop_filter.dart';
 import 'package:flutter_honkai/widgets/valk_card.dart';
 import 'package:flutter_honkai/widgets/valk_type_filter.dart';
@@ -56,6 +57,7 @@ class _ValkyriesPageState extends ConsumerState<ValkyriesPage> {
 
   @override
   Widget build(BuildContext context) {
+    ref.watch(imageVersionProvider);
     final favorites = ref.watch(favoriteProvider);
     final valkyries = ref.watch(valkyrieProvider).valkyries;
     filteredValkyries =

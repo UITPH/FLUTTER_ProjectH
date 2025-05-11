@@ -1,14 +1,17 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_honkai/providers/image_version_provider.dart';
+import 'package:flutter_honkai/providers/valkyrie_provider.dart';
 import 'package:flutter_honkai/widgets/lineup_widget.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class ValkyrieLineupPage extends StatelessWidget {
+class ValkyrieLineupPage extends ConsumerWidget {
   final List lineup;
   const ValkyrieLineupPage({super.key, required this.lineup});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    ref.watch(imageVersionProvider);
+    ref.watch(valkyrieProvider);
     return Scaffold(
       body: Stack(
         children: [
@@ -33,9 +36,9 @@ class ValkyrieLineupPage extends StatelessWidget {
                   return LineupWidget(
                     note: lineup[index]['note'],
                     leader: lineup[index]['leader'],
-                    firstvalks: jsonDecode(lineup[index]['first_valk_list']),
-                    secondvalks: jsonDecode(lineup[index]['second_valk_list']),
-                    elfs: jsonDecode(lineup[index]['elf_list']),
+                    firstvalks: lineup[index]['first_valk_list'],
+                    secondvalks: lineup[index]['second_valk_list'],
+                    elfs: lineup[index]['elf_list'],
                   );
                 },
               ),

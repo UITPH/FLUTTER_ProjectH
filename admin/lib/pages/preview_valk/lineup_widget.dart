@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_honkai/providers/image_version_provider.dart';
@@ -8,7 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class LineupWidget extends ConsumerWidget {
   final String id;
-  final String valkImagePath;
+  final Widget valkImage;
   final String note;
   final String leader;
   final List<dynamic> firstvalks;
@@ -17,7 +15,7 @@ class LineupWidget extends ConsumerWidget {
   const LineupWidget({
     super.key,
     required this.id,
-    required this.valkImagePath,
+    required this.valkImage,
     required this.note,
     required this.leader,
     required this.firstvalks,
@@ -50,10 +48,14 @@ class LineupWidget extends ConsumerWidget {
     }
 
     Widget getValkImage(String id) {
+      final version =
+          ref
+              .read(imageVersionProvider)
+              .valkyries
+              .firstWhere((valk) => valk['id'] == id)['version'];
       final db = DatabaseHelper.supabase;
-      final url = db.storage
-          .from('data')
-          .getPublicUrl('images/valkyries/$id.png');
+      final url =
+          '${db.storage.from('data').getPublicUrl('images/valkyries/$id.png')}?v=$version';
 
       return CachedNetworkImage(
         width: 100,
@@ -95,10 +97,10 @@ class LineupWidget extends ConsumerWidget {
                     borderRadius: BorderRadius.circular(15),
                     child:
                         leader == id
-                            ? Image.file(
+                            ? SizedBox(
                               width: 100,
                               height: 100,
-                              File(valkImagePath),
+                              child: valkImage,
                             )
                             : getValkImage(leader),
                   ),
@@ -114,10 +116,10 @@ class LineupWidget extends ConsumerWidget {
                           borderRadius: BorderRadius.circular(15),
                           child:
                               firstvalks[index] == id
-                                  ? Image.file(
+                                  ? SizedBox(
                                     width: 100,
                                     height: 100,
-                                    File(valkImagePath),
+                                    child: valkImage,
                                   )
                                   : getValkImage(firstvalks[index]),
                         ),
@@ -139,10 +141,10 @@ class LineupWidget extends ConsumerWidget {
                           borderRadius: BorderRadius.circular(15),
                           child:
                               secondvalks[index] == id
-                                  ? Image.file(
+                                  ? SizedBox(
                                     width: 100,
                                     height: 100,
-                                    File(valkImagePath),
+                                    child: valkImage,
                                   )
                                   : getValkImage(secondvalks[index]),
                         ),

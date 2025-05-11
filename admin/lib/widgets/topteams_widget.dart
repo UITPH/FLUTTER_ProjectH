@@ -45,11 +45,14 @@ class TopteamsWidget extends ConsumerWidget {
     }
 
     Widget getValkImage(String id) {
+      final version =
+          ref
+              .read(imageVersionProvider)
+              .valkyries
+              .firstWhere((valk) => valk['id'] == id)['version'];
       final db = DatabaseHelper.supabase;
-      final url = db.storage
-          .from('data')
-          .getPublicUrl('images/valkyries/$id.png');
-
+      final url =
+          '${db.storage.from('data').getPublicUrl('images/valkyries/$id.png')}?v=$version';
       return CachedNetworkImage(
         width: 100,
         height: 100,

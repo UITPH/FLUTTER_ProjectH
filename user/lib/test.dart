@@ -15,17 +15,14 @@ class Test extends StatefulWidget {
 class _TestState extends State<Test> {
   Future<void> load() async {
     final db = DatabaseHelper.supabase;
-    final data = await db
-        .from('valkyries')
-        .select('''
+    final data = await db.from('valkyries').select('''
     *, 
     lineup:lineup!id_owner_valk(
       name, leader, 
       lineup_first_valk_list(id_valk), 
       lineup_second_valk_list(id_valk)
     )
-    ''')
-        .eq('id', 'ps');
+    ''');
 
     final data2 =
         data

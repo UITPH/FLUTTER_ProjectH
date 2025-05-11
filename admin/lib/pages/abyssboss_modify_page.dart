@@ -274,7 +274,7 @@ class _AbyssbossModifyPageState extends ConsumerState<AbyssbossModifyPage> {
             icon: Icon(Icons.info_outline_rounded),
           ),
         ],
-        title: Text('Insert Abyss Boss Page'),
+        title: Text('Modify Abyss Boss Page'),
       ),
       body: Form(
         key: _formKey,
