@@ -281,7 +281,6 @@ class _ValkyrieModifyPageState extends ConsumerState<ValkyrieModifyPage> {
           folder: 'equipments',
         );
       }
-
       //add to database
       final db = DatabaseHelper.supabase;
       await db.from('valkyries').upsert(newValkyrie.toValkMap());

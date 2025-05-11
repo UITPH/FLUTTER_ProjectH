@@ -81,7 +81,7 @@ class _ArenabossModifyPageState extends ConsumerState<ArenabossModifyPage> {
 
   Future<void> _submitPreview() async {
     if (_formKey.currentState!.validate()) {
-      if (teamrec.isEmpty) {
+      if (teamrec == null || teamrec.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text("Please enter at least 1 recommended team")),
         );
@@ -138,7 +138,7 @@ class _ArenabossModifyPageState extends ConsumerState<ArenabossModifyPage> {
 
   Future<void> _submit() async {
     if (_formKey.currentState!.validate()) {
-      if (teamrec.isEmpty) {
+      if (teamrec == null || teamrec.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text("Please enter at least 1 recommended team")),
         );
@@ -161,14 +161,8 @@ class _ArenabossModifyPageState extends ConsumerState<ArenabossModifyPage> {
           folder: 'arenabosses',
         );
       }
-      final db = DatabaseHelper.supabase;
-      final version = DateTime.now().millisecondsSinceEpoch.toString();
-      await db.from('arenabosses_image_version').upsert({
-        'id': newBoss.id,
-        'version': version,
-      });
-      ref.read(imageVersionProvider).modifyArenaBoss(newBoss.id, version);
       //add to database
+      final db = DatabaseHelper.supabase;
       await db.from('arenabosses').upsert(newBoss.toBossMap());
       await db
           .from('arenaboss_teamrec')
@@ -177,6 +171,12 @@ class _ArenabossModifyPageState extends ConsumerState<ArenabossModifyPage> {
       await db.from('arenaboss_teamrec').insert(newBoss.toTeamrecListMap());
       ref.read(arenabossProvider).removeBoss(newBoss.id);
       ref.read(arenabossProvider).addBoss(newBoss);
+      final version = DateTime.now().millisecondsSinceEpoch.toString();
+      await db.from('arenabosses_image_version').upsert({
+        'id': newBoss.id,
+        'version': version,
+      });
+      ref.read(imageVersionProvider).modifyArenaBoss(newBoss.id, version);
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(duration: Duration(seconds: 1), content: Text("Saved")),

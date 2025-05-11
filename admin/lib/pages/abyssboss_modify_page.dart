@@ -88,7 +88,7 @@ class _AbyssbossModifyPageState extends ConsumerState<AbyssbossModifyPage> {
 
   Future<void> _submitPreview() async {
     if (_formKey.currentState!.validate()) {
-      if (teamrec.isEmpty) {
+      if (teamrec == null || teamrec.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text("Please enter at least 1 recommended team")),
         );
@@ -147,7 +147,7 @@ class _AbyssbossModifyPageState extends ConsumerState<AbyssbossModifyPage> {
 
   Future<void> _submit() async {
     if (_formKey.currentState!.validate()) {
-      if (teamrec.isEmpty) {
+      if (teamrec == null || teamrec.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text("Please enter at least 1 recommended team")),
         );
@@ -172,14 +172,9 @@ class _AbyssbossModifyPageState extends ConsumerState<AbyssbossModifyPage> {
           folder: 'abyssbosses',
         );
       }
-      final db = DatabaseHelper.supabase;
-      final version = DateTime.now().millisecondsSinceEpoch.toString();
-      await db.from('abyssbosses_image_version').upsert({
-        'id': newBoss.id,
-        'version': version,
-      });
-      ref.read(imageVersionProvider).modifyAbyssBoss(newBoss.id, version);
+
       //add to database
+      final db = DatabaseHelper.supabase;
       await db.from('abyssbosses').upsert(newBoss.toBossMap());
       await db
           .from('abyssboss_teamrec')
@@ -188,6 +183,12 @@ class _AbyssbossModifyPageState extends ConsumerState<AbyssbossModifyPage> {
       await db.from('abyssboss_teamrec').insert(newBoss.toTeamrecListMap());
       ref.read(abyssBossProvider).removeBoss(newBoss.id);
       ref.read(abyssBossProvider).addBoss(newBoss);
+      final version = DateTime.now().millisecondsSinceEpoch.toString();
+      await db.from('abyssbosses_image_version').upsert({
+        'id': newBoss.id,
+        'version': version,
+      });
+      ref.read(imageVersionProvider).modifyAbyssBoss(newBoss.id, version);
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(duration: Duration(seconds: 1), content: Text("Saved")),
