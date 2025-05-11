@@ -43,7 +43,7 @@ class _ModifyAbyssbossPageState extends ConsumerState<ModifyAbyssbossPage> {
       appBar: AppBar(
         scrolledUnderElevation: 0,
         backgroundColor: Colors.transparent,
-        title: Text('Delete Abyss Boss Page'),
+        title: Text('Modify Abyss Boss Page'),
       ),
       body: SafeArea(
         child: Center(

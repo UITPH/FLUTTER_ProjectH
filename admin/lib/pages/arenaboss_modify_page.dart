@@ -285,8 +285,8 @@ class _ArenabossModifyPageState extends ConsumerState<ArenabossModifyPage> {
                             icon:
                                 result != null
                                     ? Image.file(
-                                      width: 70,
-                                      height: 70,
+                                      width: 250,
+                                      height: 80,
                                       File(result!.files.single.path!),
                                     )
                                     : SizedBox(

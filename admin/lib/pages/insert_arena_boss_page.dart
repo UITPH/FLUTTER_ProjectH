@@ -251,8 +251,8 @@ class _InsertArenaBossPageState extends ConsumerState<InsertArenaBossPage> {
                             icon:
                                 result != null
                                     ? Image.file(
-                                      width: 70,
-                                      height: 70,
+                                      width: 250,
+                                      height: 80,
                                       File(result!.files.single.path!),
                                     )
                                     : Icon(

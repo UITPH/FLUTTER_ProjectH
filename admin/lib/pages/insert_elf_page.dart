@@ -57,6 +57,7 @@ class _InsertElfPageState extends ConsumerState<InsertElfPage> {
               (context) => ElfPreviewPage(
                 previewElf: previewElf,
                 image: Image.file(
+                  fit: BoxFit.fill,
                   width: 120,
                   height: 120,
                   File(result!.files.single.path!),
@@ -224,6 +225,7 @@ class _InsertElfPageState extends ConsumerState<InsertElfPage> {
                             icon:
                                 result != null
                                     ? Image.file(
+                                      fit: BoxFit.fill,
                                       width: 70,
                                       height: 70,
                                       File(result!.files.single.path!),

@@ -26,6 +26,7 @@ class DeleteValkCard extends ConsumerWidget {
           '${db.storage.from('data').getPublicUrl('images/valkyries/$id.png')}?v=$version';
 
       return CachedNetworkImage(
+        fit: BoxFit.fill,
         width: 100,
         height: 100,
         placeholder:

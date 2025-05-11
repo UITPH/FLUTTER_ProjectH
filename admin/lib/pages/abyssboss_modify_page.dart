@@ -305,8 +305,8 @@ class _AbyssbossModifyPageState extends ConsumerState<AbyssbossModifyPage> {
                                       File(result!.files.single.path!),
                                     )
                                     : SizedBox(
-                                      width: 70,
-                                      height: 70,
+                                      width: 250,
+                                      height: 80,
                                       child: getAbyssBossImage(context, id!),
                                     ),
                           ),

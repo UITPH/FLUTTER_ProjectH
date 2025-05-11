@@ -90,6 +90,7 @@ class _ElfModifyPageState extends ConsumerState<ElfModifyPage> {
                     result == null
                         ? getElfImage(context, id!)
                         : Image.file(
+                          fit: BoxFit.fill,
                           width: 120,
                           height: 120,
                           File(result!.files.single.path!),
@@ -260,6 +261,7 @@ class _ElfModifyPageState extends ConsumerState<ElfModifyPage> {
                             icon:
                                 result != null
                                     ? Image.file(
+                                      fit: BoxFit.fill,
                                       width: 120,
                                       height: 120,
                                       File(result!.files.single.path!),

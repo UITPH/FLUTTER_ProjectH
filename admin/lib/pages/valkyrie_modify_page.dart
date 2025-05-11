@@ -375,6 +375,7 @@ class _ValkyrieModifyPageState extends ConsumerState<ValkyrieModifyPage> {
                               icon:
                                   resultvalk != null
                                       ? Image.file(
+                                        fit: BoxFit.fill,
                                         width: 70,
                                         height: 70,
                                         File(resultvalk!.files.single.path!),
@@ -607,6 +608,7 @@ class _ValkyrieModifyPageState extends ConsumerState<ValkyrieModifyPage> {
                               icon:
                                   resultweap != null
                                       ? Image.file(
+                                        fit: BoxFit.fill,
                                         width: 70,
                                         height: 70,
                                         File(resultweap!.files.single.path!),
@@ -642,6 +644,7 @@ class _ValkyrieModifyPageState extends ConsumerState<ValkyrieModifyPage> {
                               icon:
                                   resulttop != null
                                       ? Image.file(
+                                        fit: BoxFit.fill,
                                         width: 70,
                                         height: 70,
                                         File(resulttop!.files.single.path!),
@@ -677,6 +680,7 @@ class _ValkyrieModifyPageState extends ConsumerState<ValkyrieModifyPage> {
                               icon:
                                   resultmid != null
                                       ? Image.file(
+                                        fit: BoxFit.fill,
                                         width: 70,
                                         height: 70,
                                         File(resultmid!.files.single.path!),
@@ -712,6 +716,7 @@ class _ValkyrieModifyPageState extends ConsumerState<ValkyrieModifyPage> {
                               icon:
                                   resultbot != null
                                       ? Image.file(
+                                        fit: BoxFit.fill,
                                         width: 70,
                                         height: 70,
                                         File(resultbot!.files.single.path!),
