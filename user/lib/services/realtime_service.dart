@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:flutter_honkai/providers/abyssboss_provider.dart';
 import 'package:flutter_honkai/providers/arenaboss_provider.dart';
 import 'package:flutter_honkai/providers/elf_provider.dart';
@@ -11,6 +13,9 @@ class RealtimeService {
   final Ref ref;
   late final RealtimeChannel _channel;
 
+  final _eventQueue = Queue<Future<void> Function()>();
+  bool _isProcessing = false;
+
   RealtimeService(this.db, this.ref) {
     _channel = db.channel('app-realtime');
 
@@ -20,7 +25,7 @@ class RealtimeService {
           schema: 'public',
           table: 'valkyries',
           callback: (payload) {
-            Future(() async {
+            _enqueue(() async {
               await ref.read(imageVersionProvider).loadValkyries();
               await ref.read(valkyrieProvider).loadValkyries();
             });
@@ -31,7 +36,7 @@ class RealtimeService {
           schema: 'public',
           table: 'abyssbosses',
           callback: (payload) {
-            Future(() async {
+            _enqueue(() async {
               await ref.read(imageVersionProvider).loadAbyssBosses();
               await ref.read(abyssBossProvider).loadBosses();
             });
@@ -42,7 +47,7 @@ class RealtimeService {
           schema: 'public',
           table: 'arenabosses',
           callback: (payload) {
-            Future(() async {
+            _enqueue(() async {
               await ref.read(imageVersionProvider).loadArenaBosses();
               await ref.read(arenabossProvider).loadBosses();
             });
@@ -53,7 +58,7 @@ class RealtimeService {
           schema: 'public',
           table: 'elfs',
           callback: (payload) {
-            Future(() async {
+            _enqueue(() async {
               await ref.read(imageVersionProvider).loadElfs();
               await ref.read(elfProvider).loadElfs();
             });
@@ -64,7 +69,7 @@ class RealtimeService {
           schema: 'public',
           table: 'elfs_image_version',
           callback: (payload) {
-            Future(() async {
+            _enqueue(() async {
               await ref.read(imageVersionProvider).loadElfs();
               await ref.read(elfProvider).loadElfs();
             });
@@ -75,7 +80,7 @@ class RealtimeService {
           schema: 'public',
           table: 'arenabosses_image_version',
           callback: (payload) {
-            Future(() async {
+            _enqueue(() async {
               await ref.read(imageVersionProvider).loadArenaBosses();
               await ref.read(arenabossProvider).loadBosses();
             });
@@ -86,7 +91,7 @@ class RealtimeService {
           schema: 'public',
           table: 'abyssbosses_image_version',
           callback: (payload) {
-            Future(() async {
+            _enqueue(() async {
               await ref.read(imageVersionProvider).loadAbyssBosses();
               await ref.read(abyssBossProvider).loadBosses();
             });
@@ -97,13 +102,30 @@ class RealtimeService {
           schema: 'public',
           table: 'valkyries_image_version',
           callback: (payload) {
-            Future(() async {
+            _enqueue(() async {
               await ref.read(imageVersionProvider).loadValkyries();
               await ref.read(valkyrieProvider).loadValkyries();
             });
           },
         )
         .subscribe();
+  }
+
+  void _enqueue(Future<void> Function() task) {
+    _eventQueue.add(task);
+    _processQueue();
+  }
+
+  void _processQueue() async {
+    if (_isProcessing) return;
+    _isProcessing = true;
+
+    while (_eventQueue.isNotEmpty) {
+      final task = _eventQueue.removeFirst();
+      await task();
+    }
+
+    _isProcessing = false;
   }
 
   void dispose() {
