@@ -8,7 +8,6 @@ import 'package:flutter_honkai/pages/advanced_page.dart';
 import 'package:flutter_honkai/pages/preview_boss/arena_preview_page.dart';
 import 'package:flutter_honkai/providers/arenaboss_provider.dart';
 import 'package:flutter_honkai/providers/elf_provider.dart';
-import 'package:flutter_honkai/providers/image_version_provider.dart';
 import 'package:flutter_honkai/providers/valkyrie_provider.dart';
 import 'package:flutter_honkai/services/database_helper.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -71,6 +70,7 @@ class _InsertArenaBossPageState extends ConsumerState<InsertArenaBossPage> {
         name: name!,
         rank: rank!,
         teamrec: teamrec,
+        version: '',
       );
       Navigator.of(context).push(
         MaterialPageRoute(
@@ -131,6 +131,7 @@ class _InsertArenaBossPageState extends ConsumerState<InsertArenaBossPage> {
         name: name!,
         rank: rank!,
         teamrec: teamrec,
+        version: DateTime.now().millisecondsSinceEpoch.toString(),
       );
       showFullScreenLoading(context);
       //upload image to database
@@ -144,13 +145,6 @@ class _InsertArenaBossPageState extends ConsumerState<InsertArenaBossPage> {
       await db.from('arenabosses').insert(newBoss.toBossMap());
       await db.from('arenaboss_teamrec').insert(newBoss.toTeamrecListMap());
       ref.read(arenabossProvider).addBoss(newBoss);
-      //add version of image
-      final version = DateTime.now().millisecondsSinceEpoch.toString();
-      await db.from('arenabosses_image_version').insert({
-        'id': newBoss.id,
-        'version': version,
-      });
-      ref.read(imageVersionProvider).addArenaBoss(newBoss.id, version);
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(duration: Duration(seconds: 1), content: Text("Saved")),
@@ -176,58 +170,7 @@ class _InsertArenaBossPageState extends ConsumerState<InsertArenaBossPage> {
     List<ValkyrieModel> valkyries = ref.read(valkyrieProvider).valkyries;
     List<ElfModel> elfs = ref.read(elfProvider).elfs;
     return Scaffold(
-      appBar: AppBar(
-        actionsPadding: EdgeInsets.symmetric(horizontal: 20),
-        actions: [
-          IconButton(
-            onPressed: () {
-              showDialog(
-                context: context,
-                builder:
-                    (context) => AlertDialog(
-                      title: Text(
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                        'Information',
-                      ),
-                      content: SizedBox(
-                        width: 300,
-                        child: IntrinsicHeight(
-                          child: Column(
-                            spacing: 10,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Name of boss is the name that show on screen',
-                              ),
-                              Text('String id of each boss must be unique'),
-                              Text(
-                                'File image of boss is the file that use to show boss\'s avatar',
-                              ),
-                              Text('All bosses images are stored online'),
-                              Text(
-                                'You can refer the existed bosses to know the template',
-                              ),
-                              Text(
-                                'You can use preview button to preview all information of boss that you are adding',
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      actions: [
-                        TextButton(
-                          child: Text('Close'),
-                          onPressed: () => Navigator.pop(context),
-                        ),
-                      ],
-                    ),
-              );
-            },
-            icon: Icon(Icons.info_outline_rounded),
-          ),
-        ],
-        title: Text('Insert Arena Boss Page'),
-      ),
+      appBar: AppBar(title: Text('Insert Arena Boss Page')),
       body: Form(
         key: _formKey,
         child: Center(
@@ -284,6 +227,12 @@ class _InsertArenaBossPageState extends ConsumerState<InsertArenaBossPage> {
                           if (value == '') {
                             return 'Please enter id of boss';
                           }
+                          if (value!.length > 15) {
+                            return 'Boss\'s id character limit is 15';
+                          }
+                          if (value.contains(' ')) {
+                            return 'Boss\'s id cannot contain any space';
+                          }
                           return null;
                         },
                         onChanged: (value) {
@@ -303,6 +252,9 @@ class _InsertArenaBossPageState extends ConsumerState<InsertArenaBossPage> {
                         validator: (value) {
                           if (value == '') {
                             return 'Please enter name of boss';
+                          }
+                          if (value!.length > 50) {
+                            return 'Boss\'s name character limit is 50';
                           }
                           return null;
                         },

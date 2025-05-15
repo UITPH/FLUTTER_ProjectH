@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_honkai/models/valkyrie_model.dart';
 import 'package:flutter_honkai/pages/valkyrie_modify_page.dart';
-import 'package:flutter_honkai/providers/image_version_provider.dart';
+import 'package:flutter_honkai/providers/valkyrie_provider.dart';
 import 'package:flutter_honkai/services/database_helper.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_honkai/widgets/clickable.dart';
@@ -17,9 +17,10 @@ class ModifyValkCard extends ConsumerWidget {
     Widget getValkImage(String id) {
       final version =
           ref
-              .read(imageVersionProvider)
+              .read(valkyrieProvider)
               .valkyries
-              .firstWhere((valk) => valk['id'] == id)['version'];
+              .firstWhere((valk) => valk.id == id)
+              .version;
       final db = DatabaseHelper.supabase;
       final url =
           '${db.storage.from('data').getPublicUrl('images/valkyries/$id.png')}?v=$version';

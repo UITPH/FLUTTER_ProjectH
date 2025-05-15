@@ -4,7 +4,6 @@ import 'package:flutter_honkai/pages/main_scaffold.dart';
 import 'package:flutter_honkai/providers/abyssboss_provider.dart';
 import 'package:flutter_honkai/providers/arenaboss_provider.dart';
 import 'package:flutter_honkai/providers/elf_provider.dart';
-import 'package:flutter_honkai/providers/image_version_provider.dart';
 import 'package:flutter_honkai/providers/valkyrie_provider.dart';
 import 'package:flutter_honkai/providers/weather_provider.dart';
 import 'package:flutter_honkai/services/database_helper.dart';
@@ -23,10 +22,6 @@ class _LoadingPageState extends ConsumerState<LoadingPage> {
   bool isConnected = true;
 
   Future<void> _loadData() async {
-    await ref.read(imageVersionProvider).loadValkyries();
-    await ref.read(imageVersionProvider).loadAbyssBosses();
-    await ref.read(imageVersionProvider).loadArenaBosses();
-    await ref.read(imageVersionProvider).loadElfs();
     await ref.read(valkyrieProvider).loadValkyries();
     await ref.read(abyssBossProvider).loadBosses();
     await ref.read(arenabossProvider).loadBosses();

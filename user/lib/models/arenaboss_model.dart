@@ -3,12 +3,14 @@ class ArenaBossModel {
   final String name;
   final int rank;
   final List teamrec;
+  final String version;
 
   ArenaBossModel({
     required this.id,
     required this.name,
     required this.rank,
     required this.teamrec,
+    required this.version,
   });
 
   factory ArenaBossModel.fromMap(Map<String, dynamic> map) {
@@ -17,24 +19,7 @@ class ArenaBossModel {
       name: map['name'],
       rank: map['rank'],
       teamrec: map['arenaboss_teamrec'],
+      version: map['version'],
     );
   }
-
-  // Map<String, dynamic> toMainMap() {
-  //   return {'id': id, 'name': name, 'rank': rank, 'is_deleted': 0};
-  // }
-
-  // List<Map<String, dynamic>> toTeamrecListMap() {
-  //   List<Map<String, dynamic>> res = [];
-  //   for (int i = 0; i < firstValk.length; i++) {
-  //     res.add({
-  //       'id_arenaboss': id,
-  //       'first_valk': firstValk[i],
-  //       'second_valk': secondValk[i],
-  //       'third_valk': thirdValk[i],
-  //       'elf': elf[i],
-  //     });
-  //   }
-  //   return res;
-  // }
 }

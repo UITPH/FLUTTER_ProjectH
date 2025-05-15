@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_honkai/models/abyssboss_model.dart';
 import 'package:flutter_honkai/providers/abyssboss_provider.dart';
-import 'package:flutter_honkai/providers/image_version_provider.dart';
-
 import 'package:flutter_honkai/providers/weather_provider.dart';
 import 'package:flutter_honkai/widgets/advanced_abyssboss_card.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -25,7 +23,6 @@ class _DeleteAbyssBossPageState extends ConsumerState<DeleteAbyssBossPage> {
 
   @override
   Widget build(BuildContext context) {
-    ref.watch(imageVersionProvider);
     final bosses = ref.watch(abyssBossProvider).bosses;
     final weathers = ref.read(weatherProvider).weathers;
     final filteredBosses =

@@ -19,7 +19,7 @@ Future<List<ValkyrieModel>> loadValkyriesListFromDataBase() async {
   final data = await db
       .from('valkyries')
       .select('''
-        id, name, astralop, damage, type, equipment, role, pullrec, rankup,
+        id, name, astralop, damage, type, equipment, role, pullrec, rankup, version,
         lineup:lineup!id_owner_valk(
           name, leader, 
           lineup_first_valk_list(id_valk), 

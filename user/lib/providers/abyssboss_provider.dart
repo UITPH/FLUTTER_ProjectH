@@ -19,7 +19,7 @@ Future<List<AbyssBossModel>> loadBossesListFromDataBase() async {
   final data = await db
       .from('abyssbosses')
       .select(
-        'id, name, id_weather, mechanic, resistance, abyssboss_teamrec(first_valk, second_valk, third_valk, elf, note)',
+        'id, name, id_weather, mechanic, resistance, version, abyssboss_teamrec(first_valk, second_valk, third_valk, elf, note)',
       )
       .eq('is_deleted', 0)
       .order('order', ascending: false);

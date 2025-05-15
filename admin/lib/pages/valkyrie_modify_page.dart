@@ -6,7 +6,6 @@ import 'package:flutter_honkai/models/valkyrie_model.dart';
 import 'package:flutter_honkai/pages/advanced_page.dart';
 import 'package:flutter_honkai/pages/preview_valk/valkyrie_preview_page.dart';
 import 'package:flutter_honkai/providers/elf_provider.dart';
-import 'package:flutter_honkai/providers/image_version_provider.dart';
 import 'package:flutter_honkai/providers/valkyrie_provider.dart';
 import 'package:flutter_honkai/services/database_helper.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -75,9 +74,10 @@ class _ValkyrieModifyPageState extends ConsumerState<ValkyrieModifyPage> {
   Widget getValkImage(BuildContext context, String id) {
     final version =
         ref
-            .read(imageVersionProvider)
+            .read(valkyrieProvider)
             .valkyries
-            .firstWhere((valk) => valk['id'] == id)['version'];
+            .firstWhere((valk) => valk.id == id)
+            .version;
     final db = DatabaseHelper.supabase;
     final url =
         '${db.storage.from('data').getPublicUrl('images/valkyries/$id.png')}?v=$version';
@@ -96,9 +96,10 @@ class _ValkyrieModifyPageState extends ConsumerState<ValkyrieModifyPage> {
   Widget getEquipmentImage(BuildContext context, String id, String type) {
     final version =
         ref
-            .read(imageVersionProvider)
+            .read(valkyrieProvider)
             .valkyries
-            .firstWhere((valk) => valk['id'] == id)['version'];
+            .firstWhere((valk) => valk.id == id)
+            .version;
     final db = DatabaseHelper.supabase;
     final url =
         '${db.storage.from('data').getPublicUrl('images/equipments/$id$type.png')}?v=$version';
@@ -141,6 +142,7 @@ class _ValkyrieModifyPageState extends ConsumerState<ValkyrieModifyPage> {
         role: role!,
         pullrec: pullrec!,
         rankup: rankup!,
+        version: '',
       );
       Navigator.of(context).push(
         MaterialPageRoute(
@@ -243,6 +245,7 @@ class _ValkyrieModifyPageState extends ConsumerState<ValkyrieModifyPage> {
         role: role!,
         pullrec: pullrec!,
         rankup: rankup!,
+        version: DateTime.now().millisecondsSinceEpoch.toString(),
       );
       showFullScreenLoading(context);
       //upload image to database
@@ -283,7 +286,6 @@ class _ValkyrieModifyPageState extends ConsumerState<ValkyrieModifyPage> {
       }
       //add to database
       final db = DatabaseHelper.supabase;
-      await db.from('valkyries').upsert(newValkyrie.toValkMap());
       await db.from('lineup').delete().eq('id_owner_valk', newValkyrie.id);
       final ids = await db
           .from('lineup')
@@ -297,14 +299,9 @@ class _ValkyrieModifyPageState extends ConsumerState<ValkyrieModifyPage> {
           .from('lineup_second_valk_list')
           .insert(newValkyrie.toLineupSecondValkListMap());
       await db.from('lineup_elf_list').insert(newValkyrie.toLineupElfListMap());
+      await db.from('valkyries').upsert(newValkyrie.toValkMap());
       ref.read(valkyrieProvider).removeValkyrie(newValkyrie.id);
       ref.read(valkyrieProvider).addValkyrie(newValkyrie);
-      final version = DateTime.now().millisecondsSinceEpoch.toString();
-      await db.from('valkyries_image_version').upsert({
-        'id': newValkyrie.id,
-        'version': version,
-      });
-      ref.read(imageVersionProvider).modifyValkyrie(newValkyrie.id, version);
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(duration: Duration(seconds: 1), content: Text("Saved")),
@@ -824,6 +821,7 @@ class _ValkyrieModifyPageState extends ConsumerState<ValkyrieModifyPage> {
                                                   role: '',
                                                   pullrec: '',
                                                   rankup: '',
+                                                  version: '',
                                                 ),
                                                 ...valkyries.where(
                                                   (valk) => valk.id != id!,
@@ -960,6 +958,7 @@ class _ValkyrieModifyPageState extends ConsumerState<ValkyrieModifyPage> {
                                                   role: '',
                                                   pullrec: '',
                                                   rankup: '',
+                                                  version: '',
                                                 ),
                                                 ...valkyries.where(
                                                   (valk) => valk.id != id!,
@@ -1084,6 +1083,7 @@ class _ValkyrieModifyPageState extends ConsumerState<ValkyrieModifyPage> {
                                                   role: '',
                                                   pullrec: '',
                                                   rankup: '',
+                                                  version: '',
                                                 ),
                                                 ...valkyries.where(
                                                   (valk) => valk.id != id!,

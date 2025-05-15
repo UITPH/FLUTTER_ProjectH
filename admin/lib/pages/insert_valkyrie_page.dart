@@ -5,7 +5,6 @@ import 'package:flutter_honkai/models/valkyrie_model.dart';
 import 'package:flutter_honkai/pages/advanced_page.dart';
 import 'package:flutter_honkai/pages/preview_valk/valkyrie_preview_page.dart';
 import 'package:flutter_honkai/providers/elf_provider.dart';
-import 'package:flutter_honkai/providers/image_version_provider.dart';
 import 'package:flutter_honkai/providers/valkyrie_provider.dart';
 import 'package:flutter_honkai/services/database_helper.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -98,6 +97,7 @@ class _InsertValkyriePageState extends ConsumerState<InsertValkyriePage> {
         role: role!,
         pullrec: pulllrec!,
         rankup: rankup!,
+        version: '',
       );
       Navigator.of(context).push(
         MaterialPageRoute(
@@ -191,6 +191,7 @@ class _InsertValkyriePageState extends ConsumerState<InsertValkyriePage> {
         role: role!,
         pullrec: pulllrec!,
         rankup: rankup!,
+        version: DateTime.now().millisecondsSinceEpoch.toString(),
       );
       showFullScreenLoading(context);
       //upload image to database
@@ -235,13 +236,6 @@ class _InsertValkyriePageState extends ConsumerState<InsertValkyriePage> {
           .insert(newValkyrie.toLineupSecondValkListMap());
       await db.from('lineup_elf_list').insert(newValkyrie.toLineupElfListMap());
       ref.read(valkyrieProvider).addValkyrie(newValkyrie);
-      //add version of image
-      final version = DateTime.now().millisecondsSinceEpoch.toString();
-      await db.from('valkyries_image_version').upsert({
-        'id': newValkyrie.id,
-        'version': version,
-      });
-      ref.read(imageVersionProvider).addValkyrie(newValkyrie.id, version);
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(duration: Duration(seconds: 1), content: Text("Saved")),
@@ -266,10 +260,7 @@ class _InsertValkyriePageState extends ConsumerState<InsertValkyriePage> {
     final valkyries = ref.watch(valkyrieProvider).valkyries;
     final elfs = ref.watch(elfProvider).elfs;
     return Scaffold(
-      appBar: AppBar(
-        actionsPadding: EdgeInsets.symmetric(horizontal: 20),
-        title: Text('Insert Valkyrie Page'),
-      ),
+      appBar: AppBar(title: Text('Insert Valkyrie Page')),
       body: SingleChildScrollView(
         child: Form(
           key: _formKey,
@@ -330,6 +321,12 @@ class _InsertValkyriePageState extends ConsumerState<InsertValkyriePage> {
                             if (value == '') {
                               return 'Please enter id of valk';
                             }
+                            if (value!.length > 15) {
+                              return 'Valkyrie\'s id character limit is 15';
+                            }
+                            if (value.contains(' ')) {
+                              return 'Valkyrie\'s id cannot contain any space';
+                            }
                             return null;
                           },
                           onChanged: (value) {
@@ -352,6 +349,9 @@ class _InsertValkyriePageState extends ConsumerState<InsertValkyriePage> {
                           validator: (value) {
                             if (value == '') {
                               return 'Please enter name of valk';
+                            }
+                            if (value!.length > 50) {
+                              return 'Valkyrie\'s name character limit is 50';
                             }
                             return null;
                           },
@@ -741,6 +741,7 @@ class _InsertValkyriePageState extends ConsumerState<InsertValkyriePage> {
                                                   role: '',
                                                   pullrec: '',
                                                   rankup: '',
+                                                  version: '',
                                                 ),
                                                 ...valkyries,
                                               ]
@@ -875,6 +876,7 @@ class _InsertValkyriePageState extends ConsumerState<InsertValkyriePage> {
                                                   role: '',
                                                   pullrec: '',
                                                   rankup: '',
+                                                  version: '',
                                                 ),
                                                 ...valkyries,
                                               ]
@@ -997,6 +999,7 @@ class _InsertValkyriePageState extends ConsumerState<InsertValkyriePage> {
                                                   role: '',
                                                   pullrec: '',
                                                   rankup: '',
+                                                  version: '',
                                                 ),
                                                 ...valkyries,
                                               ]

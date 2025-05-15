@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_honkai/providers/delete_provider.dart';
-import 'package:flutter_honkai/providers/image_version_provider.dart';
 import 'package:flutter_honkai/widgets/delete_abyssboss_card.dart';
 import 'package:flutter_honkai/widgets/delete_arenaboss_card.dart';
 import 'package:flutter_honkai/widgets/delete_elf_card.dart';
@@ -12,7 +11,6 @@ class DeletePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ref.watch(imageVersionProvider);
     final valkDeletes = ref.watch(deleteProvider).valkDeletes;
     final abyssbossDeletes = ref.watch(deleteProvider).abyssbossDeletes;
     final arenabossDeletes = ref.watch(deleteProvider).arenabossDeletes;

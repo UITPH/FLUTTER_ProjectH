@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_honkai/pages/elf_overview_page.dart';
 import 'package:flutter_honkai/providers/elf_provider.dart';
 import 'package:flutter_honkai/providers/favorite_provider.dart';
-import 'package:flutter_honkai/providers/image_version_provider.dart';
 import 'package:flutter_honkai/widgets/elf_card.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -11,7 +10,6 @@ class ElfPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ref.watch(imageVersionProvider);
     final elfs = ref.watch(elfProvider).elfs;
     final favories = ref.watch(favoriteProvider);
     return Scaffold(

@@ -5,6 +5,7 @@ class AbyssBossModel {
   final String mechanic;
   final String resistance;
   final List teamrec;
+  final String version;
 
   AbyssBossModel({
     required this.id,
@@ -13,6 +14,7 @@ class AbyssBossModel {
     required this.mechanic,
     required this.resistance,
     required this.teamrec,
+    required this.version,
   });
 
   factory AbyssBossModel.fromMap(Map<String, dynamic> map) {
@@ -23,6 +25,7 @@ class AbyssBossModel {
       mechanic: map['mechanic'],
       resistance: map['resistance'],
       teamrec: map['abyssboss_teamrec'],
+      version: map['version'],
     );
   }
 
@@ -34,6 +37,7 @@ class AbyssBossModel {
       'mechanic': mechanic,
       'resistance': resistance,
       'is_deleted': 0,
+      'version': version,
     });
   }
 

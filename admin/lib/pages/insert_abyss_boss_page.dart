@@ -9,7 +9,6 @@ import 'package:flutter_honkai/pages/advanced_page.dart';
 import 'package:flutter_honkai/pages/preview_boss/abyss_preview_page.dart';
 import 'package:flutter_honkai/providers/abyssboss_provider.dart';
 import 'package:flutter_honkai/providers/elf_provider.dart';
-import 'package:flutter_honkai/providers/image_version_provider.dart';
 import 'package:flutter_honkai/providers/valkyrie_provider.dart';
 import 'package:flutter_honkai/providers/weather_provider.dart';
 import 'package:flutter_honkai/services/database_helper.dart';
@@ -78,6 +77,7 @@ class _InsertAbyssBossPageState extends ConsumerState<InsertAbyssBossPage> {
         mechanic: mechanic!,
         resistance: resistance!,
         teamrec: teamrec,
+        version: '',
       );
       Navigator.of(context).push(
         MaterialPageRoute(
@@ -140,6 +140,7 @@ class _InsertAbyssBossPageState extends ConsumerState<InsertAbyssBossPage> {
         mechanic: mechanic!,
         resistance: resistance!,
         teamrec: teamrec,
+        version: DateTime.now().millisecondsSinceEpoch.toString(),
       );
       showFullScreenLoading(context);
       //upload image to database
@@ -153,13 +154,6 @@ class _InsertAbyssBossPageState extends ConsumerState<InsertAbyssBossPage> {
       await db.from('abyssbosses').insert(newBoss.toBossMap());
       await db.from('abyssboss_teamrec').insert(newBoss.toTeamrecListMap());
       ref.read(abyssBossProvider).addBoss(newBoss);
-      //add version of image
-      final version = DateTime.now().millisecondsSinceEpoch.toString();
-      await db.from('abyssbosses_image_version').insert({
-        'id': newBoss.id,
-        'version': version,
-      });
-      ref.read(imageVersionProvider).addAbyssBoss(newBoss.id, version);
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(duration: Duration(seconds: 1), content: Text("Saved")),
@@ -186,58 +180,7 @@ class _InsertAbyssBossPageState extends ConsumerState<InsertAbyssBossPage> {
     List<ValkyrieModel> valkyries = ref.read(valkyrieProvider).valkyries;
     List<ElfModel> elfs = ref.read(elfProvider).elfs;
     return Scaffold(
-      appBar: AppBar(
-        actionsPadding: EdgeInsets.symmetric(horizontal: 20),
-        actions: [
-          IconButton(
-            onPressed: () {
-              showDialog(
-                context: context,
-                builder:
-                    (context) => AlertDialog(
-                      title: Text(
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                        'Information',
-                      ),
-                      content: SizedBox(
-                        width: 300,
-                        child: IntrinsicHeight(
-                          child: Column(
-                            spacing: 10,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Name of boss is the name that show on screen',
-                              ),
-                              Text('String id of each boss must be unique'),
-                              Text(
-                                'File image of boss is the file that use to show boss\'s avatar',
-                              ),
-                              Text('All bosses images are stored online'),
-                              Text(
-                                'You can refer the existed bosses to know the template',
-                              ),
-                              Text(
-                                'You can use preview button to preview all information of boss that you are adding',
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      actions: [
-                        TextButton(
-                          child: Text('Close'),
-                          onPressed: () => Navigator.pop(context),
-                        ),
-                      ],
-                    ),
-              );
-            },
-            icon: Icon(Icons.info_outline_rounded),
-          ),
-        ],
-        title: Text('Insert Abyss Boss Page'),
-      ),
+      appBar: AppBar(title: Text('Insert Abyss Boss Page')),
       body: Form(
         key: _formKey,
         child: Center(
@@ -295,6 +238,12 @@ class _InsertAbyssBossPageState extends ConsumerState<InsertAbyssBossPage> {
                           if (value == '') {
                             return 'Please enter id of boss';
                           }
+                          if (value!.length > 15) {
+                            return 'Boss\'s id character limit is 15';
+                          }
+                          if (value.contains(' ')) {
+                            return 'Boss\'s id cannot contain any space';
+                          }
                           return null;
                         },
                         onChanged: (value) {
@@ -315,6 +264,9 @@ class _InsertAbyssBossPageState extends ConsumerState<InsertAbyssBossPage> {
                         validator: (value) {
                           if (value == '') {
                             return 'Please enter name of boss';
+                          }
+                          if (value!.length > 50) {
+                            return 'Boss\'s name character limit is 50';
                           }
                           return null;
                         },

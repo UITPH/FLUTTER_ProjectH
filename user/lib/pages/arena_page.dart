@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_honkai/pages/arena_boss_details_page.dart';
 import 'package:flutter_honkai/providers/arenaboss_provider.dart';
 import 'package:flutter_honkai/providers/favorite_provider.dart';
-import 'package:flutter_honkai/providers/image_version_provider.dart';
 import 'package:flutter_honkai/widgets/arena_boss_card.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -27,7 +26,6 @@ class _AbyssPageState extends ConsumerState<ArenaPage> {
 
   @override
   Widget build(BuildContext context) {
-    ref.watch(imageVersionProvider);
     final favorite = ref.watch(favoriteProvider);
     final bosses = ref.watch(arenabossProvider).bosses;
     final filteredBosses =

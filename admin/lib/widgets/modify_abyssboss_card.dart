@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_honkai/models/abyssboss_model.dart';
 import 'package:flutter_honkai/pages/abyssboss_modify_page.dart';
-import 'package:flutter_honkai/providers/image_version_provider.dart';
+import 'package:flutter_honkai/providers/abyssboss_provider.dart';
 import 'package:flutter_honkai/widgets/clickable.dart';
 import 'package:flutter_honkai/services/database_helper.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -17,9 +17,10 @@ class ModifyAbyssbossCard extends ConsumerWidget {
     Widget getAbyssBossImage(String id) {
       final version =
           ref
-              .read(imageVersionProvider)
-              .abyssbosses
-              .firstWhere((boss) => boss['id'] == id)['version'];
+              .read(abyssBossProvider)
+              .bosses
+              .firstWhere((boss) => boss.id == id)
+              .version;
       final db = DatabaseHelper.supabase;
       final url =
           '${db.storage.from('data').getPublicUrl('images/abyssbosses/$id.png')}?v=$version';

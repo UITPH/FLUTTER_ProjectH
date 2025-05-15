@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_honkai/providers/image_version_provider.dart';
 import 'package:flutter_honkai/providers/valkyrie_provider.dart';
 import 'package:flutter_honkai/widgets/lineup_widget.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -10,7 +9,6 @@ class ValkyrieLineupPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ref.watch(imageVersionProvider);
     ref.watch(valkyrieProvider);
     return Scaffold(
       body: Stack(

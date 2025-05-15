@@ -109,7 +109,7 @@ Future<List<ValkyrieModel>> loadDeleteValkModelList() async {
   final data = await db
       .from('valkyries')
       .select('''
-        id, name, astralop, damage, type, equipment, role, pullrec, rankup,
+        id, name, astralop, damage, type, equipment, role, pullrec, rankup, version,
         lineup:lineup!id_owner_valk(
           id, name, leader, 
           lineup_first_valk_list(id_valk), 
@@ -127,7 +127,7 @@ Future<List<AbyssBossModel>> loadDeleteAbyssBossModelList() async {
   final data = await db
       .from('abyssbosses')
       .select(
-        'id, name, id_weather, mechanic, resistance, abyssboss_teamrec(first_valk, second_valk, third_valk, elf, note)',
+        'id, name, id_weather, mechanic, resistance, version, abyssboss_teamrec(first_valk, second_valk, third_valk, elf, note)',
       )
       .eq('is_deleted', 1)
       .order('order', ascending: false);
@@ -139,7 +139,7 @@ Future<List<ArenaBossModel>> loadDeleteArenaBossModelList() async {
   final data = await db
       .from('arenabosses')
       .select(
-        'id, name, rank, arenaboss_teamrec(first_valk, second_valk, third_valk, elf)',
+        'id, name, rank, version, arenaboss_teamrec(first_valk, second_valk, third_valk, elf)',
       )
       .eq('is_deleted', 1)
       .order('order', ascending: false);

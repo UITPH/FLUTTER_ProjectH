@@ -11,6 +11,7 @@ class ValkyrieModel {
   final String role;
   final String pullrec;
   final String rankup;
+  final String version;
 
   ValkyrieModel({
     required this.id,
@@ -23,6 +24,7 @@ class ValkyrieModel {
     required this.role,
     required this.pullrec,
     required this.rankup,
+    required this.version,
   });
 
   factory ValkyrieModel.fromMap(Map<String, dynamic> map) {
@@ -56,6 +58,7 @@ class ValkyrieModel {
       role: map['role'],
       pullrec: map['pullrec'],
       rankup: map['rankup'],
+      version: map['version'],
     );
   }
 
@@ -77,6 +80,7 @@ class ValkyrieModel {
       'pullrec': pullrec,
       'rankup': rankup,
       'is_deleted': 0,
+      'version': version,
     };
   }
 

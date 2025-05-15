@@ -6,7 +6,6 @@ import 'package:flutter_honkai/models/elf_model.dart';
 import 'package:flutter_honkai/pages/advanced_page.dart';
 import 'package:flutter_honkai/pages/preview_elf/elf_preview_page.dart';
 import 'package:flutter_honkai/providers/elf_provider.dart';
-import 'package:flutter_honkai/providers/image_version_provider.dart';
 import 'package:flutter_honkai/services/database_helper.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -35,10 +34,7 @@ class _ElfModifyPageState extends ConsumerState<ElfModifyPage> {
 
   Widget getElfImage(BuildContext context, String id) {
     final version =
-        ref
-            .read(imageVersionProvider)
-            .elfs
-            .firstWhere((elf) => elf['id'] == id)['version'];
+        ref.read(elfProvider).elfs.firstWhere((elf) => elf.id == id).version;
     final db = DatabaseHelper.supabase;
     final url =
         '${db.storage.from('data').getPublicUrl('images/elfs/$id.png')}?v=$version';
@@ -80,6 +76,7 @@ class _ElfModifyPageState extends ConsumerState<ElfModifyPage> {
         id: id!,
         name: name!,
         overview: overview!,
+        version: '',
       );
       Navigator.of(context).push(
         MaterialPageRoute(
@@ -135,6 +132,7 @@ class _ElfModifyPageState extends ConsumerState<ElfModifyPage> {
         id: id!,
         name: name!,
         overview: overview!,
+        version: DateTime.now().millisecondsSinceEpoch.toString(),
       );
       showFullScreenLoading(context);
       //upload image to database
@@ -146,12 +144,6 @@ class _ElfModifyPageState extends ConsumerState<ElfModifyPage> {
         );
       }
       final db = DatabaseHelper.supabase;
-      final version = DateTime.now().millisecondsSinceEpoch.toString();
-      await db.from('elfs_image_version').upsert({
-        'id': newElf.id,
-        'version': version,
-      });
-      ref.read(imageVersionProvider).modifyElf(newElf.id, version);
       //add to database
       await db.from('elfs').upsert(newElf.toMap());
       ref.read(elfProvider).removeElf(newElf.id);
@@ -186,58 +178,7 @@ class _ElfModifyPageState extends ConsumerState<ElfModifyPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        actionsPadding: EdgeInsets.symmetric(horizontal: 20),
-        actions: [
-          IconButton(
-            onPressed: () {
-              showDialog(
-                context: context,
-                builder:
-                    (context) => AlertDialog(
-                      title: Text(
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                        'Information',
-                      ),
-                      content: SizedBox(
-                        width: 300,
-                        child: IntrinsicHeight(
-                          child: Column(
-                            spacing: 10,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Name of boss is the name that show on screen',
-                              ),
-                              Text('String id of each boss must be unique'),
-                              Text(
-                                'File image of boss is the file that use to show boss\'s avatar',
-                              ),
-                              Text('All bosses images are stored online'),
-                              Text(
-                                'You can refer the existed bosses to know the template',
-                              ),
-                              Text(
-                                'You can use preview button to preview all information of boss that you are adding',
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      actions: [
-                        TextButton(
-                          child: Text('Close'),
-                          onPressed: () => Navigator.pop(context),
-                        ),
-                      ],
-                    ),
-              );
-            },
-            icon: Icon(Icons.info_outline_rounded),
-          ),
-        ],
-        title: Text('Modify Elf Page'),
-      ),
+      appBar: AppBar(title: Text('Modify Elf Page')),
       body: Form(
         key: _formKey,
         child: Center(
@@ -316,6 +257,8 @@ class _ElfModifyPageState extends ConsumerState<ElfModifyPage> {
                 padding: EdgeInsets.symmetric(horizontal: 20),
                 child: TextFormField(
                   controller: overviewController,
+                  keyboardType: TextInputType.multiline,
+                  maxLines: null,
                   readOnly: false,
                   enabled: true,
                   decoration: InputDecoration(

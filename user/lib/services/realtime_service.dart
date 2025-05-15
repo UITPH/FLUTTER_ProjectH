@@ -1,9 +1,7 @@
 import 'dart:collection';
-
 import 'package:flutter_honkai/providers/abyssboss_provider.dart';
 import 'package:flutter_honkai/providers/arenaboss_provider.dart';
 import 'package:flutter_honkai/providers/elf_provider.dart';
-import 'package:flutter_honkai/providers/image_version_provider.dart';
 import 'package:flutter_honkai/providers/valkyrie_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -26,7 +24,6 @@ class RealtimeService {
           table: 'valkyries',
           callback: (payload) {
             _enqueue(() async {
-              await ref.read(imageVersionProvider).loadValkyries();
               await ref.read(valkyrieProvider).loadValkyries();
             });
           },
@@ -37,7 +34,6 @@ class RealtimeService {
           table: 'abyssbosses',
           callback: (payload) {
             _enqueue(() async {
-              await ref.read(imageVersionProvider).loadAbyssBosses();
               await ref.read(abyssBossProvider).loadBosses();
             });
           },
@@ -48,7 +44,6 @@ class RealtimeService {
           table: 'arenabosses',
           callback: (payload) {
             _enqueue(() async {
-              await ref.read(imageVersionProvider).loadArenaBosses();
               await ref.read(arenabossProvider).loadBosses();
             });
           },
@@ -59,52 +54,7 @@ class RealtimeService {
           table: 'elfs',
           callback: (payload) {
             _enqueue(() async {
-              await ref.read(imageVersionProvider).loadElfs();
               await ref.read(elfProvider).loadElfs();
-            });
-          },
-        )
-        .onPostgresChanges(
-          event: PostgresChangeEvent.all,
-          schema: 'public',
-          table: 'elfs_image_version',
-          callback: (payload) {
-            _enqueue(() async {
-              await ref.read(imageVersionProvider).loadElfs();
-              await ref.read(elfProvider).loadElfs();
-            });
-          },
-        )
-        .onPostgresChanges(
-          event: PostgresChangeEvent.all,
-          schema: 'public',
-          table: 'arenabosses_image_version',
-          callback: (payload) {
-            _enqueue(() async {
-              await ref.read(imageVersionProvider).loadArenaBosses();
-              await ref.read(arenabossProvider).loadBosses();
-            });
-          },
-        )
-        .onPostgresChanges(
-          event: PostgresChangeEvent.all,
-          schema: 'public',
-          table: 'abyssbosses_image_version',
-          callback: (payload) {
-            _enqueue(() async {
-              await ref.read(imageVersionProvider).loadAbyssBosses();
-              await ref.read(abyssBossProvider).loadBosses();
-            });
-          },
-        )
-        .onPostgresChanges(
-          event: PostgresChangeEvent.all,
-          schema: 'public',
-          table: 'valkyries_image_version',
-          callback: (payload) {
-            _enqueue(() async {
-              await ref.read(imageVersionProvider).loadValkyries();
-              await ref.read(valkyrieProvider).loadValkyries();
             });
           },
         )

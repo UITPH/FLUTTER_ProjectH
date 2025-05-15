@@ -9,7 +9,6 @@ import 'package:flutter_honkai/pages/advanced_page.dart';
 import 'package:flutter_honkai/pages/preview_boss/arena_preview_page.dart';
 import 'package:flutter_honkai/providers/arenaboss_provider.dart';
 import 'package:flutter_honkai/providers/elf_provider.dart';
-import 'package:flutter_honkai/providers/image_version_provider.dart';
 import 'package:flutter_honkai/providers/valkyrie_provider.dart';
 import 'package:flutter_honkai/services/database_helper.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -61,9 +60,10 @@ class _ArenabossModifyPageState extends ConsumerState<ArenabossModifyPage> {
   Widget getArenaBossImage(BuildContext context, String id) {
     final version =
         ref
-            .read(imageVersionProvider)
-            .arenabosses
-            .firstWhere((boss) => boss['id'] == id)['version'];
+            .read(arenabossProvider)
+            .bosses
+            .firstWhere((boss) => boss.id == id)
+            .version;
     final db = DatabaseHelper.supabase;
     final url =
         '${db.storage.from('data').getPublicUrl('images/arenabosses/$id.png')}?v=$version';
@@ -94,6 +94,7 @@ class _ArenabossModifyPageState extends ConsumerState<ArenabossModifyPage> {
         name: name!,
         rank: rank!,
         teamrec: teamrec,
+        version: '',
       );
       Navigator.of(context).push(
         MaterialPageRoute(
@@ -151,6 +152,7 @@ class _ArenabossModifyPageState extends ConsumerState<ArenabossModifyPage> {
         name: name!,
         rank: rank!,
         teamrec: teamrec,
+        version: DateTime.now().millisecondsSinceEpoch.toString(),
       );
       showFullScreenLoading(context);
       //upload image to database
@@ -163,20 +165,14 @@ class _ArenabossModifyPageState extends ConsumerState<ArenabossModifyPage> {
       }
       //add to database
       final db = DatabaseHelper.supabase;
-      await db.from('arenabosses').upsert(newBoss.toBossMap());
       await db
           .from('arenaboss_teamrec')
           .delete()
           .eq('id_arenaboss', newBoss.id);
       await db.from('arenaboss_teamrec').insert(newBoss.toTeamrecListMap());
+      await db.from('arenabosses').upsert(newBoss.toBossMap());
       ref.read(arenabossProvider).removeBoss(newBoss.id);
       ref.read(arenabossProvider).addBoss(newBoss);
-      final version = DateTime.now().millisecondsSinceEpoch.toString();
-      await db.from('arenabosses_image_version').upsert({
-        'id': newBoss.id,
-        'version': version,
-      });
-      ref.read(imageVersionProvider).modifyArenaBoss(newBoss.id, version);
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(duration: Duration(seconds: 1), content: Text("Saved")),
@@ -210,58 +206,7 @@ class _ArenabossModifyPageState extends ConsumerState<ArenabossModifyPage> {
     List<ValkyrieModel> valkyries = ref.read(valkyrieProvider).valkyries;
     List<ElfModel> elfs = ref.read(elfProvider).elfs;
     return Scaffold(
-      appBar: AppBar(
-        actionsPadding: EdgeInsets.symmetric(horizontal: 20),
-        actions: [
-          IconButton(
-            onPressed: () {
-              showDialog(
-                context: context,
-                builder:
-                    (context) => AlertDialog(
-                      title: Text(
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                        'Information',
-                      ),
-                      content: SizedBox(
-                        width: 300,
-                        child: IntrinsicHeight(
-                          child: Column(
-                            spacing: 10,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Name of boss is the name that show on screen',
-                              ),
-                              Text('String id of each boss must be unique'),
-                              Text(
-                                'File image of boss is the file that use to show boss\'s avatar',
-                              ),
-                              Text('All bosses images are stored online'),
-                              Text(
-                                'You can refer the existed bosses to know the template',
-                              ),
-                              Text(
-                                'You can use preview button to preview all information of boss that you are adding',
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      actions: [
-                        TextButton(
-                          child: Text('Close'),
-                          onPressed: () => Navigator.pop(context),
-                        ),
-                      ],
-                    ),
-              );
-            },
-            icon: Icon(Icons.info_outline_rounded),
-          ),
-        ],
-        title: Text('Modify Arena Boss Page'),
-      ),
+      appBar: AppBar(title: Text('Modify Arena Boss Page')),
       body: Form(
         key: _formKey,
         child: Center(

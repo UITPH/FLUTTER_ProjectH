@@ -19,7 +19,7 @@ Future<List<ArenaBossModel>> loadBossesListFromDataBase() async {
   final data = await db
       .from('arenabosses')
       .select(
-        'id, name, rank, arenaboss_teamrec(first_valk, second_valk, third_valk, elf)',
+        'id, name, rank, version, arenaboss_teamrec(first_valk, second_valk, third_valk, elf)',
       )
       .eq('is_deleted', 0)
       .order('order', ascending: false);

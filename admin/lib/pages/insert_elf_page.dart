@@ -5,7 +5,6 @@ import 'package:flutter_honkai/models/elf_model.dart';
 import 'package:flutter_honkai/pages/advanced_page.dart';
 import 'package:flutter_honkai/pages/preview_elf/elf_preview_page.dart';
 import 'package:flutter_honkai/providers/elf_provider.dart';
-import 'package:flutter_honkai/providers/image_version_provider.dart';
 import 'package:flutter_honkai/services/database_helper.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -50,6 +49,7 @@ class _InsertElfPageState extends ConsumerState<InsertElfPage> {
         id: id!,
         name: name!,
         overview: overview!,
+        version: '',
       );
       Navigator.of(context).push(
         MaterialPageRoute(
@@ -108,6 +108,7 @@ class _InsertElfPageState extends ConsumerState<InsertElfPage> {
         id: id!,
         name: name!,
         overview: overview!,
+        version: DateTime.now().millisecondsSinceEpoch.toString(),
       );
       showFullScreenLoading(context);
       //upload image to database
@@ -120,13 +121,6 @@ class _InsertElfPageState extends ConsumerState<InsertElfPage> {
       final db = DatabaseHelper.supabase;
       await db.from('elfs').insert(newElf.toMap());
       ref.read(elfProvider).addElf(newElf);
-      //add version of image
-      final version = DateTime.now().millisecondsSinceEpoch.toString();
-      await db.from('elfs_image_version').insert({
-        'id': newElf.id,
-        'version': version,
-      });
-      ref.read(imageVersionProvider).addElf(newElf.id, version);
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(duration: Duration(seconds: 1), content: Text("Saved")),
@@ -150,58 +144,7 @@ class _InsertElfPageState extends ConsumerState<InsertElfPage> {
   Widget build(BuildContext context) {
     List<ElfModel> elfs = ref.read(elfProvider).elfs;
     return Scaffold(
-      appBar: AppBar(
-        actionsPadding: EdgeInsets.symmetric(horizontal: 20),
-        actions: [
-          IconButton(
-            onPressed: () {
-              showDialog(
-                context: context,
-                builder:
-                    (context) => AlertDialog(
-                      title: Text(
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                        'Information',
-                      ),
-                      content: SizedBox(
-                        width: 300,
-                        child: IntrinsicHeight(
-                          child: Column(
-                            spacing: 10,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Name of boss is the name that show on screen',
-                              ),
-                              Text('String id of each boss must be unique'),
-                              Text(
-                                'File image of boss is the file that use to show boss\'s avatar',
-                              ),
-                              Text('All bosses images are stored online'),
-                              Text(
-                                'You can refer the existed bosses to know the template',
-                              ),
-                              Text(
-                                'You can use preview button to preview all information of boss that you are adding',
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      actions: [
-                        TextButton(
-                          child: Text('Close'),
-                          onPressed: () => Navigator.pop(context),
-                        ),
-                      ],
-                    ),
-              );
-            },
-            icon: Icon(Icons.info_outline_rounded),
-          ),
-        ],
-        title: Text('Insert Elf Page'),
-      ),
+      appBar: AppBar(title: Text('Insert Elf Page')),
       body: Form(
         key: _formKey,
         child: Center(
@@ -259,6 +202,12 @@ class _InsertElfPageState extends ConsumerState<InsertElfPage> {
                           if (value == '') {
                             return 'Please enter id of elf';
                           }
+                          if (value!.length > 15) {
+                            return 'Elf\'s id character limit is 15';
+                          }
+                          if (value.contains(' ')) {
+                            return 'Elf\'s id cannot contain any space';
+                          }
                           return null;
                         },
                         onChanged: (value) {
@@ -280,6 +229,9 @@ class _InsertElfPageState extends ConsumerState<InsertElfPage> {
                           if (value == '') {
                             return 'Please enter name of elf';
                           }
+                          if (value!.length > 50) {
+                            return 'Elf\'s name character limit is 50';
+                          }
                           return null;
                         },
                         onSaved: (value) {
@@ -294,6 +246,8 @@ class _InsertElfPageState extends ConsumerState<InsertElfPage> {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20),
                 child: TextFormField(
+                  keyboardType: TextInputType.multiline,
+                  maxLines: null,
                   readOnly: false,
                   enabled: true,
                   decoration: InputDecoration(

@@ -10,7 +10,6 @@ import 'package:flutter_honkai/pages/advanced_page.dart';
 import 'package:flutter_honkai/pages/preview_boss/abyss_preview_page.dart';
 import 'package:flutter_honkai/providers/abyssboss_provider.dart';
 import 'package:flutter_honkai/providers/elf_provider.dart';
-import 'package:flutter_honkai/providers/image_version_provider.dart';
 import 'package:flutter_honkai/providers/valkyrie_provider.dart';
 import 'package:flutter_honkai/providers/weather_provider.dart';
 import 'package:flutter_honkai/services/database_helper.dart';
@@ -68,9 +67,10 @@ class _AbyssbossModifyPageState extends ConsumerState<AbyssbossModifyPage> {
   Widget getAbyssBossImage(BuildContext context, String id) {
     final version =
         ref
-            .read(imageVersionProvider)
-            .abyssbosses
-            .firstWhere((boss) => boss['id'] == id)['version'];
+            .read(abyssBossProvider)
+            .bosses
+            .firstWhere((boss) => boss.id == id)
+            .version;
     final db = DatabaseHelper.supabase;
     final url =
         '${db.storage.from('data').getPublicUrl('images/abyssbosses/$id.png')}?v=$version';
@@ -103,6 +103,8 @@ class _AbyssbossModifyPageState extends ConsumerState<AbyssbossModifyPage> {
         mechanic: mechanic!,
         resistance: resistance!,
         teamrec: teamrec,
+        //not need for preview
+        version: '',
       );
       Navigator.of(context).push(
         MaterialPageRoute(
@@ -162,6 +164,7 @@ class _AbyssbossModifyPageState extends ConsumerState<AbyssbossModifyPage> {
         mechanic: mechanic!,
         resistance: resistance!,
         teamrec: teamrec,
+        version: DateTime.now().millisecondsSinceEpoch.toString(),
       );
       showFullScreenLoading(context);
       //upload image to database
@@ -175,20 +178,14 @@ class _AbyssbossModifyPageState extends ConsumerState<AbyssbossModifyPage> {
 
       //add to database
       final db = DatabaseHelper.supabase;
-      await db.from('abyssbosses').upsert(newBoss.toBossMap());
       await db
           .from('abyssboss_teamrec')
           .delete()
           .eq('id_abyssboss', newBoss.id);
       await db.from('abyssboss_teamrec').insert(newBoss.toTeamrecListMap());
+      await db.from('abyssbosses').upsert(newBoss.toBossMap());
       ref.read(abyssBossProvider).removeBoss(newBoss.id);
       ref.read(abyssBossProvider).addBoss(newBoss);
-      final version = DateTime.now().millisecondsSinceEpoch.toString();
-      await db.from('abyssbosses_image_version').upsert({
-        'id': newBoss.id,
-        'version': version,
-      });
-      ref.read(imageVersionProvider).modifyAbyssBoss(newBoss.id, version);
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(duration: Duration(seconds: 1), content: Text("Saved")),
@@ -225,58 +222,7 @@ class _AbyssbossModifyPageState extends ConsumerState<AbyssbossModifyPage> {
     List<ValkyrieModel> valkyries = ref.read(valkyrieProvider).valkyries;
     List<ElfModel> elfs = ref.read(elfProvider).elfs;
     return Scaffold(
-      appBar: AppBar(
-        actionsPadding: EdgeInsets.symmetric(horizontal: 20),
-        actions: [
-          IconButton(
-            onPressed: () {
-              showDialog(
-                context: context,
-                builder:
-                    (context) => AlertDialog(
-                      title: Text(
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                        'Information',
-                      ),
-                      content: SizedBox(
-                        width: 300,
-                        child: IntrinsicHeight(
-                          child: Column(
-                            spacing: 10,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Name of boss is the name that show on screen',
-                              ),
-                              Text('String id of each boss must be unique'),
-                              Text(
-                                'File image of boss is the file that use to show boss\'s avatar',
-                              ),
-                              Text('All bosses images are stored online'),
-                              Text(
-                                'You can refer the existed bosses to know the template',
-                              ),
-                              Text(
-                                'You can use preview button to preview all information of boss that you are adding',
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      actions: [
-                        TextButton(
-                          child: Text('Close'),
-                          onPressed: () => Navigator.pop(context),
-                        ),
-                      ],
-                    ),
-              );
-            },
-            icon: Icon(Icons.info_outline_rounded),
-          ),
-        ],
-        title: Text('Modify Abyss Boss Page'),
-      ),
+      appBar: AppBar(title: Text('Modify Abyss Boss Page')),
       body: Form(
         key: _formKey,
         child: Center(

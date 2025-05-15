@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_honkai/models/valkyrie_model.dart';
-import 'package:flutter_honkai/providers/image_version_provider.dart';
 import 'package:flutter_honkai/widgets/advanced_valk_card.dart';
 import 'package:flutter_honkai/widgets/valk_astralop_filter.dart';
 import 'package:flutter_honkai/widgets/valk_type_filter.dart';
@@ -54,7 +53,6 @@ class _DeleteValkyriePageState extends ConsumerState<DeleteValkyriePage> {
 
   @override
   Widget build(BuildContext context) {
-    ref.watch(imageVersionProvider);
     final valkyries = ref.watch(valkyrieProvider).valkyries;
     filteredValkyries =
         valkyries.where((valk) {

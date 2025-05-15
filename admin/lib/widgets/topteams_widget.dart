@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_honkai/providers/image_version_provider.dart';
+import 'package:flutter_honkai/providers/elf_provider.dart';
+import 'package:flutter_honkai/providers/valkyrie_provider.dart';
 import 'package:flutter_honkai/services/database_helper.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -23,10 +24,7 @@ class TopteamsWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     Widget getElfImage(String id) {
       final version =
-          ref
-              .read(imageVersionProvider)
-              .elfs
-              .firstWhere((elf) => elf['id'] == id)['version'];
+          ref.read(elfProvider).elfs.firstWhere((elf) => elf.id == id).version;
       final db = DatabaseHelper.supabase;
       final url =
           '${db.storage.from('data').getPublicUrl('images/elfs/$id.png')}?v=$version';
@@ -47,9 +45,10 @@ class TopteamsWidget extends ConsumerWidget {
     Widget getValkImage(String id) {
       final version =
           ref
-              .read(imageVersionProvider)
+              .read(valkyrieProvider)
               .valkyries
-              .firstWhere((valk) => valk['id'] == id)['version'];
+              .firstWhere((valk) => valk.id == id)
+              .version;
       final db = DatabaseHelper.supabase;
       final url =
           '${db.storage.from('data').getPublicUrl('images/valkyries/$id.png')}?v=$version';
