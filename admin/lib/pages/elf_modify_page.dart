@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_honkai/models/elf_model.dart';
@@ -125,6 +126,16 @@ class _ElfModifyPageState extends ConsumerState<ElfModifyPage> {
   }
 
   Future<void> _submit() async {
+    final connectionStatus = await Connectivity().checkConnectivity();
+    if (connectionStatus.contains(ConnectivityResult.none) && mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          duration: Duration(seconds: 5),
+          content: Text("The internet connection is lost"),
+        ),
+      );
+      return;
+    }
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
 
@@ -134,7 +145,7 @@ class _ElfModifyPageState extends ConsumerState<ElfModifyPage> {
         overview: overview!,
         version: DateTime.now().millisecondsSinceEpoch.toString(),
       );
-      showFullScreenLoading(context);
+      if (mounted) showFullScreenLoading(context);
       //upload image to database
       if (result != null) {
         await uploadImage(

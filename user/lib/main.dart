@@ -4,13 +4,13 @@ import 'package:flutter_honkai/providers/realtime_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:window_manager/window_manager.dart';
 
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await windowManager.ensureInitialized();
-
   WindowOptions windowOptions = const WindowOptions(
-    size: Size(1440, 900),
+    size: Size(1440, 810),
     center: true,
     minimumSize: Size(1360, 765),
     maximumSize: Size(2560, 1600),
@@ -21,8 +21,7 @@ void main() async {
     await windowManager.show();
     await windowManager.focus();
   });
-
-  await windowManager.setAspectRatio(16 / 10);
+  await windowManager.setAspectRatio(16 / 9);
   runApp(ProviderScope(child: MyApp()));
 }
 
@@ -33,6 +32,7 @@ class MyApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     ref.read(realtimeServiceProvider);
     return MaterialApp(
+      navigatorKey: navigatorKey,
       debugShowCheckedModeBanner: false,
       title: 'Honkai Station',
       theme: ThemeData.dark(useMaterial3: true),

@@ -9,7 +9,7 @@ void main() async {
   await windowManager.ensureInitialized();
 
   WindowOptions windowOptions = const WindowOptions(
-    size: Size(1440, 900),
+    size: Size(1440, 810),
     center: true,
     minimumSize: Size(1360, 765),
     maximumSize: Size(2560, 1600),
@@ -21,7 +21,7 @@ void main() async {
     await windowManager.focus();
   });
 
-  await windowManager.setAspectRatio(16 / 10);
+  await windowManager.setAspectRatio(16 / 9);
   runApp(ProviderScope(child: MyApp()));
 }
 

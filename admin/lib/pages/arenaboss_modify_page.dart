@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_honkai/models/arenaboss_model.dart';
@@ -32,9 +33,13 @@ class _ArenabossModifyPageState extends ConsumerState<ArenabossModifyPage> {
   FilePickerResult? result;
 
   String curfirstValk = '';
+  final curfirstValkController = TextEditingController();
   String cursecondValk = '';
+  final cursecondValkController = TextEditingController();
   String curthirdValk = '';
+  final curthirdValkController = TextEditingController();
   String curElf = '';
+  final curElfController = TextEditingController();
 
   String? id;
   String? name;
@@ -138,8 +143,18 @@ class _ArenabossModifyPageState extends ConsumerState<ArenabossModifyPage> {
   }
 
   Future<void> _submit() async {
+    final connectionStatus = await Connectivity().checkConnectivity();
+    if (connectionStatus.contains(ConnectivityResult.none) && mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          duration: Duration(seconds: 5),
+          content: Text("The internet connection is lost"),
+        ),
+      );
+      return;
+    }
     if (_formKey.currentState!.validate()) {
-      if (teamrec == null || teamrec.isEmpty) {
+      if ((teamrec == null || teamrec.isEmpty) && mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text("Please enter at least 1 recommended team")),
         );
@@ -154,7 +169,7 @@ class _ArenabossModifyPageState extends ConsumerState<ArenabossModifyPage> {
         teamrec: teamrec,
         version: DateTime.now().millisecondsSinceEpoch.toString(),
       );
-      showFullScreenLoading(context);
+      if (mounted) showFullScreenLoading(context);
       //upload image to database
       if (result != null) {
         await uploadImage(
@@ -207,130 +222,221 @@ class _ArenabossModifyPageState extends ConsumerState<ArenabossModifyPage> {
     List<ElfModel> elfs = ref.read(elfProvider).elfs;
     return Scaffold(
       appBar: AppBar(title: Text('Modify Arena Boss Page')),
-      body: Form(
-        key: _formKey,
-        child: Center(
-          child: Column(
-            children: [
-              Row(
-                children: [
-                  Expanded(
-                    child: Padding(
-                      padding: EdgeInsets.only(right: 20),
-                      child: Column(
-                        children: [
-                          IconButton(
-                            onPressed: () async {
-                              result = await FilePicker.platform.pickFiles(
-                                type: FileType.custom,
-                                allowedExtensions: ['png'],
-                              );
-                              setState(() {});
-                            },
-                            icon:
-                                result != null
-                                    ? Image.file(
-                                      width: 250,
-                                      height: 80,
-                                      File(result!.files.single.path!),
-                                    )
-                                    : SizedBox(
-                                      width: 70,
-                                      height: 70,
-                                      child: getArenaBossImage(context, id!),
-                                    ),
-                          ),
-                          Text('Select an image of boss'),
-                        ],
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20),
-                      child: TextFormField(
-                        controller: idController,
-                        enabled: false,
-                        decoration: InputDecoration(
-                          labelText: 'String id of boss',
+      body: SingleChildScrollView(
+        child: Form(
+          key: _formKey,
+          child: Center(
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    Expanded(
+                      child: Padding(
+                        padding: EdgeInsets.only(right: 20),
+                        child: Column(
+                          children: [
+                            IconButton(
+                              onPressed: () async {
+                                result = await FilePicker.platform.pickFiles(
+                                  type: FileType.custom,
+                                  allowedExtensions: ['png'],
+                                );
+                                setState(() {});
+                              },
+                              icon:
+                                  result != null
+                                      ? Image.file(
+                                        width: 250,
+                                        height: 80,
+                                        File(result!.files.single.path!),
+                                      )
+                                      : SizedBox(
+                                        width: 70,
+                                        height: 70,
+                                        child: getArenaBossImage(context, id!),
+                                      ),
+                            ),
+                            Text('Select an image of boss'),
+                          ],
                         ),
                       ),
                     ),
-                  ),
-                  Expanded(
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20),
-                      child: TextFormField(
-                        controller: nameController,
-                        readOnly: false,
-                        enabled: true,
-                        decoration: InputDecoration(labelText: 'Name of boss'),
-                        autovalidateMode: AutovalidateMode.onUserInteraction,
-                        validator: (value) {
-                          if (value == '') {
-                            return 'Please enter name of boss';
-                          }
-                          return null;
-                        },
-                        onSaved: (value) {
-                          name = value;
-                        },
+                    Expanded(
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 20),
+                        child: TextFormField(
+                          controller: idController,
+                          enabled: false,
+                          decoration: InputDecoration(
+                            labelText: 'String id of boss',
+                          ),
+                        ),
                       ),
                     ),
-                  ),
+                    Expanded(
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 20),
+                        child: TextFormField(
+                          controller: nameController,
+                          readOnly: false,
+                          enabled: true,
+                          decoration: InputDecoration(
+                            labelText: 'Name of boss',
+                          ),
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
+                          validator: (value) {
+                            if (value == '') {
+                              return 'Please enter name of boss';
+                            }
+                            return null;
+                          },
+                          onSaved: (value) {
+                            name = value;
+                          },
+                        ),
+                      ),
+                    ),
 
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 30),
-                      child: DropdownButtonFormField<int>(
-                        menuMaxHeight: 400,
-                        value: rank,
-                        decoration: InputDecoration(
-                          labelText: 'Rank of boss',
-                          border: OutlineInputBorder(),
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 30),
+                        child: DropdownButtonFormField<int>(
+                          menuMaxHeight: 400,
+                          value: rank,
+                          decoration: InputDecoration(
+                            labelText: 'Rank of boss',
+                            border: OutlineInputBorder(),
+                          ),
+                          items: [
+                            DropdownMenuItem(value: 2, child: Text('SS')),
+                            DropdownMenuItem(value: 3, child: Text('SSS')),
+                          ],
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
+                          validator: (value) {
+                            if (value == null) {
+                              return 'Please select rank of boss';
+                            }
+                            return null;
+                          },
+                          onChanged: (value) {
+                            setState(() {
+                              rank = value;
+                            });
+                          },
                         ),
-                        items: [
-                          DropdownMenuItem(value: 2, child: Text('SS')),
-                          DropdownMenuItem(value: 3, child: Text('SSS')),
-                        ],
-                        autovalidateMode: AutovalidateMode.onUserInteraction,
-                        validator: (value) {
-                          if (value == null) {
-                            return 'Please select rank of boss';
-                          }
-                          return null;
-                        },
-                        onChanged: (value) {
-                          setState(() {
-                            rank = value;
-                          });
-                        },
                       ),
                     ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 20),
-              Divider(color: Colors.white, thickness: 3),
-              Text(style: TextStyle(fontSize: 20), 'Recommended team of boss'),
-              SizedBox(height: 20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Expanded(
-                    child: Padding(
+                  ],
+                ),
+                SizedBox(height: 20),
+                Divider(color: Colors.white, thickness: 3),
+                Text(
+                  style: TextStyle(fontSize: 20),
+                  'Recommended team of boss',
+                ),
+                SizedBox(height: 20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 30),
+                        child: DropdownMenu<String>(
+                          controller: curfirstValkController,
+                          enableFilter: true,
+                          menuHeight: 300,
+                          label: Text('First valkyrie'),
+                          dropdownMenuEntries:
+                              valkyries
+                                  .where(
+                                    (valk) =>
+                                        valk.id != cursecondValk &&
+                                        valk.id != curthirdValk,
+                                  )
+                                  .map(
+                                    (item) => DropdownMenuEntry<String>(
+                                      value: item.id,
+                                      label: item.name,
+                                    ),
+                                  )
+                                  .toList(),
+                          onSelected: (value) {
+                            setState(() {
+                              curfirstValk = value!;
+                            });
+                          },
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 30),
+                        child: DropdownMenu<String>(
+                          controller: cursecondValkController,
+                          enableFilter: true,
+                          menuHeight: 300,
+                          label: Text('Second valkyrie'),
+                          dropdownMenuEntries:
+                              valkyries
+                                  .where(
+                                    (valk) =>
+                                        valk.id != curfirstValk &&
+                                        valk.id != curthirdValk,
+                                  )
+                                  .map(
+                                    (item) => DropdownMenuEntry<String>(
+                                      value: item.id,
+                                      label: item.name,
+                                    ),
+                                  )
+                                  .toList(),
+                          onSelected: (value) {
+                            setState(() {
+                              cursecondValk = value!;
+                            });
+                          },
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 30),
+                        child: DropdownMenu<String>(
+                          controller: curthirdValkController,
+                          enableFilter: true,
+                          menuHeight: 300,
+                          label: Text('Third valkyrie'),
+                          dropdownMenuEntries:
+                              valkyries
+                                  .where(
+                                    (valk) =>
+                                        valk.id != cursecondValk &&
+                                        valk.id != curfirstValk,
+                                  )
+                                  .map(
+                                    (item) => DropdownMenuEntry<String>(
+                                      value: item.id,
+                                      label: item.name,
+                                    ),
+                                  )
+                                  .toList(),
+                          onSelected: (value) {
+                            setState(() {
+                              curthirdValk = value!;
+                            });
+                          },
+                        ),
+                      ),
+                    ),
+                    Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 30),
                       child: DropdownMenu<String>(
+                        controller: curElfController,
                         enableFilter: true,
                         menuHeight: 300,
-                        label: Text('First valkyrie'),
+                        label: Text('Elf'),
                         dropdownMenuEntries:
-                            valkyries
-                                .where(
-                                  (valk) =>
-                                      valk.id != cursecondValk &&
-                                      valk.id != curthirdValk,
-                                )
+                            elfs
                                 .map(
                                   (item) => DropdownMenuEntry<String>(
                                     value: item.id,
@@ -340,216 +446,148 @@ class _ArenabossModifyPageState extends ConsumerState<ArenabossModifyPage> {
                                 .toList(),
                         onSelected: (value) {
                           setState(() {
-                            curfirstValk = value!;
+                            curElf = value!;
                           });
                         },
                       ),
                     ),
-                  ),
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 30),
-                      child: DropdownMenu<String>(
-                        enableFilter: true,
-                        menuHeight: 300,
-                        label: Text('Second valkyrie'),
-                        dropdownMenuEntries:
-                            valkyries
-                                .where(
-                                  (valk) =>
-                                      valk.id != curfirstValk &&
-                                      valk.id != curthirdValk,
-                                )
-                                .map(
-                                  (item) => DropdownMenuEntry<String>(
-                                    value: item.id,
-                                    label: item.name,
-                                  ),
-                                )
-                                .toList(),
-                        onSelected: (value) {
+                  ],
+                ),
+                SizedBox(height: 20),
+                Row(
+                  spacing: 10,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        padding: EdgeInsets.all(20),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        backgroundColor: Colors.green,
+                      ),
+                      onPressed: () {
+                        if (curfirstValk == '' ||
+                            cursecondValk == '' ||
+                            curthirdValk == '' ||
+                            curElf == '') {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text("Only note can be blank")),
+                          );
+                        } else {
+                          teamrec.add({
+                            'id_arenaboss': id,
+                            'first_valk': curfirstValk,
+                            'second_valk': cursecondValk,
+                            'third_valk': curthirdValk,
+                            'elf': curElf,
+                          });
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              duration: Duration(seconds: 1),
+                              content: Text("Added"),
+                            ),
+                          );
                           setState(() {
-                            cursecondValk = value!;
+                            curfirstValk =
+                                cursecondValk =
+                                    curthirdValk =
+                                        curElf =
+                                            curfirstValkController.text =
+                                                cursecondValkController.text =
+                                                    curthirdValkController
+                                                            .text =
+                                                        curElfController.text =
+                                                            '';
                           });
-                        },
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 30),
-                      child: DropdownMenu<String>(
-                        enableFilter: true,
-                        menuHeight: 300,
-                        label: Text('Third valkyrie'),
-                        dropdownMenuEntries:
-                            valkyries
-                                .where(
-                                  (valk) =>
-                                      valk.id != cursecondValk &&
-                                      valk.id != curfirstValk,
-                                )
-                                .map(
-                                  (item) => DropdownMenuEntry<String>(
-                                    value: item.id,
-                                    label: item.name,
-                                  ),
-                                )
-                                .toList(),
-                        onSelected: (value) {
-                          setState(() {
-                            curthirdValk = value!;
-                          });
-                        },
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 30),
-                    child: DropdownMenu<String>(
-                      enableFilter: true,
-                      menuHeight: 300,
-                      label: Text('Elf'),
-                      dropdownMenuEntries:
-                          elfs
-                              .map(
-                                (item) => DropdownMenuEntry<String>(
-                                  value: item.id,
-                                  label: item.name,
-                                ),
-                              )
-                              .toList(),
-                      onSelected: (value) {
-                        setState(() {
-                          curElf = value!;
-                        });
+                        }
                       },
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 20),
-              Row(
-                spacing: 10,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      padding: EdgeInsets.all(20),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
+                      child: Text(
+                        style: TextStyle(color: Colors.white, fontSize: 15),
+                        'Add',
                       ),
-                      backgroundColor: Colors.green,
                     ),
-                    onPressed: () {
-                      if (curfirstValk == '' ||
-                          cursecondValk == '' ||
-                          curthirdValk == '' ||
-                          curElf == '') {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text("Only note can be blank")),
-                        );
-                      } else {
-                        teamrec.add({
-                          'id_arenaboss': id,
-                          'first_valk': curfirstValk,
-                          'second_valk': cursecondValk,
-                          'third_valk': curthirdValk,
-                          'elf': curElf,
-                        });
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            duration: Duration(seconds: 1),
-                            content: Text("Added"),
-                          ),
-                        );
-                      }
-                    },
-                    child: Text(
-                      style: TextStyle(color: Colors.white, fontSize: 15),
-                      'Add',
-                    ),
-                  ),
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      padding: EdgeInsets.all(20),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        padding: EdgeInsets.all(20),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        backgroundColor: Colors.red,
                       ),
-                      backgroundColor: Colors.red,
+                      onPressed: () {
+                        if (teamrec.isNotEmpty) {
+                          teamrec.removeLast();
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              duration: Duration(seconds: 1),
+                              content: Text("Deleted"),
+                            ),
+                          );
+                        }
+                      },
+                      child: Text(
+                        style: TextStyle(color: Colors.white, fontSize: 15),
+                        'Delete most recent team',
+                      ),
                     ),
-                    onPressed: () {
-                      if (teamrec.isNotEmpty) {
-                        teamrec.removeLast();
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            duration: Duration(seconds: 1),
-                            content: Text("Deleted"),
+                  ],
+                ),
+                SizedBox(height: 20),
+                Divider(color: Colors.white, thickness: 3),
+                SizedBox(height: 50),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      width: 500,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          padding: EdgeInsets.all(20),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(10),
+                              bottomLeft: Radius.circular(10),
+                            ),
                           ),
-                        );
-                      }
-                    },
-                    child: Text(
-                      style: TextStyle(color: Colors.white, fontSize: 15),
-                      'Delete most recent team',
+                          backgroundColor: Colors.blue,
+                        ),
+                        onPressed: () async {
+                          _submit();
+                        },
+                        child: Text(
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                            fontSize: 15,
+                          ),
+                          'SAVE',
+                        ),
+                      ),
                     ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 20),
-              Divider(color: Colors.white, thickness: 3),
-              SizedBox(height: 50),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    width: 500,
-                    child: ElevatedButton(
+                    ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         padding: EdgeInsets.all(20),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(10),
-                            bottomLeft: Radius.circular(10),
+                            topRight: Radius.circular(10),
+                            bottomRight: Radius.circular(10),
                           ),
                         ),
-                        backgroundColor: Colors.blue,
+                        backgroundColor: Colors.white,
                       ),
-                      onPressed: () async {
-                        _submit();
+                      onPressed: () {
+                        _submitPreview();
                       },
                       child: Text(
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                          fontSize: 15,
-                        ),
-                        'SAVE',
+                        style: TextStyle(color: Colors.black, fontSize: 15),
+                        'Preview',
                       ),
                     ),
-                  ),
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      padding: EdgeInsets.all(20),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.only(
-                          topRight: Radius.circular(10),
-                          bottomRight: Radius.circular(10),
-                        ),
-                      ),
-                      backgroundColor: Colors.white,
-                    ),
-                    onPressed: () {
-                      _submitPreview();
-                    },
-                    child: Text(
-                      style: TextStyle(color: Colors.black, fontSize: 15),
-                      'Preview',
-                    ),
-                  ),
-                ],
-              ),
-            ],
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),

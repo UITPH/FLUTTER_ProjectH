@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_honkai/models/valkyrie_model.dart';
@@ -43,6 +44,7 @@ class _InsertValkyriePageState extends ConsumerState<InsertValkyriePage> {
   List cursecondValkList = [];
   List curelfList = [];
   String? curnote;
+  final curnoteController = TextEditingController();
 
   FilePickerResult? resultvalk;
   FilePickerResult? resultweap;
@@ -157,22 +159,36 @@ class _InsertValkyriePageState extends ConsumerState<InsertValkyriePage> {
   }
 
   void _submit() async {
+    final connectionStatus = await Connectivity().checkConnectivity();
+    if (connectionStatus.contains(ConnectivityResult.none) && mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          duration: Duration(seconds: 5),
+          content: Text("The internet connection is lost"),
+        ),
+      );
+      return;
+    }
     if (_formKey.currentState!.validate()) {
       if (resultvalk == null ||
           resultweap == null ||
           resulttop == null ||
           resultmid == null ||
           resultbot == null) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("Please choose all required images")),
-        );
-        return;
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text("Please choose all required images")),
+          );
+          return;
+        }
       }
       if (lineup.isEmpty) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("Please enter at least 1 lineup")),
-        );
-        return;
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text("Please enter at least 1 lineup")),
+          );
+          return;
+        }
       }
       _formKey.currentState!.save();
 
@@ -193,7 +209,9 @@ class _InsertValkyriePageState extends ConsumerState<InsertValkyriePage> {
         rankup: rankup!,
         version: DateTime.now().millisecondsSinceEpoch.toString(),
       );
-      showFullScreenLoading(context);
+      if (mounted) {
+        showFullScreenLoading(context);
+      }
       //upload image to database
       await uploadImage(
         result: resultvalk!,
@@ -660,6 +678,7 @@ class _InsertValkyriePageState extends ConsumerState<InsertValkyriePage> {
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 30),
                   child: TextFormField(
+                    controller: curnoteController,
                     readOnly: false,
                     enabled: true,
                     decoration: InputDecoration(labelText: 'Lineup name'),
@@ -1173,9 +1192,9 @@ class _InsertValkyriePageState extends ConsumerState<InsertValkyriePage> {
                           lineup.add({
                             'note': curnote,
                             'leader': curleader[0],
-                            'first_valk_list': curfirstValkList,
-                            'second_valk_list': cursecondValkList,
-                            'elf_list': curelfList,
+                            'first_valk_list': List.from(curfirstValkList),
+                            'second_valk_list': List.from(cursecondValkList),
+                            'elf_list': List.from(curelfList),
                           });
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
@@ -1183,6 +1202,14 @@ class _InsertValkyriePageState extends ConsumerState<InsertValkyriePage> {
                               content: Text("Added"),
                             ),
                           );
+                          setState(() {
+                            curnote = null;
+                            curnoteController.text = '';
+                            curleader.clear();
+                            curfirstValkList.clear();
+                            cursecondValkList.clear();
+                            curelfList.clear();
+                          });
                         }
                       },
                       child: Text(

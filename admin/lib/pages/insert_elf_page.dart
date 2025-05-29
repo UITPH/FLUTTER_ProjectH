@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_honkai/models/elf_model.dart';
@@ -95,8 +96,18 @@ class _InsertElfPageState extends ConsumerState<InsertElfPage> {
   }
 
   Future<void> _submit() async {
+    final connectionStatus = await Connectivity().checkConnectivity();
+    if (connectionStatus.contains(ConnectivityResult.none) && mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          duration: Duration(seconds: 5),
+          content: Text("The internet connection is lost"),
+        ),
+      );
+      return;
+    }
     if (_formKey.currentState!.validate()) {
-      if (result == null) {
+      if (result == null && mounted) {
         ScaffoldMessenger.of(
           context,
         ).showSnackBar(SnackBar(content: Text("Please choose elf image")));
@@ -110,7 +121,7 @@ class _InsertElfPageState extends ConsumerState<InsertElfPage> {
         overview: overview!,
         version: DateTime.now().millisecondsSinceEpoch.toString(),
       );
-      showFullScreenLoading(context);
+      if (mounted) showFullScreenLoading(context);
       //upload image to database
       await uploadImage(
         result: result!,

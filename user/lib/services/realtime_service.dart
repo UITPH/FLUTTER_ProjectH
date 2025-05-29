@@ -1,10 +1,15 @@
 import 'dart:collection';
+import 'package:flutter/material.dart';
+import 'package:flutter_honkai/main.dart';
+import 'package:flutter_honkai/pages/maintainance_page.dart';
 import 'package:flutter_honkai/providers/abyssboss_provider.dart';
 import 'package:flutter_honkai/providers/arenaboss_provider.dart';
 import 'package:flutter_honkai/providers/elf_provider.dart';
+import 'package:flutter_honkai/providers/parameter_provider.dart';
 import 'package:flutter_honkai/providers/valkyrie_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:window_manager/window_manager.dart';
 
 class RealtimeService {
   final SupabaseClient db;
@@ -55,6 +60,26 @@ class RealtimeService {
           callback: (payload) {
             _enqueue(() async {
               await ref.read(elfProvider).loadElfs();
+            });
+          },
+        )
+        .onPostgresChanges(
+          event: PostgresChangeEvent.all,
+          schema: 'public',
+          table: 'parameters',
+          callback: (payload) {
+            _enqueue(() async {
+              final provider = ref.read(parameterProvider);
+              await provider.loadParameters();
+              if (provider.parameters.isMaintainance == 1) {
+                navigatorKey.currentState?.push(
+                  MaterialPageRoute(
+                    builder: (_) => MaintainancePage(counter: 10),
+                  ),
+                );
+                await Future.delayed(Duration(seconds: 10));
+                await windowManager.close();
+              }
             });
           },
         )

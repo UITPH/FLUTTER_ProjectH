@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_honkai/providers/arenaboss_provider.dart';
 import 'package:flutter_honkai/providers/delete_provider.dart';
@@ -61,7 +62,23 @@ class DeleteArenabossCard extends ConsumerWidget {
 
                       TextButton(
                         onPressed: () async {
-                          Navigator.of(context).pop();
+                          final connectionStatus =
+                              await Connectivity().checkConnectivity();
+                          if (connectionStatus.contains(
+                                ConnectivityResult.none,
+                              ) &&
+                              context.mounted) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                duration: Duration(seconds: 5),
+                                content: Text(
+                                  "The internet connection is lost",
+                                ),
+                              ),
+                            );
+                            return;
+                          }
+                          if (context.mounted) Navigator.of(context).pop();
                           //notify other widgets to update
                           ref.read(arenabossProvider).removeBoss(id);
                           //delete relevant images
@@ -83,7 +100,23 @@ class DeleteArenabossCard extends ConsumerWidget {
                       ),
                       TextButton(
                         onPressed: () async {
-                          Navigator.of(context).pop();
+                          final connectionStatus =
+                              await Connectivity().checkConnectivity();
+                          if (connectionStatus.contains(
+                                ConnectivityResult.none,
+                              ) &&
+                              context.mounted) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                duration: Duration(seconds: 5),
+                                content: Text(
+                                  "The internet connection is lost",
+                                ),
+                              ),
+                            );
+                            return;
+                          }
+                          if (context.mounted) Navigator.of(context).pop();
                           //restore
                           ref.read(deleteProvider).restoreArenaBoss(id, ref);
                           //restore in database

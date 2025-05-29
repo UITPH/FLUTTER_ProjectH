@@ -19,7 +19,10 @@ class DeletePage extends ConsumerWidget {
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
-        title: Text(style: TextStyle(fontWeight: FontWeight.bold), 'Restore'),
+        title: Text(
+          style: TextStyle(fontWeight: FontWeight.bold),
+          'Recently deleted',
+        ),
       ),
       body: Stack(
         children: [

@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_honkai/models/valkyrie_model.dart';
@@ -48,6 +49,7 @@ class _ValkyrieModifyPageState extends ConsumerState<ValkyrieModifyPage> {
   List cursecondValkList = [];
   List curelfList = [];
   String? curnote;
+  final curnoteController = TextEditingController();
 
   FilePickerResult? resultvalk;
   FilePickerResult? resultweap;
@@ -221,8 +223,18 @@ class _ValkyrieModifyPageState extends ConsumerState<ValkyrieModifyPage> {
   }
 
   void _submit() async {
+    final connectionStatus = await Connectivity().checkConnectivity();
+    if (connectionStatus.contains(ConnectivityResult.none) && mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          duration: Duration(seconds: 5),
+          content: Text("The internet connection is lost"),
+        ),
+      );
+      return;
+    }
     if (_formKey.currentState!.validate()) {
-      if (lineup.isEmpty) {
+      if (lineup.isEmpty && mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text("Please enter at least 1 lineup")),
         );
@@ -247,7 +259,9 @@ class _ValkyrieModifyPageState extends ConsumerState<ValkyrieModifyPage> {
         rankup: rankup!,
         version: DateTime.now().millisecondsSinceEpoch.toString(),
       );
-      showFullScreenLoading(context);
+      if (mounted) {
+        showFullScreenLoading(context);
+      }
       //upload image to database
       if (resultvalk != null) {
         await uploadImage(
@@ -740,6 +754,7 @@ class _ValkyrieModifyPageState extends ConsumerState<ValkyrieModifyPage> {
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 30),
                   child: TextFormField(
+                    controller: curnoteController,
                     readOnly: false,
                     enabled: true,
                     decoration: InputDecoration(labelText: 'Lineup name'),
@@ -1259,9 +1274,9 @@ class _ValkyrieModifyPageState extends ConsumerState<ValkyrieModifyPage> {
                           lineup.add({
                             'note': curnote,
                             'leader': curleader[0],
-                            'first_valk_list': curfirstValkList,
-                            'second_valk_list': cursecondValkList,
-                            'elf_list': curelfList,
+                            'first_valk_list': List.from(curfirstValkList),
+                            'second_valk_list': List.from(cursecondValkList),
+                            'elf_list': List.from(curelfList),
                           });
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
@@ -1269,6 +1284,14 @@ class _ValkyrieModifyPageState extends ConsumerState<ValkyrieModifyPage> {
                               content: Text("Added"),
                             ),
                           );
+                          setState(() {
+                            curnote = null;
+                            curnoteController.text = '';
+                            curleader.clear();
+                            curfirstValkList.clear();
+                            cursecondValkList.clear();
+                            curelfList.clear();
+                          });
                         }
                       },
                       child: Text(
