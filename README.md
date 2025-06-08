@@ -1,16 +1,10 @@
-# flutter_honkai
+# # SE104 - Introduction to Software Engineering
 
-A new Flutter project.
+## **© 2025 University of Information Technology / Honkai Station Project**
 
-## Getting Started
+### **THÀNH VIÊN THAM GIA**
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+| STT | MSSV     | HỌ VÀ TÊN         | LỚP      | VAI TRÒ     |
+| --- | -------- | ----------------- | -------- | ----------- |
+| 1   | 23520732 | Đặng Anh Khoa     | KHMT2023 | Trưởng nhóm |
+| 2   | 23521085 | Nguyễn Trọng Nhân | KHMT2023 | Thành viên  |
