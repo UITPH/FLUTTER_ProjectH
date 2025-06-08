@@ -39,13 +39,6 @@ class _MainScaffoldState extends State<MainScaffold> {
             children: [
               Expanded(
                 child: TopNaviChild(
-                  text: 'Home',
-                  isSelected: currentnavi == 0,
-                  onTap: () => onTap(0),
-                ),
-              ),
-              Expanded(
-                child: TopNaviChild(
                   text: 'Valkyries',
                   isSelected: currentnavi == 1,
                   onTap: () => onTap(1),
